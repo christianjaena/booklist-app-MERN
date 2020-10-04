@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const morgan = require('morgan');
 const PORT = process.env.PORT || 5000;
 const mongoDBURI = require('./mongoDBConnection');
 const Post = require('./server/Models/PostModel');
@@ -20,7 +19,10 @@ mongoose
 	})
 	.catch(err => console.log(err));
 
-process.env.NODE_ENV !== 'development' ? app.use(morgan('dev')) : null
+if (process.env.NODE_ENV !== 'production') {
+	const morgan = require('morgan');
+	app.use(morgan('dev'));
+}
 app.use(cors());
 app.use(fileUpload());
 app.use(express.json());
@@ -59,5 +61,5 @@ app.put('/posts:postId', async (req, res) => {});
 app.delete('/posts', async (req, res) => {});
 
 app.get('*', async (req, res) => {
-	res.sendFile('./client/build/index.html')
-})
+	res.sendFile('./client/build/index.html');
+});
