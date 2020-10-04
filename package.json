@@ -1,5 +1,5 @@
 {
-	"name": "CRUD",
+	"name": "react-booklist-app",
 	"version": "1.0.0",
 	"description": "",
 	"main": "server.js",
@@ -18,7 +18,7 @@
 	"author": "Christian Jaena",
 	"license": "ISC",
 	"devDependencies": {
-		"concurrently": "^5.3.0",
+		"concurrently": "^5.3.0"
 	},
 	"dependencies": {
 		"dotenv": "^8.2.0",
