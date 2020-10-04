@@ -60,3 +60,7 @@ app.post('/upload', async (req, res) => {
 app.put('/posts:postId', async (req, res) => {});
 
 app.delete('/posts', async (req, res) => {});
+
+app.get('*', (req, res) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
