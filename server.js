@@ -21,8 +21,7 @@ mongoose
 	.catch(err => console.log(err));
 
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'))
-	app.use(express.static('client/public/uploads'));
+	app.use(express.static('client/build'));
 }
 app.use(morgan('dev'));
 app.use(cors());
@@ -51,8 +50,14 @@ app.post('/upload', async (req, res) => {
 	post
 		.save()
 		.then(result => {
-			file.mv(`${__dirname}/client/public/uploads/${file.name}`);
-			image.mv(`${__dirname}/client/public/uploads/${image.name}`);
+			if (process.env.NODE_ENV === 'production') {
+				file.mv(`client/build/uploads/${file.name}`);
+				image.mv(`client/build/uploads/${image.name}`);
+			} else {
+				file.mv(`${__dirname}/client/public/uploads/${file.name}`);
+				image.mv(`${__dirname}/client/public/uploads/${image.name}`);
+			}
+
 			res.status(200).json(result);
 		})
 		.catch(err => console.log(err));
