@@ -20,7 +20,7 @@ mongoose
 	})
 	.catch(err => console.log(err));
 
-process.env.NODE_ENV !== 'production' ? app.use(morgan('dev')) : null
+process.env.NODE_ENV !== 'development' ? app.use(morgan('dev')) : null
 app.use(cors());
 app.use(fileUpload());
 app.use(express.json());
