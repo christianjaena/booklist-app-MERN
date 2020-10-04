@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 const CreatePostForm = () => {
 	const [title, setTitle] = React.useState('title');
@@ -8,7 +8,7 @@ const CreatePostForm = () => {
 	const [body, setBody] = React.useState('body');
 	const [image, setImage] = React.useState(null);
 	const [file, setFile] = React.useState(null);
-	const history = useHistory()
+	const history = useHistory();
 
 	const submitHandler = async () => {
 		const formData = new FormData();
@@ -17,7 +17,19 @@ const CreatePostForm = () => {
 		formData.append('body', body);
 		formData.append('file', file);
 		formData.append('image', image);
-		await axios.post('/upload', formData);
+		const config = {
+			onUploadProgress: progressEvent => {
+				const percentCompleted = Math.round(
+					(progressEvent.loaded * 100) / progressEvent.total
+				);
+				console.log(percentCompleted);
+				console.log(progressEvent.load);
+			},
+		};
+		await axios
+			.post('/upload', formData, config)
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
 	};
 
 	return (
@@ -34,23 +46,23 @@ const CreatePostForm = () => {
 				/>
 				<br />
 				<label htmlFor='snippet'>Snippet</label>
-				<br/>
+				<br />
 				<input
 					onChange={e => setSnippet(e.target.value)}
 					type='text'
 					name='snippet'
 					value={snippet}
 				/>
-				<br/>
+				<br />
 				<label htmlFor='snippet'>Body</label>
 				<br />
 				<input
 					onChange={e => setBody(e.target.value)}
 					type='text'
 					name='body'
-					value= {body}
+					value={body}
 				/>
-				<br/>
+				<br />
 				<label htmlFor='image'>Image</label>
 				<br />
 				<input
