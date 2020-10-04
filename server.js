@@ -20,6 +20,9 @@ mongoose
 	})
 	.catch(err => console.log(err));
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
 app.use(morgan('dev'));
 app.use(cors());
 app.use(fileUpload());
@@ -58,3 +61,6 @@ app.put('/posts:postId', async (req, res) => {});
 
 app.delete('/posts', async (req, res) => {});
 
+app.get('*', async (req, res) => {
+	res.redirect('/');
+});
