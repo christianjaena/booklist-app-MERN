@@ -20,7 +20,7 @@ mongoose
 	})
 	.catch(err => console.log(err));
 
-app.use(morgan('dev'));
+process.env.NODE_ENV !== 'production' ? app.use(morgan('dev')) : null
 app.use(cors());
 app.use(fileUpload());
 app.use(express.json());
@@ -57,3 +57,7 @@ app.post('/upload', async (req, res) => {
 app.put('/posts:postId', async (req, res) => {});
 
 app.delete('/posts', async (req, res) => {});
+
+app.get('*', async (req, res) => {
+	res.sendFile('./client/build/index.html')
+})

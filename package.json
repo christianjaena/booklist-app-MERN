@@ -1,24 +1,31 @@
 {
-  "name": "CRUD",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "server": "nodemon server",
-    "client": "cd client && npm start",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
-  },
-  "keywords": [],
-  "author": "Christian Jaena",
-  "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^5.3.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.2.0",
-    "mongoose": "^5.10.7",
-    "morgan": "^1.10.0"
-  },
-  "dependencies": {}
+	"name": "CRUD",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"server": "nodemon server",
+		"start": "node server",
+		"client": "cd client && npm start",
+		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+		"heroku-postbuild": "cd client && npm install && npm run build"
+	},
+	"engines": {
+		"node": "12.18.3",
+		"npm": "6.14.8"
+	},
+	"keywords": [],
+	"author": "Christian Jaena",
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^5.3.0",
+		"cors": "^2.8.5",
+		"morgan": "^1.10.0"
+	},
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"express-fileupload": "^1.2.0",
+		"mongoose": "^5.10.7"
+	}
 }
