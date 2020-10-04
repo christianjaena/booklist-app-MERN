@@ -9,8 +9,8 @@ const Posts = ({ posts }) => {
 					<h1>{post.title}</h1>
 					<h2>{post.snippet}</h2>
 					<h3>{post.body}</h3>
-					<img src={post.imagePath} alt='cover' height='100' width='100' />
-					<a target='_blank' href={post.filePath} download>
+					<img src={`..${post.imagePath}`} alt='cover' height='100' width='100' />
+					<a target='_blank' href={`..${post.filePath}`} download>
 						Download
 					</a>
 				</div>
