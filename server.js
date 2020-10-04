@@ -60,7 +60,3 @@ app.post('/upload', async (req, res) => {
 app.put('/posts:postId', async (req, res) => {});
 
 app.delete('/posts', async (req, res) => {});
-
-app.get('*', async (req, res) => {
-	res.redirect('/');
-});
