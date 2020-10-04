@@ -58,6 +58,3 @@ app.put('/posts:postId', async (req, res) => {});
 
 app.delete('/posts', async (req, res) => {});
 
-app.get('*', async (req, res) => {
-	res.sendFile('./client/build/index.html');
-});
