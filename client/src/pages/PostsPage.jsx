@@ -7,7 +7,7 @@ const PostPage = () => {
 	React.useEffect(() => {
 		console.log(posts);
 		axios
-			.get('http://localhost:5000/posts')
+			.get('/posts')
 			.then(results => setPosts(results.data));
 	}, []);
 	return (

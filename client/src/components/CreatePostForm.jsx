@@ -15,7 +15,7 @@ const CreatePostForm = () => {
 		formData.append('body', body);
 		formData.append('file', file);
 		formData.append('image', image);
-		await axios.post('http://localhost:5000/upload', formData);
+		await axios.post('/upload', formData);
 	};
 
 	return (
