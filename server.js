@@ -50,8 +50,8 @@ app.post('/upload', async (req, res) => {
 	post
 		.save()
 		.then(result => {
-			file.mv(`${__dirname}/client/public/uploads/${file.name}`);
-			image.mv(`${__dirname}/client/public/uploads/${image.name}`);
+			file.mv(`${__dirname}/client/build/uploads/${file.name}`);
+			image.mv(`${__dirname}/client/build/uploads/${image.name}`);
 			res.status(200).json(result);
 		})
 		.catch(err => console.log(err));

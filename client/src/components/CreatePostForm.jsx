@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom'
 
 const CreatePostForm = () => {
 	const [title, setTitle] = React.useState('title');
@@ -7,6 +8,7 @@ const CreatePostForm = () => {
 	const [body, setBody] = React.useState('body');
 	const [image, setImage] = React.useState(null);
 	const [file, setFile] = React.useState(null);
+	const history = useHistory()
 
 	const submitHandler = async () => {
 		const formData = new FormData();
@@ -21,6 +23,7 @@ const CreatePostForm = () => {
 	return (
 		<>
 			<div>
+				<button onClick={() => history.push('/')}>Back</button>
 				<label htmlFor='title'>Title</label>
 				<br />
 				<input
