@@ -1,5 +1,6 @@
 import React from 'react';
 import PostPage from './pages/PostsPage';
+import Post from './components/Post'
 import './App.css'
 import CreatePostPage from './pages/CreatePostPage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';

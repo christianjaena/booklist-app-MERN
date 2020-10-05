@@ -23,11 +23,10 @@ const CreatePostForm = () => {
 					(progressEvent.loaded * 100) / progressEvent.total
 				);
 				console.log(percentCompleted);
-				console.log(progressEvent.load);
 			},
 		};
 		await axios
-			.post('/upload', formData, config)
+			.post('/posts', formData, config)
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
 	};
@@ -82,7 +81,14 @@ const CreatePostForm = () => {
 				/>
 				<br />
 
-				<button onClick={submitHandler}>Submit</button>
+				<button
+					onClick={() => {
+						submitHandler()
+						history.push('/')
+					}}
+				>
+					Submit
+				</button>
 			</div>
 		</>
 	);

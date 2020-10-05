@@ -7,7 +7,6 @@ const PostPage = () => {
 	const [posts, setPosts] = React.useState([]);
 	const history = useHistory()
 	React.useEffect(() => {
-		console.log(posts);
 		axios
 			.get('/posts')
 			.then(results => setPosts(results.data));

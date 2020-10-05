@@ -30,12 +30,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/posts', async (req, res) => {
-	Post.find().then(result => res.json(result));
+	Post.find()
+		.sort({ createdAt: -1 })
+		.then(result => res.json(result))
+		.catch(err => console.log(err));
 });
 
-app.get('/posts:postId', async (req, res) => {});
+app.get('/posts/:id', async (req, res) => {
+	const postID = req.params.id;
+	Post.findById(postID)
+		.then(result => res.json(result))
+		.catch(err => console.log(result));
+});
 
-app.post('/upload', async (req, res) => {
+app.post('/posts', async (req, res) => {
 	const { title, snippet, body } = req.body;
 	const { file, image } = req.files;
 
@@ -63,9 +71,17 @@ app.post('/upload', async (req, res) => {
 		.catch(err => console.log(err));
 });
 
-app.put('/posts:postId', async (req, res) => {});
+app.put('/posts/:id', async (req, res) => {
+	const postID = req.params.id;
+	
+});
 
-app.delete('/posts', async (req, res) => {});
+app.delete('/posts/:id', async (req, res) => {
+	const postID = req.params.id;
+	Post.findByIdAndDelete(postID)
+		.then(result => res.json(result))
+		.catch(err => console.log(err));
+});
 
 app.get('*', (req, res) => {
 	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
