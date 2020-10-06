@@ -4,8 +4,10 @@ import { useHistory } from 'react-router-dom';
 
 const CreatePostForm = () => {
 	const [title, setTitle] = React.useState('title');
+	const [author, setAuthor] = React.useState('author');
 	const [snippet, setSnippet] = React.useState('snippet');
-	const [body, setBody] = React.useState('body');
+	const [pages, setPages] = React.useState(0);
+	const [yearPublished, setYearPublished] = React.useState(0);
 	const [image, setImage] = React.useState(null);
 	const [file, setFile] = React.useState(null);
 	const history = useHistory();
@@ -13,10 +15,13 @@ const CreatePostForm = () => {
 	const submitHandler = async () => {
 		const formData = new FormData();
 		formData.append('title', title);
+		formData.append('author', author);
 		formData.append('snippet', snippet);
-		formData.append('body', body);
+		formData.append('pages', pages);
+		formData.append('yearPublished', yearPublished)
 		formData.append('file', file);
 		formData.append('image', image);
+
 		const config = {
 			onUploadProgress: progressEvent => {
 				const percentCompleted = Math.round(
@@ -44,6 +49,15 @@ const CreatePostForm = () => {
 					value={title}
 				/>
 				<br />
+				<label htmlFor='author'>Author</label>
+				<br />
+				<input
+					onChange={e => setAuthor(e.target.value)}
+					type='text'
+					name='author'
+					value={author}
+				/>
+				<br />
 				<label htmlFor='snippet'>Snippet</label>
 				<br />
 				<input
@@ -53,13 +67,21 @@ const CreatePostForm = () => {
 					value={snippet}
 				/>
 				<br />
-				<label htmlFor='snippet'>Body</label>
+				<label htmlFor='pages'>Pages</label>
 				<br />
 				<input
-					onChange={e => setBody(e.target.value)}
-					type='text'
-					name='body'
-					value={body}
+					onChange={e => setPages(e.target.value)}
+					type='number'
+					name='snippet'
+					value={pages}
+				/>
+				<br />
+				<label htmlFor='yearPublished'>Year Published</label>
+				<input
+					onChange={e => setYearPublished(e.target.value)}
+					type='number'
+					name='yearPublished'
+					value={yearPublished}
 				/>
 				<br />
 				<label htmlFor='image'>Image</label>

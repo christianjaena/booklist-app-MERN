@@ -7,12 +7,20 @@ const postSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		author: {
+			type: String,
+			required: true,
+		},
 		snippet: {
 			type: String,
 			required: true,
 		},
-		body: {
-			type: String,
+		pages: {
+			type: Number,
+			required: true,
+		},
+		yearPublished: {
+			type: Number,
 			required: true,
 		},
 		imagePath: {

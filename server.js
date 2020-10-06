@@ -44,13 +44,15 @@ app.get('/posts/:id', async (req, res) => {
 });
 
 app.post('/posts', async (req, res) => {
-	const { title, snippet, body } = req.body;
+	const { title, author, snippet, pages, yearPublished } = req.body;
 	const { file, image } = req.files;
 
 	const inputModel = {
 		title,
+		author,
 		snippet,
-		body,
+		pages,
+		yearPublished,
 		imagePath: `/uploads/${image.name}`,
 		filePath: `/uploads/${file.name}`,
 	};

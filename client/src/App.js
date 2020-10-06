@@ -1,8 +1,6 @@
 import React from 'react';
-import PostPage from './pages/PostsPage';
-import Post from './components/Post'
-import './App.css'
-import CreatePostPage from './pages/CreatePostPage';
+import PostPage from './pages/PostsPage/PostsPage.component';
+import CreatePostPage from './pages/CreatePostPage/CreatePostPage.component';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
