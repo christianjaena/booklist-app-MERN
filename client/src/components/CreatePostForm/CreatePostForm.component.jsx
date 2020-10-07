@@ -18,7 +18,7 @@ const CreatePostForm = () => {
 		formData.append('author', author);
 		formData.append('snippet', snippet);
 		formData.append('pages', pages);
-		formData.append('yearPublished', yearPublished)
+		formData.append('yearPublished', yearPublished);
 		formData.append('file', file);
 		formData.append('image', image);
 
@@ -104,9 +104,9 @@ const CreatePostForm = () => {
 				<br />
 
 				<button
-					onClick={() => {
-						submitHandler()
-						history.push('/')
+					onClick={async () => {
+						await submitHandler();
+						history.push('/');
 					}}
 				>
 					Submit

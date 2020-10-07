@@ -61,11 +61,11 @@ app.post('/posts', async (req, res) => {
 		.save()
 		.then(result => {
 			if (process.env.NODE_ENV === 'production') {
-				file.mv(`client/build/uploads/${file.name}`);
 				image.mv(`client/build/uploads/${image.name}`);
+				file.mv(`client/build/uploads/${file.name}`);
 			} else {
-				file.mv(`${__dirname}/client/public/uploads/${file.name}`);
 				image.mv(`${__dirname}/client/public/uploads/${image.name}`);
+				file.mv(`${__dirname}/client/public/uploads/${file.name}`);
 			}
 
 			res.status(200).json(result);

@@ -1,16 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 
-const Post = ({ post, setPostClick, setPost }) => {
+const Post = ({ post, setPostClick, setPost, handleDeleteRequest }) => {
 	const history = useHistory();
-
-	const handleDelete = async id => {
-		const url = `/posts/${id}`;
-		await axios.delete(url).then(results => console.log(results));
-		history.push('/');
-	};
-
 	return (
 		<>
 			<button
@@ -29,7 +21,14 @@ const Post = ({ post, setPostClick, setPost }) => {
 			<a target='_blank' href={post.data?.filePath} download>
 				Download
 			</a>
-			<button onClick={() => handleDelete(post.data?._id)}>Delete</button>
+			<button
+				onClick={() => {
+					handleDeleteRequest(post.data?._id);
+					history.push('/');
+				}}
+			>
+				Delete
+			</button>
 		</>
 	);
 };
