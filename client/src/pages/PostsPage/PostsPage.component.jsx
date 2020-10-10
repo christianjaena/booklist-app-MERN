@@ -2,7 +2,6 @@ import React from 'react';
 import Posts from '../../components/Posts/Posts.component';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import Sidebar from '../../components/Sidebar/Sidebar.component';
 import {
 	PostPageWrapper,
