@@ -15,6 +15,7 @@ const StyledButton = styled.button`
 `;
 const PostWrapper = styled.div`
 	display: flex;
+	margin: 1em;
 	padding: 10px;
 `;
 
@@ -31,7 +32,6 @@ const ImageWrapper = styled.div`
 const Posts = ({ posts, handleDeleteRequest }) => {
 	const [post, setPost] = React.useState('');
 	const [postClick, setPostClick] = React.useState(false);
-
 	const handleGetPost = async id => {
 		const url = `posts/${id}`;
 		await axios.get(url).then(results => setPost(results));

@@ -10,7 +10,11 @@ const fileUpload = require('express-fileupload');
 const path = require('path');
 
 mongoose
-	.connect(mongoDBURI, { useNewUrlParser: true, useUnifiedTopology: true })
+	.connect(mongoDBURI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+	})
 	.then(res => {
 		console.log('MongoDB Connected');
 
@@ -74,8 +78,34 @@ app.post('/posts', async (req, res) => {
 });
 
 app.put('/posts/:id', async (req, res) => {
-	const postID = req.params.id;
-	
+	const { id } = req.params.id;
+	const { title, author, snippet, pages, yearPublished } = req.body;
+	const { file, image } = req.files;
+
+	const inputModel = {
+		title,
+		author,
+		snippet,
+		pages,
+		yearPublished,
+		imagePath: `/uploads/${image.name}`,
+		filePath: `/uploads/${file.name}`,
+	};
+
+	Post.findByIdAndUpdate(id, inputModel)
+		.then(result => {
+			console.log(result)
+			if (process.env.NODE_ENV === 'production') {
+				image.mv(`client/build/uploads/${image.name}`);
+				file.mv(`client/build/uploads/${file.name}`);
+			} else {
+				image.mv(`${__dirname}/client/public/uploads/${image.name}`);
+				file.mv(`${__dirname}/client/public/uploads/${file.name}`);
+			}
+
+			res.status(200).json(result);
+		})
+		.catch(err => console.log(err));
 });
 
 app.delete('/posts/:id', async (req, res) => {

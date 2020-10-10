@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const CreatePostForm = () => {
+const CreatePostForm = ({ isUpdating, id, setIsUpdating }) => {
 	const [title, setTitle] = React.useState('title');
 	const [author, setAuthor] = React.useState('author');
 	const [snippet, setSnippet] = React.useState('snippet');
@@ -12,7 +12,21 @@ const CreatePostForm = () => {
 	const [file, setFile] = React.useState(null);
 	const history = useHistory();
 
-	const submitHandler = async () => {
+	const axiosPost = async (data, config) => {
+		await axios
+			.post('/posts', data, config)
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	};
+
+	const axiosPut = async (data, config) => {
+		await axios
+			.put(`/posts/${id}`, data, config)
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	};
+
+	const submitHandler = async method => {
 		const formData = new FormData();
 		formData.append('title', title);
 		formData.append('author', author);
@@ -21,7 +35,6 @@ const CreatePostForm = () => {
 		formData.append('yearPublished', yearPublished);
 		formData.append('file', file);
 		formData.append('image', image);
-
 		const config = {
 			onUploadProgress: progressEvent => {
 				const percentCompleted = Math.round(
@@ -30,16 +43,19 @@ const CreatePostForm = () => {
 				console.log(percentCompleted);
 			},
 		};
-		await axios
-			.post('/posts', formData, config)
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
+		// await method(formData, config);
 	};
 
 	return (
 		<>
 			<div>
-				<button onClick={() => history.push('/')}>Back</button>
+				<button
+					onClick={() => {
+						isUpdating ? setIsUpdating(false) : history.push('/');
+					}}
+				>
+					Back
+				</button>
 				<label htmlFor='title'>Title</label>
 				<br />
 				<input
@@ -105,8 +121,13 @@ const CreatePostForm = () => {
 
 				<button
 					onClick={async () => {
-						await submitHandler();
-						history.push('/');
+						if (isUpdating) {
+							await submitHandler(axiosPut);
+							setIsUpdating(false);
+						} else {
+							await submitHandler(axiosPost);
+							history.push('/');
+						}
 					}}
 				>
 					Submit

@@ -12,9 +12,35 @@ const PostPageWrapper = styled.div`
 `;
 
 const PostsWrapper = styled.div`
-	display:grid;
+	display: grid;
 	grid-template-columns: 1fr 1fr;
-`
+`;
+
+const CreatePostButton = styled.div`
+	height: 50px;
+	width: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	-webkit-box-shadow: 0px 7px 24px -12px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 7px 24px -12px rgba(0, 0, 0, 0.75);
+	box-shadow: 0px 7px 24px -12px rgba(0, 0, 0, 0.75);
+	cursor: pointer;
+	margin-bottom: 5px;
+`;
+
+const CreatePostButtonWrapper = styled.div`
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-right: 2em;
+	margin-bottom: 1em;
+`;
 
 const PostPage = () => {
 	const [posts, setPosts] = React.useState([]);
@@ -35,7 +61,12 @@ const PostPage = () => {
 			<PostPageWrapper>
 				<Sidebar />
 				<div style={{ backgroundColor: '#FFF' }}>
-					<button onClick={() => history.push('/upload')}>Create Post</button>
+					<CreatePostButtonWrapper>
+						<CreatePostButton onClick={() => history.push('/upload')}>
+							+
+						</CreatePostButton>
+						<p>ADD A BOOK</p>
+					</CreatePostButtonWrapper>
 					<PostsWrapper>
 						<Posts posts={posts} handleDeleteRequest={handleDeleteRequest} />
 					</PostsWrapper>
