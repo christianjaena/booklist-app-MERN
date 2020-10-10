@@ -96,22 +96,33 @@ app.post('/posts', async (req, res) => {
 			.save()
 			.then(result => {
 				if (process.env.NODE_ENV === 'production') {
+					if (!fs.existsSync('./client/build/uploads')) {
+						fs.mkdir('./client/build/uploads', err => {
+							if (err) {
+								console.log(err.message);
+							}
+						});
+					}
 					image.mv(`client/build/uploads/${imageName}`);
 					file.mv(`client/build/uploads/${fileName}`);
 				} else {
+					if (!fs.existsSync('./client/build/uploads')) {
+						fs.mkdir('./client/public/uploads', err => {
+							if (err) {
+								console.log(err.message);
+							}
+						});
+					}
 					image.mv(`${__dirname}/client/public/uploads/${imageName}`);
 					file.mv(`${__dirname}/client/public/uploads/${fileName}`);
 				}
-				console.log(result);
 				res.status(200).json(result);
 			})
 			.catch(err => {
 				res.status(400).json(err);
-				console.log(err);
 			});
 	} catch (err) {
 		res.status(400).json(err);
-		console.log(err);
 	}
 });
 
@@ -238,15 +249,14 @@ app.delete('/posts', async (req, res) => {
 		await Post.deleteMany()
 			.then(result => {
 				res.status(200).json(result);
-				console.log(res);
 			})
 			.catch(err => {
 				res.status(400).json(err);
-				console.log(err);
 			});
 		if (process.env.NODE_ENV === 'production') {
 			try {
 				fs.rmdirSync('/client/build/uploads', { recursive: true });
+				// fs.mkdirSync('/client/build/uploads')
 				//TODO: create dir
 			} catch (err) {
 				res.status(400).json(err);
@@ -255,18 +265,18 @@ app.delete('/posts', async (req, res) => {
 		} else {
 			try {
 				fs.rmdirSync(`${__dirname}/client/public/uploads`, { recursive: true });
+				// fs.mkdirSync(`${__dirname}/client/public/uploads`);
+				console.log('hi');
 				//TODO: create dir
 			} catch (err) {
 				res.status(400).json(err);
-				console.log(err);
 			}
 		}
 	} catch (err) {
 		res.json(400).json(err);
-		console.log(err);
 	}
 });
 
 app.get('*', (req, res) => {
-	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
