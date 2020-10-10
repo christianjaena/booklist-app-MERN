@@ -78,7 +78,7 @@ app.post('/posts', async (req, res) => {
 });
 
 app.put('/posts/:id', async (req, res) => {
-	const { id } = req.params.id;
+	const id = req.params.id;
 	const { title, author, snippet, pages, yearPublished } = req.body;
 	const { file, image } = req.files;
 
@@ -92,9 +92,8 @@ app.put('/posts/:id', async (req, res) => {
 		filePath: `/uploads/${file.name}`,
 	};
 
-	Post.findByIdAndUpdate(id, inputModel)
+	await Post.findByIdAndUpdate(id, inputModel)
 		.then(result => {
-			console.log(result)
 			if (process.env.NODE_ENV === 'production') {
 				image.mv(`client/build/uploads/${image.name}`);
 				file.mv(`client/build/uploads/${file.name}`);
@@ -102,8 +101,6 @@ app.put('/posts/:id', async (req, res) => {
 				image.mv(`${__dirname}/client/public/uploads/${image.name}`);
 				file.mv(`${__dirname}/client/public/uploads/${file.name}`);
 			}
-
-			res.status(200).json(result);
 		})
 		.catch(err => console.log(err));
 });

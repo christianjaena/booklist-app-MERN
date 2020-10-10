@@ -5,11 +5,15 @@ import CreatePostForm from '../CreatePostForm/CreatePostForm.component';
 const Post = ({ post, setPostClick, setPost, handleDeleteRequest }) => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
 	const history = useHistory();
-	
+
 	return (
 		<>
 			{isUpdating ? (
-				<CreatePostForm isUpdating={isUpdating} id={post.data?._id} setIsUpdating={setIsUpdating} />
+				<CreatePostForm
+					isUpdating={isUpdating}
+					id={post.data?._id}
+					setIsUpdating={setIsUpdating}
+				/>
 			) : (
 				<div>
 					<button
