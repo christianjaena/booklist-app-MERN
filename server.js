@@ -112,6 +112,12 @@ app.delete('/posts/:id', async (req, res) => {
 		.catch(err => console.log(err));
 });
 
+app.delete('/posts', async (req, res) => {
+	Post.deleteMany()
+		.then(res => console.log(res))
+		.catch(err => console.log(err));
+});
+
 app.get('*', (req, res) => {
 	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
