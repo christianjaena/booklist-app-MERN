@@ -208,13 +208,11 @@ app.delete('/posts/:id', async (req, res) => {
 			} else {
 				fs.unlink(`${__dirname}/client/public${prevFilePath}`, err => {
 					if (err) {
-						res.status(400).json(err);
 						console.log(err);
 					}
 				});
 				fs.unlink(`${__dirname}/client/public${prevImagePath}`, err => {
 					if (err) {
-						res.status(400).json(err);
 						console.log(err);
 					}
 				});
@@ -249,7 +247,7 @@ app.delete('/posts', async (req, res) => {
 		if (process.env.NODE_ENV === 'production') {
 			try {
 				fs.rmdirSync('/client/build/uploads', { recursive: true });
-				fs.mkdirSync('/client/build/uploads');
+				//TODO: create dir
 			} catch (err) {
 				res.status(400).json(err);
 				console.log(err);
@@ -257,7 +255,7 @@ app.delete('/posts', async (req, res) => {
 		} else {
 			try {
 				fs.rmdirSync(`${__dirname}/client/public/uploads`, { recursive: true });
-				fs.mkdir(`${__dirname}/client/public/uploads`);
+				//TODO: create dir
 			} catch (err) {
 				res.status(400).json(err);
 				console.log(err);
