@@ -70,8 +70,8 @@ app.post('/posts', async (req, res) => {
 
 	const date = new Date();
 	const fullDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}-${date.getTime()}`;
-	const imageName = `${fullDate}${image.name}`;
-	const fileName = `${fullDate}${file.name}`;
+	const imageName = `${fullDate}-${image.name}`;
+	const fileName = `${fullDate}-${file.name}`;
 
 	const inputModel = {
 		title,
@@ -131,7 +131,13 @@ app.put('/posts/:id', async (req, res) => {
 		prevFilePath,
 		prevImagePath,
 	} = req.body;
+
 	const { file, image } = req.files;
+
+	const date = new Date();
+	const fullDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}-${date.getTime()}`;
+	const imageName = `${fullDate}-${image.name}`;
+	const fileName = `${fullDate}-${file.name}`;
 
 	const inputModel = {
 		title,
@@ -139,8 +145,8 @@ app.put('/posts/:id', async (req, res) => {
 		snippet,
 		pages,
 		yearPublished,
-		imagePath: `/uploads/${image.name}`,
-		filePath: `/uploads/${file.name}`,
+		imagePath: `/uploads/${imageName}`,
+		filePath: `/uploads/${fileName}`,
 	};
 
 	try {
@@ -157,8 +163,8 @@ app.put('/posts/:id', async (req, res) => {
 							res.status(400).json(err.message);
 						}
 					});
-					image.mv(`client/build/uploads/${image.name}`);
-					file.mv(`client/build/uploads/${file.name}`);
+					image.mv(`client/build/uploads/${imageName}`);
+					file.mv(`client/build/uploads/${fileName}`);
 				} else {
 					fs.unlink(`${__dirname}/client/public${prevFilePath}`, err => {
 						if (err) {
@@ -170,14 +176,13 @@ app.put('/posts/:id', async (req, res) => {
 							res.status(400).json(err.message);
 						}
 					});
-					image.mv(`${__dirname}/client/public/uploads/${image.name}`);
-					file.mv(`${__dirname}/client/public/uploads/${file.name}`);
+					image.mv(`${__dirname}/client/public/uploads/${imageName}`);
+					file.mv(`${__dirname}/client/public/uploads/${fileName}`);
 				}
 				res.status(200).json(result);
 			})
 			.catch(err => {
 				res.status(400).json(err);
-				console.log(err.message);
 			});
 	} catch (err) {
 		res.status(400).json(err.message);

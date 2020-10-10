@@ -1,10 +1,19 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CreatePostForm from '../CreatePostForm/CreatePostForm.component';
+import axios from 'axios';
 
-const Post = ({ post, setPostClick, setPost, handleDeleteRequest }) => {
+const Post = ({ postID, setPostClick, handleDeleteRequest }) => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
+	const [post, setPost] = React.useState('');
 	const history = useHistory();
+
+	React.useEffect(() => {
+		axios
+			.get(`/posts/${postID}`)
+			.then(results => setPost(results))
+			.catch(err => console.log(err));
+	}, []);
 
 	return (
 		<>

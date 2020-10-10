@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Post from '../Post/Post.component';
 import {
 	StyledButton,
@@ -8,20 +7,15 @@ import {
 } from './Posts.styledcomponents';
 
 const Posts = ({ posts, handleDeleteRequest }) => {
-	const [post, setPost] = React.useState('');
+	const [postID, setPostID] = React.useState('');
 	const [postClick, setPostClick] = React.useState(false);
-	const handleGetPost = async id => {
-		const url = `posts/${id}`;
-		await axios.get(url).then(results => setPost(results));
-	};
 
 	return (
 		<>
 			{postClick ? (
 				<Post
-					post={post}
+					postID={postID}
 					setPostClick={setPostClick}
-					setPost={setPost}
 					handleDeleteRequest={handleDeleteRequest}
 				/>
 			) : (
@@ -36,7 +30,7 @@ const Posts = ({ posts, handleDeleteRequest }) => {
 							<p>{post.snippet}</p>
 							<StyledButton
 								onClick={() => {
-									handleGetPost(post._id);
+									setPostID(post._id);
 									setPostClick(true);
 								}}
 							>
