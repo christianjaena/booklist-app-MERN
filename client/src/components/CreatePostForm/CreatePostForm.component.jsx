@@ -2,10 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const CreatePostForm = ({ isUpdating, id, setIsUpdating }) => {
-	const [title, setTitle] = React.useState('title');
-	const [author, setAuthor] = React.useState('author');
-	const [snippet, setSnippet] = React.useState('snippet');
+const CreatePostForm = ({
+	isUpdating,
+	id,
+	setIsUpdating,
+	prevFilePath,
+	prevImagePath,
+}) => {
+	const [title, setTitle] = React.useState('');
+	const [author, setAuthor] = React.useState('');
+	const [snippet, setSnippet] = React.useState('');
 	const [pages, setPages] = React.useState(0);
 	const [yearPublished, setYearPublished] = React.useState(0);
 	const [image, setImage] = React.useState(null);
@@ -35,6 +41,10 @@ const CreatePostForm = ({ isUpdating, id, setIsUpdating }) => {
 		formData.append('yearPublished', yearPublished);
 		formData.append('file', file);
 		formData.append('image', image);
+		if (isUpdating) {
+			formData.append('prevFilePath', prevFilePath);
+			formData.append('prevImagePath', prevImagePath);
+		}
 		const config = {
 			onUploadProgress: progressEvent => {
 				const percentCompleted = Math.round(

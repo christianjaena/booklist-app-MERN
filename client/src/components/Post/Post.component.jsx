@@ -12,6 +12,8 @@ const Post = ({ post, setPostClick, setPost, handleDeleteRequest }) => {
 				<CreatePostForm
 					isUpdating={isUpdating}
 					id={post.data?._id}
+					prevFilePath={post.data?.filePath}
+					prevImagePath={post.data?.imagePath}
 					setIsUpdating={setIsUpdating}
 				/>
 			) : (
