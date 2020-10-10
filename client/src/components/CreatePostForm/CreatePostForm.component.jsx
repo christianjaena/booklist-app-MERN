@@ -43,7 +43,7 @@ const CreatePostForm = ({ isUpdating, id, setIsUpdating }) => {
 				console.log(percentCompleted);
 			},
 		};
-		// await method(formData, config);
+		await method(formData, config);
 	};
 
 	return (

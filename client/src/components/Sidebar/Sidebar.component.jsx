@@ -1,20 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import { SidebarWrapper, SideBarContent } from './Sidebar.styledcomponents';
 
-const SidebarWrapper = styled.div`
-	height: 100%;
-	display: fixed;
-	top: 0;
-	left: 0;
-	background-color: #61c791;
-	overflow-x: hidden;
-`;
-
-const SideBarContent = styled.div`
-	display: flex;
-	flex-direction: column;
-	color: white;
-`;
 const Sidebar = () => {
 	return (
 		<SidebarWrapper>
