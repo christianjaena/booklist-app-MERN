@@ -40,15 +40,12 @@ app.get('/posts', async (req, res) => {
 			.sort({ createdAt: -1 })
 			.then(result => {
 				res.status(200).json(result);
-				console.log(result);
 			})
 			.catch(err => {
-				res.status(400).json(err);
-				console.log(err);
+				res.status(400).json(err.message);
 			});
 	} catch (err) {
-		res.status(400).json(err);
-		console.log(err);
+		res.status(400).json(err.message);
 	}
 });
 
@@ -58,15 +55,12 @@ app.get('/posts/:id', async (req, res) => {
 		await Post.findById(postID)
 			.then(result => {
 				res.status(200).json(result);
-				console.log(result);
 			})
 			.catch(err => {
-				res.status(400).json(err);
-				console.log(result);
+				res.status(400).json(err.message);
 			});
 	} catch (err) {
-		res.status(400).json(err);
-		console.log(result);
+		res.status(400).json(err.message);
 	}
 });
 
@@ -106,7 +100,7 @@ app.post('/posts', async (req, res) => {
 					image.mv(`client/build/uploads/${imageName}`);
 					file.mv(`client/build/uploads/${fileName}`);
 				} else {
-					if (!fs.existsSync('./client/build/uploads')) {
+					if (!fs.existsSync('./client/public/uploads')) {
 						fs.mkdir('./client/public/uploads', err => {
 							if (err) {
 								console.log(err.message);
@@ -119,10 +113,10 @@ app.post('/posts', async (req, res) => {
 				res.status(200).json(result);
 			})
 			.catch(err => {
-				res.status(400).json(err);
+				res.status(400).json(err.message);
 			});
 	} catch (err) {
-		res.status(400).json(err);
+		res.status(400).json(err.message);
 	}
 });
 
@@ -155,14 +149,12 @@ app.put('/posts/:id', async (req, res) => {
 				if (process.env.NODE_ENV === 'production') {
 					fs.unlink(`client/build${prevFilePath}`, err => {
 						if (err) {
-							res.status(400).json(err);
-							console.log(err);
+							res.status(400).json(err.message);
 						}
 					});
 					fs.unlink(`client/build${prevImagePath}`, err => {
 						if (err) {
-							res.status(400).json(err);
-							console.log(err);
+							res.status(400).json(err.message);
 						}
 					});
 					image.mv(`client/build/uploads/${image.name}`);
@@ -170,29 +162,25 @@ app.put('/posts/:id', async (req, res) => {
 				} else {
 					fs.unlink(`${__dirname}/client/public${prevFilePath}`, err => {
 						if (err) {
-							res.status(400).json(err);
-							console.log(err);
+							res.status(400).json(err.message);
 						}
 					});
 					fs.unlink(`${__dirname}/client/public${prevImagePath}`, err => {
 						if (err) {
-							res.status(400).json(err);
-							console.log(err);
+							res.status(400).json(err.message);
 						}
 					});
 					image.mv(`${__dirname}/client/public/uploads/${image.name}`);
 					file.mv(`${__dirname}/client/public/uploads/${file.name}`);
 				}
 				res.status(200).json(result);
-				console.log(result);
 			})
 			.catch(err => {
 				res.status(400).json(err);
-				console.log(err);
+				console.log(err.message);
 			});
 	} catch (err) {
-		res.status(400).json(err);
-		console.log(err);
+		res.status(400).json(err.message);
 	}
 });
 
@@ -206,25 +194,23 @@ app.delete('/posts/:id', async (req, res) => {
 			if (process.env.NODE_ENV === 'production') {
 				fs.unlink(`client/build${prevFilePath}`, err => {
 					if (err) {
-						res.status(400).json(err);
-						console.log(err);
+						res.status(400).json(err.message);
 					}
 				});
 				fs.unlink(`client/build${prevImagePath}`, err => {
 					if (err) {
-						res.status(400).json(err);
-						console.log(err);
+						res.status(400).json(err.message);
 					}
 				});
 			} else {
 				fs.unlink(`${__dirname}/client/public${prevFilePath}`, err => {
 					if (err) {
-						console.log(err);
+						console.log(err.message);
 					}
 				});
 				fs.unlink(`${__dirname}/client/public${prevImagePath}`, err => {
 					if (err) {
-						console.log(err);
+						console.log(err.message);
 					}
 				});
 			}
@@ -232,15 +218,12 @@ app.delete('/posts/:id', async (req, res) => {
 		await Post.findByIdAndDelete(postID)
 			.then(result => {
 				res.status(200).json(result);
-				console.log(result);
 			})
 			.catch(err => {
-				res.status(400).json(err);
-				console.log(err);
+				res.status(400).json(err.message);
 			});
 	} catch (err) {
-		res.status(400).json(err);
-		console.log(err);
+		res.status(400).json(err.message);
 	}
 });
 
@@ -256,18 +239,15 @@ app.delete('/posts', async (req, res) => {
 		if (process.env.NODE_ENV === 'production') {
 			try {
 				fs.rmdirSync('/client/build/uploads', { recursive: true });
-				// fs.mkdirSync('/client/build/uploads')
-				//TODO: create dir
+				fs.mkdir('./client/build/uploads', err => console.log(err.message));
 			} catch (err) {
 				res.status(400).json(err);
 				console.log(err);
 			}
 		} else {
 			try {
-				fs.rmdirSync(`${__dirname}/client/public/uploads`, { recursive: true });
-				// fs.mkdirSync(`${__dirname}/client/public/uploads`);
-				console.log('hi');
-				//TODO: create dir
+				fs.rmdirSync(`./client/public/uploads`, { recursive: true });
+				fs.mkdir(`./client/public/uploads`, err => console.log(err.message));
 			} catch (err) {
 				res.status(400).json(err);
 			}
