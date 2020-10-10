@@ -64,6 +64,7 @@ app.post('/posts', async (req, res) => {
 	post
 		.save()
 		.then(result => {
+			console.log(process.env.NODE_ENV)
 			if (process.env.NODE_ENV === 'production') {
 				image.mv(`client/build/uploads/${image.name}`);
 				file.mv(`client/build/uploads/${file.name}`);
