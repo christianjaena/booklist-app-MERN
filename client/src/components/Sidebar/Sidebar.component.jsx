@@ -1,7 +1,14 @@
 import React from 'react';
 import { SidebarWrapper, SideBarContent } from './Sidebar.styledcomponents';
+import axios from 'axios';
 
 const Sidebar = () => {
+	const deleteAllPostsHandler = async () => {
+		await axios
+			.delete('/posts')
+			.then(res => console.log(res))
+			.catch(err => console.log(err));
+	};
 	return (
 		<SidebarWrapper>
 			<SideBarContent>
@@ -19,6 +26,9 @@ const Sidebar = () => {
 				</div>
 				<div>
 					<p>Christian Jaena</p>
+				</div>
+				<div>
+					<button onClick={deleteAllPostsHandler}>DELETE ALL</button>
 				</div>
 			</SideBarContent>
 		</SidebarWrapper>

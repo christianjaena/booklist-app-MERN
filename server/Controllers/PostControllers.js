@@ -1,40 +1,29 @@
 const Post = require('../Models/PostModel');
 const fs = require('fs');
 
-const uploadsFolderLocal = '../../client/public/uploads'
-const uploadsFolderProd = '../../client/build/uploads'
-
-const get_posts = async (req, res) => {
-	try {
-		await Post.find()
-			.sort({ createdAt: -1 })
-			.then(result => {
-				res.status(200).json(result);
-			})
-			.catch(err => {
-				res.status(400).json(err.message);
-			});
-	} catch (err) {
-		res.status(400).json(err.message);
-	}
+const get_posts = (req, res) => {
+	Post.find()
+		.sort({ createdAt: -1 })
+		.then(result => {
+			res.status(200).json(result);
+		})
+		.catch(err => {
+			res.status(400).json(err.message);
+		});
 };
 
-const get_post = async (req, res) => {
+const get_post = (req, res) => {
 	const postID = req.params.id;
-	try {
-		await Post.findById(postID)
-			.then(result => {
-				res.status(200).json(result);
-			})
-			.catch(err => {
-				res.status(400).json(err.message);
-			});
-	} catch (err) {
-		res.status(400).json(err.message);
-	}
+	Post.findById(postID)
+		.then(result => {
+			res.status(200).json(result);
+		})
+		.catch(err => {
+			res.status(400).json(err.message);
+		});
 };
 
-const add_post = async (req, res) => {
+const add_post = (req, res) => {
 	const { title, author, snippet, pages, yearPublished } = req.body;
 	const { file, image } = req.files;
 
@@ -55,47 +44,36 @@ const add_post = async (req, res) => {
 
 	const post = new Post(inputModel);
 
-	try {
-		await post
-			.save()
-			.then(result => {
-				if (process.env.NODE_ENV === 'production') {
-					if (!fs.existsSync(uploadsFolderProd)) {
-						fs.mkdir(uploadsFolderProd, err => {
-							if (err) {
-								console.log(err.message);
-							}
-						});
-					}
-					image.mv(uploadsFolderProd + '/' + imageName);
-					file.mv(uploadsFolderProd + '/' + fileName);
-				} else {
-					if (!fs.existsSync(uploadsFolderLocal)) {
-						fs.mkdir(uploadsFolderLocal, err => {
-							if (err) {
-								console.log(err.message);
-							}
-						});
-					}
-					image.mv(
-						`${__dirname}/${uploadsFolderLocal}/${imageName}`,
-						err => console.log(err)
-					);
-					file.mv(`${__dirname}${uploadsFolderLocal}/${fileName}`, err =>
-						console.log(err)
-					);
+	post
+		.save()
+		.then(result => {
+			if (process.env.NODE_ENV === 'production') {
+				try {
+					!fs.existsSync('./client/build/uploads') &&
+						fs.mkdirSync('./client/build/upload');
+					image.mv(`./client/build/uploads/${imageName}`);
+					file.mv(`./client/build/uploads/${fileName}`);
+				} catch (err) {
+					console.log(err);
 				}
-				res.status(200).json(result);
-			})
-			.catch(err => {
-				res.status(400).json(err.message);
-			});
-	} catch (err) {
-		res.status(400).json(err.message);
-	}
+			} else {
+				try {
+					!fs.existsSync('./client/public/uploads') &&
+						fs.mkdirSync('./client/public/uploads');
+					image.mv(`./client/public/uploads/${imageName}`);
+					file.mv(`./client/public/uploads/${fileName}`);
+				} catch (err) {
+					console.log(err);
+				}
+			}
+			res.status(200).json(result);
+		})
+		.catch(err => {
+			res.status(400).json(err.message);
+		});
 };
 
-const update_post = async (req, res) => {
+const update_post = (req, res) => {
 	const id = req.params.id;
 	const {
 		title,
@@ -106,7 +84,6 @@ const update_post = async (req, res) => {
 		prevFilePath,
 		prevImagePath,
 	} = req.body;
-
 	const { file, image } = req.files;
 
 	const date = new Date();
@@ -124,117 +101,78 @@ const update_post = async (req, res) => {
 		filePath: `/uploads/${fileName}`,
 	};
 
-	try {
-		await Post.findByIdAndUpdate(id, inputModel)
-			.then(result => {
-				if (process.env.NODE_ENV === 'production') {
-					fs.unlink(`${uploadsFolderProd}${prevFilePath}`, err => {
-						if (err) {
-							res.status(400).json(err.message);
-						}
-					});
-					fs.unlink(`${uploadsFolderProd}${prevImagePath}`, err => {
-						if (err) {
-							res.status(400).json(err.message);
-						}
-					});
-					image.mv(`${uploadsFolderProd}/${imageName}`);
-					file.mv(`${uploadsFolderProd}/${fileName}`);
-				} else {
-					fs.unlink(`${__dirname}/../../client/public${prevFilePath}`, err => {
-						if (err) {
-							res.status(400).json(err.message);
-						}
-					});
-					fs.unlink(`${__dirname}/../../client/public${prevImagePath}`, err => {
-						if (err) {
-							res.status(400).json(err.message);
-						}
-					});
-					image.mv(`${__dirname}/${uploadsFolderLocal}/${imageName}`);
-					file.mv(`${__dirname}/${uploadsFolderLocal}/${fileName}`);
+	Post.findByIdAndUpdate(id, inputModel)
+		.then(result => {
+			if (process.env.NODE_ENV === 'production') {
+				try {
+					fs.unlinkSync(`./client/build${prevFilePath}`);
+					fs.unlinkSync(`./client/build${prevImagePath}`);
+					image.mv(`./client/build/uploads/${imageName}`);
+					file.mv(`./client/build/uploads/${fileName}`);
+				} catch (err) {
+					console.log(err);
 				}
-				res.status(200).json(result);
-			})
-			.catch(err => {
-				res.status(400).json(err);
-			});
-	} catch (err) {
-		res.status(400).json(err.message);
-	}
+			} else {
+				try {
+					fs.unlinkSync(`./client/public${prevFilePath}`);
+					fs.unlinkSync(`./client/public${prevImagePath}`);
+					image.mv(`./client/public/uploads/${imageName}`);
+					file.mv(`./client/public/uploads/${fileName}`);
+				} catch (err) {
+					console.log(err);
+				}
+			}
+			res.status(200).json(result);
+		})
+		.catch(err => {
+			res.status(400).json(err);
+		});
 };
 
-const delete_post = async (req, res) => {
+const delete_post = (req, res) => {
 	const postID = req.params.id;
 
-	try {
-		await Post.findById(postID).then(res => {
-			const prevImagePath = res.imagePath;
-			const prevFilePath = res.filePath;
-			if (process.env.NODE_ENV === 'production') {
-				fs.unlink(`../../client/build${prevFilePath}`, err => {
-					if (err) {
-						res.status(400).json(err.message);
-					}
-				});
-				fs.unlink(`../../client/build${prevImagePath}`, err => {
-					if (err) {
-						res.status(400).json(err.message);
-					}
-				});
-			} else {
-				fs.unlink(`${__dirname}/../../client/public${prevFilePath}`, err => {
-					if (err) {
-						console.log(err.message);
-					}
-				});
-				fs.unlink(`${__dirname}/../../client/public${prevImagePath}`, err => {
-					if (err) {
-						console.log(err.message);
-					}
-				});
-			}
-		});
-		await Post.findByIdAndDelete(postID)
+	Post.findById(postID).then(response => {
+		const prevImagePath = response.imagePath;
+		const prevFilePath = response.filePath;
+		Post.findByIdAndDelete(postID)
 			.then(result => {
+				if (process.env.NODE_ENV === 'production') {
+					fs.unlinkSync(`./client/build${prevFilePath}`);
+					fs.unlinkSync(`./client/build${prevImagePath}`);
+				} else {
+					fs.unlinkSync(`./client/public${prevFilePath}`);
+					fs.unlinkSync(`./client/public${prevImagePath}`);
+				}
 				res.status(200).json(result);
 			})
 			.catch(err => {
 				res.status(400).json(err.message);
 			});
-	} catch (err) {
-		res.status(400).json(err.message);
-	}
+	});
 };
 
-const delete_posts = async (req, res) => {
-	try {
-		await Post.deleteMany()
-			.then(result => {
-				res.status(200).json(result);
-			})
-			.catch(err => {
-				res.status(400).json(err);
-			});
-		if (process.env.NODE_ENV === 'production') {
-			try {
-				fs.rmdirSync(uploadsFolderProd, { recursive: true });
-				fs.mkdir(uploadsFolderProd, err => console.log(err.message));
-			} catch (err) {
-				res.status(400).json(err);
-				console.log(err);
+const delete_posts = (req, res) => {
+	Post.deleteMany()
+		.then(result => {
+			if (process.env.NODE_ENV === 'production') {
+				try {
+					fs.rmdirSync('./client/build/uploads', { recursive: true });
+				} catch (err) {
+					console.log(err);
+				}
+			} else {
+				try {
+					fs.rmdirSync('./client/public/uploads', { recursive: true });
+				} catch (err) {
+					console.log(err);
+				}
 			}
-		} else {
-			try {
-				fs.rmdirSync(uploadsFolderLocal, { recursive: true }, err => console.log(err.message));
-				fs.mkdir(uploadsFolderLocal, err => console.log(err.message));
-			} catch (err) {
-				res.status(400).json(err);
-			}
-		}
-	} catch (err) {
-		res.json(400).json(err);
-	}
+			res.status(200).json(result);
+		})
+		.catch(err => {
+			res.status(400).json(err);
+		});
 };
 
 module.exports = {
