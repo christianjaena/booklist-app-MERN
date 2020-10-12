@@ -2,18 +2,26 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CreatePostForm from '../CreatePostForm/CreatePostForm.component';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const Post = ({ postID, setPostClick, handleDeleteRequest }) => {
+const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
 	const [post, setPost] = React.useState('');
 	const history = useHistory();
+	const { id } = useParams();
+
+	const handleDeleteRequest = async id => {
+		const url = `/posts/${id}`;
+		await axios.delete(url).then(results => console.log(results));
+		history.push('/');
+	};
 
 	React.useEffect(() => {
 		axios
-			.get(`/posts/${postID}`)
+			.get(`/posts/${id}`)
 			.then(results => setPost(results))
 			.catch(err => console.log(err));
-	}, []);
+	}, [isUpdating]);
 
 	return (
 		<>
@@ -24,12 +32,12 @@ const Post = ({ postID, setPostClick, handleDeleteRequest }) => {
 					prevFilePath={post.data?.filePath}
 					prevImagePath={post.data?.imagePath}
 					setIsUpdating={setIsUpdating}
+					setPost={setPost}
 				/>
 			) : (
 				<div>
 					<button
 						onClick={() => {
-							setPostClick(false);
 							setPost('');
 							history.push('/');
 						}}
@@ -58,9 +66,8 @@ const Post = ({ postID, setPostClick, handleDeleteRequest }) => {
 						Update
 					</button>
 					<button
-						onClick={async () => {
-							await handleDeleteRequest(post.data?._id);
-							history.push('/');
+						onClick={() => {
+							handleDeleteRequest(post.data?._id);
 						}}
 					>
 						Delete

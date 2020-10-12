@@ -8,6 +8,7 @@ const CreatePostForm = ({
 	setIsUpdating,
 	prevFilePath,
 	prevImagePath,
+	setPost
 }) => {
 	const [title, setTitle] = React.useState('');
 	const [author, setAuthor] = React.useState('');
@@ -21,15 +22,15 @@ const CreatePostForm = ({
 	const axiosPost = async (data, config) => {
 		await axios
 			.post('/posts', data, config)
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
+			.then(res => console.log(res.data))
+			.catch(err => console.log(err.message));
 	};
 
 	const axiosPut = async (data, config) => {
 		await axios
 			.put(`/posts/${id}`, data, config)
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
+			.then(res => setPost(res.data))
+			.catch(err => console.log(err.message));
 	};
 
 	const submitHandler = async method => {

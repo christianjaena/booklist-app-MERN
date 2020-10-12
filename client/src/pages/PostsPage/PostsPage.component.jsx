@@ -18,12 +18,6 @@ const PostPage = () => {
 		axios.get('/posts').then(results => setPosts(results.data));
 	}, []);
 
-	const handleDeleteRequest = async id => {
-		setPosts(prevPosts => prevPosts.filter(post => post._id !== id));
-		const url = `/posts/${id}`;
-		await axios.delete(url).then(results => console.log(results));
-	};
-
 	return (
 		<>
 			<PostPageWrapper>
@@ -36,7 +30,7 @@ const PostPage = () => {
 						<p>ADD A BOOK</p>
 					</CreatePostButtonWrapper>
 					<PostsWrapper>
-						<Posts posts={posts} handleDeleteRequest={handleDeleteRequest} />
+						<Posts posts={posts} />
 					</PostsWrapper>
 				</div>
 			</PostPageWrapper>
