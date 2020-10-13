@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CreatePostForm from '../CreatePostForm/CreatePostForm.component';
+import ReactHookForm from '../CreatePostForm/ReactHookForm'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -26,11 +27,9 @@ const Post = () => {
 	return (
 		<>
 			{isUpdating ? (
-				<CreatePostForm
+				<ReactHookForm
 					isUpdating={isUpdating}
-					id={post.data?._id}
-					prevFilePath={post.data?.filePath}
-					prevImagePath={post.data?.imagePath}
+					post={post?.data}
 					setIsUpdating={setIsUpdating}
 					setPost={setPost}
 				/>

@@ -22,7 +22,7 @@ const PostPage = () => {
 		<>
 			<PostPageWrapper>
 				<Sidebar />
-				<div style={{ backgroundColor: '#FFF' }}>
+				<div>
 					<CreatePostButtonWrapper>
 						<CreatePostButton onClick={() => history.push('/upload')}>
 							+
