@@ -17,7 +17,10 @@ const ReactHookForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 	const axiosPut = async (data, config) => {
 		await axios
 			.put(`/posts/${post?._id}`, data, config)
-			.then(res => setPost(res.data))
+			.then(res => {
+				setPost(res.data);
+				setIsUpdating(false);
+			})
 			.catch(err => console.log(err.message));
 	};
 
@@ -43,14 +46,20 @@ const ReactHookForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 			formData.append('prevFilePath', post?.filePath);
 			formData.append('prevImagePath', post?.imagePath);
 			await axiosPut(formData, config);
-			await setIsUpdating(false);
 		} else {
 			await axiosPost(formData, config);
+			history.push('/');
 		}
-		history.push('/');
 	};
 	return (
 		<>
+			<button
+				onClick={() => {
+					isUpdating ? setIsUpdating(false) : history.push('/');
+				}}
+			>
+				Back
+			</button>
 			<form onSubmit={handleSubmit(onSubmitHandler)}>
 				<label htmlFor='title'>Title</label>
 				<input
@@ -100,7 +109,6 @@ const ReactHookForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 					type='file'
 					accept='.pdf'
 					name='file'
-					// defaultValue={isUpdating ? post?.filePath : ''}
 					ref={register({ required: true })}
 				/>
 				{errors.exampleRequired && <span>This field is required</span>}
@@ -109,7 +117,6 @@ const ReactHookForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 					type='file'
 					accept='image/*'
 					name='image'
-					// defaultValue={isUpdating ? post?.imagePath : ''}
 					ref={register({ required: true })}
 				/>
 				{errors.exampleRequired && <span>This field is required</span>}

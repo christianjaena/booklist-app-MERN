@@ -11,6 +11,10 @@ const Post = () => {
 	const history = useHistory();
 	const { id } = useParams();
 
+	React.useEffect(() => {
+		console.log(isUpdating)
+	})
+
 	const handleDeleteRequest = async id => {
 		const url = `/posts/${id}`;
 		await axios.delete(url).then(results => console.log(results));
