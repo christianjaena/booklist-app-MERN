@@ -1,22 +1,10 @@
 import React from 'react';
-import axios from 'axios';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
-const CreatePostForm = ({
-	isUpdating,
-	id,
-	setIsUpdating,
-	prevFilePath,
-	prevImagePath,
-	setPost
-}) => {
-	const [title, setTitle] = React.useState('');
-	const [author, setAuthor] = React.useState('');
-	const [snippet, setSnippet] = React.useState('');
-	const [pages, setPages] = React.useState(0);
-	const [yearPublished, setYearPublished] = React.useState(0);
-	const [image, setImage] = React.useState(null);
-	const [file, setFile] = React.useState(null);
+const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
+	const { register, errors, handleSubmit } = useForm();
 	const history = useHistory();
 
 	const axiosPost = async (data, config) => {
@@ -28,24 +16,16 @@ const CreatePostForm = ({
 
 	const axiosPut = async (data, config) => {
 		await axios
-			.put(`/posts/${id}`, data, config)
-			.then(res => setPost(res.data))
+			.put(`/posts/${post?._id}`, data, config)
+			.then(async res => {
+				await setPost(res.data)
+				await setIsUpdating(false);
+			})
 			.catch(err => console.log(err.message));
 	};
 
-	const submitHandler = async method => {
-		const formData = new FormData();
-		formData.append('title', title);
-		formData.append('author', author);
-		formData.append('snippet', snippet);
-		formData.append('pages', pages);
-		formData.append('yearPublished', yearPublished);
-		formData.append('file', file);
-		formData.append('image', image);
-		if (isUpdating) {
-			formData.append('prevFilePath', prevFilePath);
-			formData.append('prevImagePath', prevImagePath);
-		}
+	const onSubmitHandler = async data => {
+		const { title, author, snippet, pages, yearPublished, file, image } = data;
 		const config = {
 			onUploadProgress: progressEvent => {
 				const percentCompleted = Math.round(
@@ -54,96 +34,94 @@ const CreatePostForm = ({
 				console.log(percentCompleted);
 			},
 		};
-		await method(formData, config);
+		const formData = new FormData();
+		formData.append('title', title);
+		formData.append('author', author);
+		formData.append('snippet', snippet);
+		formData.append('yearPublished', yearPublished);
+		formData.append('pages', pages);
+		formData.append('file', file[0]);
+		formData.append('image', image[0]);
+		if (isUpdating) {
+			formData.append('prevFilePath', post?.filePath);
+			formData.append('prevImagePath', post?.imagePath);
+			await axiosPut(formData, config);
+		} else {
+			await axiosPost(formData, config);
+			history.push('/');
+		}
 	};
-
 	return (
 		<>
-			<div>
-				<button
-					onClick={() => {
-						isUpdating ? setIsUpdating(false) : history.push('/');
-					}}
-				>
-					Back
-				</button>
+			<button
+				onClick={() => {
+					isUpdating ? setIsUpdating(false) : history.push('/');
+				}}
+			>
+				Back
+			</button>
+			<form onSubmit={handleSubmit(onSubmitHandler)}>
 				<label htmlFor='title'>Title</label>
-				<br />
 				<input
-					onChange={e => setTitle(e.target.value)}
-					name='title'
 					type='text'
-					value={title}
+					name='title'
+					defaultValue={isUpdating ? post?.title : ''}
+					ref={register({ required: true })}
 				/>
-				<br />
+				{errors.exampleRequired && <span>This field is required</span>}
 				<label htmlFor='author'>Author</label>
-				<br />
 				<input
-					onChange={e => setAuthor(e.target.value)}
 					type='text'
 					name='author'
-					value={author}
+					defaultValue={isUpdating ? post?.author : ''}
+					ref={register({ required: true })}
 				/>
-				<br />
+				{errors.exampleRequired && <span>This field is required</span>}
 				<label htmlFor='snippet'>Snippet</label>
-				<br />
 				<input
-					onChange={e => setSnippet(e.target.value)}
 					type='text'
 					name='snippet'
-					value={snippet}
+					defaultValue={isUpdating ? post?.snippet : ''}
+					ref={register({ required: true })}
 				/>
-				<br />
+				{errors.exampleRequired && <span>This field is required</span>}
 				<label htmlFor='pages'>Pages</label>
-				<br />
 				<input
-					onChange={e => setPages(e.target.value)}
 					type='number'
-					name='snippet'
-					value={pages}
+					name='pages'
+					defaultValue={isUpdating ? post?.pages : 0}
+					ref={register({ required: true })}
 				/>
-				<br />
+				{errors.exampleRequired && <span>This field is required</span>}
 				<label htmlFor='yearPublished'>Year Published</label>
 				<input
-					onChange={e => setYearPublished(e.target.value)}
 					type='number'
+					min='1900'
+					max='2099'
+					step='1'
+					defaultValue={isUpdating ? post?.yearPublished : 2020}
 					name='yearPublished'
-					value={yearPublished}
+					ref={register({ required: true })}
 				/>
-				<br />
-				<label htmlFor='image'>Image</label>
-				<br />
-				<input
-					onChange={e => setImage(e.target.files[0])}
-					name='image'
-					type='file'
-					accept='image/*'
-				/>
-				<br />
+				{errors.exampleRequired && <span>This field is required</span>}
 				<label htmlFor='file'>File</label>
-				<br />
 				<input
-					onChange={e => setFile(e.target.files[0])}
-					name='file'
 					type='file'
 					accept='.pdf'
+					name='file'
+					ref={register({ required: true })}
 				/>
-				<br />
-
-				<button
-					onClick={async () => {
-						if (isUpdating) {
-							await submitHandler(axiosPut);
-							setIsUpdating(false);
-						} else {
-							await submitHandler(axiosPost);
-							history.push('/');
-						}
-					}}
-				>
-					Submit
-				</button>
-			</div>
+				{errors.exampleRequired && <span>This field is required</span>}
+				<label htmlFor='image'>Image</label>
+				<input
+					type='file'
+					accept='image/*'
+					name='image'
+					ref={register({ required: true })}
+				/>
+				{errors.exampleRequired && <span>This field is required</span>}
+				<input type='submit' />
+			</form>
 		</>
 	);
 };

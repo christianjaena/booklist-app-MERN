@@ -9,14 +9,18 @@ import {
 	CreatePostButton,
 	CreatePostButtonWrapper,
 } from './PostsPage.styledcomponents';
+import { useQuery, QueryCache, ReactQueryCacheProvider } from 'react-query';
+
+const queryCache = new QueryCache();
 
 const PostPage = () => {
-	const [posts, setPosts] = React.useState([]);
+	// const [posts, setPosts] = React.useState([]);
+	const getPosts = async () => {
+		const request = await axios.get('/posts');
+		return request.data;
+	};
+	const {data, status} = useQuery('posts', getPosts);
 	const history = useHistory();
-
-	React.useEffect(() => {
-		axios.get('/posts').then(results => setPosts(results.data));
-	}, []);
 
 	return (
 		<>
@@ -30,7 +34,9 @@ const PostPage = () => {
 						<p>ADD A BOOK</p>
 					</CreatePostButtonWrapper>
 					<PostsWrapper>
-						<Posts posts={posts} />
+						<ReactQueryCacheProvider queryCache={queryCache}>
+							<Posts posts={data} status={status} />
+						</ReactQueryCacheProvider>
 					</PostsWrapper>
 				</div>
 			</PostPageWrapper>
