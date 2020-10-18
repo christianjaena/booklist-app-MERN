@@ -9,7 +9,7 @@ const Post = () => {
 	const [post, setPost] = React.useState('');
 	const history = useHistory();
 	const { id } = useParams();
-	
+
 	const handleDeleteRequest = async id => {
 		const url = `/posts/${id}`;
 		await axios.delete(url).then(results => console.log(results));
@@ -34,44 +34,39 @@ const Post = () => {
 				/>
 			) : (
 				<>
-						<div>
-							<button
-								onClick={() => {
-									setPost('');
-									history.push('/');
-								}}
-							>
-								Back
-							</button>
-								<img
-									src={post.imagePath}
-									height='100'
-									width='100'
-									alt='postPic'
-								/>
-								<h1>{post.title}</h1>
-								<h2>{post.author}</h2>
-								<h3>{post.snippet}</h3>
-								<h3>{post.pages}</h3>
-								<h3>{post.yearPublished}</h3>
-								<a target='_blank' href={post.filePath} download>
-									Download
-								</a>
-							<button
-								onClick={() => {
-									setIsUpdating(true);
-								}}
-							>
-								Update
-							</button>
-							<button
-								onClick={() => {
-									handleDeleteRequest(post._id);
-								}}
-							>
-								Delete
-							</button>
-						</div>
+					<div>
+						<button
+							onClick={() => {
+								setPost('');
+								history.push('/');
+							}}
+						>
+							Back
+						</button>
+						<img src={post.imagePath} height='100' width='100' alt='postPic' />
+						<h1>{post.title}</h1>
+						<h2>{post.author}</h2>
+						<h3>{post.snippet}</h3>
+						<h3>{post.pages}</h3>
+						<h3>{post.yearPublished}</h3>
+						<a target='_blank' href={post.filePath} download>
+							Download
+						</a>
+						<button
+							onClick={() => {
+								setIsUpdating(true);
+							}}
+						>
+							Update
+						</button>
+						<button
+							onClick={() => {
+								handleDeleteRequest(post._id);
+							}}
+						>
+							Delete
+						</button>
+					</div>
 				</>
 			)}
 		</>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { LinearProgress } from '@material-ui/core';
 import axios from 'axios';
 
 const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
+	const [progress, setProgress] = React.useState(0);
 	const { register, errors, handleSubmit } = useForm();
 	const history = useHistory();
 
@@ -18,7 +20,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 		await axios
 			.put(`/posts/${post?._id}`, data, config)
 			.then(async res => {
-				await setPost(res.data)
+				await setPost(res.data);
 				await setIsUpdating(false);
 			})
 			.catch(err => console.log(err.message));
@@ -31,7 +33,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 				const percentCompleted = Math.round(
 					(progressEvent.loaded * 100) / progressEvent.total
 				);
-				console.log(percentCompleted);
+				setProgress(percentCompleted);
 			},
 		};
 		const formData = new FormData();
@@ -53,75 +55,95 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 	};
 	return (
 		<>
-			<button
-				onClick={() => {
-					isUpdating ? setIsUpdating(false) : history.push('/');
+			<LinearProgress variant='determinate' value={progress} />
+			<div
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					flexDirection: 'column',
 				}}
 			>
-				Back
-			</button>
-			<form onSubmit={handleSubmit(onSubmitHandler)}>
-				<label htmlFor='title'>Title</label>
-				<input
-					type='text'
-					name='title'
-					defaultValue={isUpdating ? post?.title : ''}
-					ref={register({ required: true })}
-				/>
-				{errors.exampleRequired && <span>This field is required</span>}
-				<label htmlFor='author'>Author</label>
-				<input
-					type='text'
-					name='author'
-					defaultValue={isUpdating ? post?.author : ''}
-					ref={register({ required: true })}
-				/>
-				{errors.exampleRequired && <span>This field is required</span>}
-				<label htmlFor='snippet'>Snippet</label>
-				<input
-					type='text'
-					name='snippet'
-					defaultValue={isUpdating ? post?.snippet : ''}
-					ref={register({ required: true })}
-				/>
-				{errors.exampleRequired && <span>This field is required</span>}
-				<label htmlFor='pages'>Pages</label>
-				<input
-					type='number'
-					name='pages'
-					defaultValue={isUpdating ? post?.pages : 0}
-					ref={register({ required: true })}
-				/>
-				{errors.exampleRequired && <span>This field is required</span>}
-				<label htmlFor='yearPublished'>Year Published</label>
-				<input
-					type='number'
-					min='1900'
-					max='2099'
-					step='1'
-					defaultValue={isUpdating ? post?.yearPublished : 2020}
-					name='yearPublished'
-					ref={register({ required: true })}
-				/>
-				{errors.exampleRequired && <span>This field is required</span>}
-				<label htmlFor='file'>File</label>
-				<input
-					type='file'
-					accept='.pdf'
-					name='file'
-					ref={register({ required: true })}
-				/>
-				{errors.exampleRequired && <span>This field is required</span>}
-				<label htmlFor='image'>Image</label>
-				<input
-					type='file'
-					accept='image/*'
-					name='image'
-					ref={register({ required: true })}
-				/>
-				{errors.exampleRequired && <span>This field is required</span>}
-				<input type='submit' />
-			</form>
+				{isUpdating ? <h1>Update Post</h1> : <h1>Create Post</h1>}
+				<form
+					style={{ display: 'flex', flexDirection: 'column', width: '50%' }}
+					onSubmit={handleSubmit(onSubmitHandler)}
+				>
+					<label>Title</label>
+					<input
+						className='form form-control'
+						type='text'
+						name='title'
+						defaultValue={isUpdating ? post?.title : ''}
+						ref={register({ required: true })}
+					/>
+					{errors.exampleRequired && <span>This field is required</span>}
+					<label>Author</label>
+					<input
+						className='form form-control'
+						type='text'
+						name='author'
+						defaultValue={isUpdating ? post?.author : ''}
+						ref={register({ required: true })}
+					/>
+					{errors.exampleRequired && <span>This field is required</span>}
+					<label htmlFor='snippet'>Snippet</label>
+					<textarea
+						className='form form-control'
+						type='text'
+						name='snippet'
+						maxLength='200'
+						defaultValue={isUpdating ? post?.snippet : ''}
+						ref={register({ required: true })}
+					/>
+					{errors.exampleRequired && <span>This field is required</span>}
+					<label htmlFor='pages'>Pages</label>
+					<input
+						className='form form-control'
+						type='number'
+						name='pages'
+						defaultValue={isUpdating ? post?.pages : 0}
+						ref={register({ required: true })}
+					/>
+					{errors.exampleRequired && <span>This field is required</span>}
+					<label htmlFor='yearPublished'>Year Published</label>
+					<input
+						className='form form-control'
+						type='number'
+						min='1900'
+						max='2099'
+						step='1'
+						defaultValue={isUpdating ? post?.yearPublished : 2020}
+						name='yearPublished'
+						ref={register({ required: true })}
+					/>
+					{errors.exampleRequired && <span>This field is required</span>}
+					<label htmlFor='file'>File</label>
+					<input
+						type='file'
+						accept='.pdf'
+						name='file'
+						ref={register({ required: true })}
+					/>
+					{errors.exampleRequired && <span>This field is required</span>}
+					<label htmlFor='image'>Image</label>
+					<input
+						type='file'
+						accept='image/*'
+						name='image'
+						ref={register({ required: true })}
+					/>
+					{errors.exampleRequired && <span>This field is required</span>}
+					<input type='submit' className='btn btn-primary' />
+					<button
+						className='btn btn-danger'
+						onClick={() => {
+							isUpdating ? setIsUpdating(false) : history.push('/');
+						}}
+					>
+						Back
+					</button>
+				</form>
+			</div>
 		</>
 	);
 };
