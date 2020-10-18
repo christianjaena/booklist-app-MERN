@@ -35,14 +35,6 @@ const Post = () => {
 			) : (
 				<>
 					<div>
-						<button
-							onClick={() => {
-								setPost('');
-								history.push('/');
-							}}
-						>
-							Back
-						</button>
 						<img src={post.imagePath} height='100' width='100' alt='postPic' />
 						<h1>{post.title}</h1>
 						<h2>{post.author}</h2>
@@ -53,6 +45,7 @@ const Post = () => {
 							Download
 						</a>
 						<button
+							className='btn btn-warning'
 							onClick={() => {
 								setIsUpdating(true);
 							}}
@@ -60,11 +53,21 @@ const Post = () => {
 							Update
 						</button>
 						<button
+							className='btn btn-danger'
 							onClick={() => {
 								handleDeleteRequest(post._id);
 							}}
 						>
 							Delete
+						</button>
+						<button
+							className='btn btn-danger'
+							onClick={() => {
+								setPost('');
+								history.push('/');
+							}}
+						>
+							Back
 						</button>
 					</div>
 				</>

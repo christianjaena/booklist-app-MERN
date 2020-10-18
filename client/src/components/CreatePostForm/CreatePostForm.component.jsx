@@ -54,13 +54,24 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 		}
 	};
 	return (
-		<>
-			<LinearProgress variant='determinate' value={progress} />
+		<div>
+			<LinearProgress
+				variant='determinate'
+				// style={{display: 'none'}}
+				style={progress > 1 ? { display: '' } : { display: 'none' }}
+				value={progress}
+			/>
 			<div
+				className='container'
 				style={{
 					display: 'flex',
 					alignItems: 'center',
 					flexDirection: 'column',
+					backgroundColor: '#8ddeb3',
+					width: '60%',
+					borderRadius: '15px',
+					marginTop: '15px',
+					padding: '15px',
 				}}
 			>
 				{isUpdating ? <h1>Update Post</h1> : <h1>Create Post</h1>}
@@ -73,6 +84,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 						className='form form-control'
 						type='text'
 						name='title'
+						maxLength='100'
 						defaultValue={isUpdating ? post?.title : ''}
 						ref={register({ required: true })}
 					/>
@@ -82,6 +94,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 						className='form form-control'
 						type='text'
 						name='author'
+						maxLength='50'
 						defaultValue={isUpdating ? post?.author : ''}
 						ref={register({ required: true })}
 					/>
@@ -101,6 +114,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 						className='form form-control'
 						type='number'
 						name='pages'
+						min='0'
 						defaultValue={isUpdating ? post?.pages : 0}
 						ref={register({ required: true })}
 					/>
@@ -109,7 +123,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 					<input
 						className='form form-control'
 						type='number'
-						min='1900'
+						min='1800'
 						max='2099'
 						step='1'
 						defaultValue={isUpdating ? post?.yearPublished : 2020}
@@ -133,7 +147,11 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 						ref={register({ required: true })}
 					/>
 					{errors.exampleRequired && <span>This field is required</span>}
-					<input type='submit' className='btn btn-primary' />
+					<input
+						type='submit'
+						className='btn btn-primary'
+						style={{ margin: '10px 0' }}
+					/>
 					<button
 						className='btn btn-danger'
 						onClick={() => {
@@ -144,7 +162,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 					</button>
 				</form>
 			</div>
-		</>
+		</div>
 	);
 };
 

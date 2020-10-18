@@ -16,19 +16,32 @@ const Posts = ({ posts, status }) => {
 				posts.map(post => (
 					<PostWrapper key={post._id}>
 						<ImageWrapper>
-							<img src={post.imagePath} alt='cover' height='180' width='120' />
+							<img src={post.imagePath} alt='cover' height='210' width='150' />
 						</ImageWrapper>
-						<div>
-							<h3>{post.title}</h3>
-							<p>{post.author}</p>
-							<p>{post.snippet}</p>
-							<StyledButton
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'space-between',
+							}}
+						>
+							<div style={{height: '100%'}}>
+								<div style={{overflow: 'hidden'}}>
+									<h3>{post.title}</h3>
+								</div>
+								<div style={{overflow: 'hidden'}}>
+									<p>{post.author}</p>
+								</div>
+							</div>
+							<button
 								onClick={() => {
 									history.push(`/posts/${post._id}`);
-								}}
+								} }
+								style={{width: '200px'}}
+								className='btn btn-primary'
 							>
 								GET THIS BOOK
-							</StyledButton>
+							</button>
 						</div>
 					</PostWrapper>
 				))}
