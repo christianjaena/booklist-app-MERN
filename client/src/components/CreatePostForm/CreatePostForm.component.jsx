@@ -105,34 +105,46 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 						type='text'
 						name='snippet'
 						maxLength='200'
+						rows='4'
 						defaultValue={isUpdating ? post?.snippet : ''}
 						ref={register({ required: true })}
 					/>
 					{errors.exampleRequired && <span>This field is required</span>}
-					<label htmlFor='pages'>Pages</label>
-					<input
-						className='form form-control'
-						type='number'
-						name='pages'
-						min='0'
-						defaultValue={isUpdating ? post?.pages : 0}
-						ref={register({ required: true })}
-					/>
-					{errors.exampleRequired && <span>This field is required</span>}
-					<label htmlFor='yearPublished'>Year Published</label>
-					<input
-						className='form form-control'
-						type='number'
-						min='1800'
-						max='2099'
-						step='1'
-						defaultValue={isUpdating ? post?.yearPublished : 2020}
-						name='yearPublished'
-						ref={register({ required: true })}
-					/>
-					{errors.exampleRequired && <span>This field is required</span>}
+					<div style={{ display: 'flex' }}>
+						<div style={{ marginRight: '15px' }}>
+							<label htmlFor='pages'>Pages</label>
+							<input
+								className='form form-control'
+								type='number'
+								name='pages'
+								min='0'
+								defaultValue={isUpdating ? post?.pages : 0}
+								ref={register({ required: true })}
+							/>
+							{errors.exampleRequired && <span>This field is required</span>}
+						</div>
+						<div style={{ width: '200px' }}>
+							<label htmlFor='yearPublished'>Year Published</label>
+							<input
+								className='form form-control'
+								type='number'
+								min='1800'
+								max='2020'
+								step='1'
+								defaultValue={isUpdating ? post?.yearPublished : 2020}
+								name='yearPublished'
+								ref={register({ required: true })}
+							/>
+							{errors.exampleRequired && <span>This field is required</span>}
+						</div>
+					</div>
 					<label htmlFor='file'>File</label>
 					<input
+						style={{
+							overflow: 'hidden',
+							backgroundColor: 'white',
+							borderRadius: '5px',
+						}}
 						type='file'
 						accept='.pdf'
 						name='file'
@@ -141,6 +153,11 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 					{errors.exampleRequired && <span>This field is required</span>}
 					<label htmlFor='image'>Image</label>
 					<input
+						style={{
+							overflow: 'hidden',
+							backgroundColor: 'white',
+							borderRadius: '5px',
+						}}
 						type='file'
 						accept='image/*'
 						name='image'
@@ -150,10 +167,12 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 					<input
 						type='submit'
 						className='btn btn-primary'
-						style={{ margin: '10px 0' }}
+						style={{ width: '100%' }}
+						style={{ margin: '20px 0 10px 0' }}
 					/>
 					<button
 						className='btn btn-danger'
+						style={{ width: '100%' }}
 						onClick={() => {
 							isUpdating ? setIsUpdating(false) : history.push('/');
 						}}

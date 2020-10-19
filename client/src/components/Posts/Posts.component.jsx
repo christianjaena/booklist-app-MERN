@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-	StyledButton,
 	PostWrapper,
 	ImageWrapper,
 } from './Posts.styledcomponents';
@@ -37,7 +36,7 @@ const Posts = ({ posts, status }) => {
 								onClick={() => {
 									history.push(`/posts/${post._id}`);
 								} }
-								style={{width: '200px'}}
+								style={{width: '150px'}}
 								className='btn btn-primary'
 							>
 								GET THIS BOOK

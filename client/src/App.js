@@ -6,8 +6,17 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+	a {
+		color: white;
+		text-decoration: none;
+	}
+	a:hover {
+		color: white;
+		text-decoration: none;
+	}
 	.btn {
 		border-radius: 20px;
+		width: 10em;
 	}
 	.btn-primary {
 		border: 1px solid #61C791;
