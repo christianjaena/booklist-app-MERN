@@ -14,7 +14,6 @@ import { useQuery, QueryCache, ReactQueryCacheProvider } from 'react-query';
 const queryCache = new QueryCache();
 
 const PostPage = () => {
-	// const [posts, setPosts] = React.useState([]);
 	const getPosts = async () => {
 		const request = await axios.get('/posts');
 		return request.data;

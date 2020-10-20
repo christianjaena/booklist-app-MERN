@@ -3,10 +3,12 @@ import { useHistory } from 'react-router-dom';
 import CreatePostForm from '../CreatePostForm/CreatePostForm.component';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import ContentLoader from 'react-content-loader';
 
 const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
 	const [post, setPost] = React.useState('');
+	const [isLoaded, setIsLoaded] = React.useState(false);
 	const history = useHistory();
 	const { id } = useParams();
 
@@ -17,9 +19,14 @@ const Post = () => {
 	};
 
 	React.useEffect(() => {
+		setIsLoaded(false);
+
 		axios
 			.get(`/posts/${id}`)
-			.then(results => setPost(results.data))
+			.then(results => {
+				setPost(results.data);
+				setIsLoaded(true);
+			})
 			.catch(err => console.log(err));
 	}, [isUpdating]);
 
@@ -31,105 +38,119 @@ const Post = () => {
 					post={post}
 					setIsUpdating={setIsUpdating}
 					setPost={setPost}
+					setIsLoaded={setIsLoaded}
 				/>
-			) : (
-				<>
+			) : isLoaded ? (
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						height: '100vh',
+					}}
+				>
+					<div
+						style={{
+							backgroundColor: 'white',
+							height: '480px',
+							width: '350px',
+							margin: '0 100px 0 200px',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							boxShadow: '-1px 3px 17px -8px rgba(0, 0, 0, 1)',
+						}}
+					>
+						<img src={post.imagePath} height='440' width='300' alt='postPic' />
+					</div>
 					<div
 						style={{
 							display: 'flex',
-							alignItems: 'center',
-							height: '100vh',
+							flexDirection: 'column',
+							justifyContent: 'space-between',
+							height: '480px',
+							width: '30em',
+							wordWrap: 'break-word',
 						}}
 					>
+						<h2>{post.title}</h2>
+						<h4>{post.author}</h4>
+						<div>
+							<p>{post.snippet}</p>
+						</div>
+						<p>
+							<strong>Pages: </strong> {post.pages}
+						</p>
+						<p>
+							<strong>Year: </strong> {post.yearPublished}
+						</p>
 						<div
 							style={{
-								backgroundColor: 'white',
-								height: '480px',
-								width: '350px',
-								margin: '0 100px 0 200px',
 								display: 'flex',
 								alignItems: 'center',
-								justifyContent: 'center',
-								boxShadow: '-1px 3px 17px -8px rgba(0, 0, 0, 1)',
-							}}
-						>
-							<img
-								src={post.imagePath}
-								height='440'
-								width='300'
-								alt='postPic'
-							/>
-						</div>
-						<div
-							style={{
-								display: 'flex',
-								flexDirection: 'column',
 								justifyContent: 'space-between',
-								height: '480px',
-								width: '30em',
-								wordWrap: 'break-word',
 							}}
 						>
-							<h2>{post.title}</h2>
-							<h4>{post.author}</h4>
 							<div>
-								<p>{post.snippet}</p>
+								<button
+									className='btn btn-primary'
+									style={{ marginBottom: '10px' }}
+								>
+									<a target='_blank' href={post.filePath} download>
+										Download
+									</a>
+								</button>
+								<button
+									className='btn btn-warning'
+									onClick={() => {
+										setIsUpdating(true);
+									}}
+								>
+									Update
+								</button>
 							</div>
-							<p>
-								<strong>Pages: </strong> {post.pages}
-							</p>
-							<p>
-								<strong>Year: </strong> {post.yearPublished}
-							</p>
-							<div
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'space-between',
-								}}
-							>
-								<div>
-									<button
-										className='btn btn-primary'
-										style={{ marginBottom: '10px' }}
-									>
-										<a target='_blank' href={post.filePath} download>
-											Download
-										</a>
-									</button>
-									<button
-										className='btn btn-warning'
-										onClick={() => {
-											setIsUpdating(true);
-										}}
-									>
-										Update
-									</button>
-								</div>
-								<div>
-									<button
-										style={{ marginBottom: '10px' }}
-										className='btn btn-danger'
-										onClick={() => {
-											handleDeleteRequest(post._id);
-										}}
-									>
-										Delete
-									</button>
-									<button
-										className='btn btn-danger'
-										onClick={() => {
-											setPost('');
-											history.push('/');
-										}}
-									>
-										Back
-									</button>
-								</div>
+							<div>
+								<button
+									style={{ marginBottom: '10px' }}
+									className='btn btn-danger'
+									onClick={() => {
+										handleDeleteRequest(post._id);
+									}}
+								>
+									Delete
+								</button>
+								<button
+									className='btn btn-danger'
+									onClick={() => {
+										setPost('');
+										history.push('/');
+									}}
+								>
+									Back
+								</button>
 							</div>
 						</div>
 					</div>
-				</>
+				</div>
+			) : (
+				<div style={{ position: 'absolute', top: '10%', left: '20%' }}>
+					<ContentLoader
+						speed={2}
+						width={1000}
+						height={500}
+						viewBox='0 0 1000 500'
+						backgroundColor='#f3f3f3'
+						foregroundColor='#ecebeb'
+					>
+						<rect x='24' y='50' rx='0' ry='0' width='300' height='480' />
+						<rect x='355' y='51' rx='0' ry='0' width='297' height='87' />
+						<rect x='357' y='164' rx='0' ry='0' width='221' height='48' />
+						<rect x='360' y='356' rx='0' ry='0' width='122' height='25' />
+						<rect x='360' y='391' rx='0' ry='0' width='124' height='24' />
+						<rect x='357' y='235' rx='0' ry='0' width='285' height='90' />
+						<rect x='359' y='432' rx='0' ry='0' width='269' height='65' />
+						<rect x='471' y='473' rx='0' ry='0' width='5' height='1' />
+					</ContentLoader>
+				</div>
 			)}
 		</>
 	);

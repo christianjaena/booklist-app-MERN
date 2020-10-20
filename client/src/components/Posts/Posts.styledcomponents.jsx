@@ -27,5 +27,5 @@ export const ImageWrapper = styled.div`
 	margin-right: 2em;
 	-webkit-box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, 1);
 	-moz-box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, 1);
-	box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, 1);
+	box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, .5);
 `;

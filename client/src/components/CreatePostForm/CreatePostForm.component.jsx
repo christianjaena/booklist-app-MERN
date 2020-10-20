@@ -4,7 +4,13 @@ import { useHistory } from 'react-router-dom';
 import { LinearProgress } from '@material-ui/core';
 import axios from 'axios';
 
-const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
+const CreatePostForm = ({
+	isUpdating,
+	post,
+	setIsUpdating,
+	setIsLoaded,
+	setPost,
+}) => {
 	const [progress, setProgress] = React.useState(0);
 	const { register, errors, handleSubmit } = useForm();
 	const history = useHistory();
@@ -22,6 +28,7 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 			.then(async res => {
 				await setPost(res.data);
 				await setIsUpdating(false);
+				await setIsLoaded(true);
 			})
 			.catch(err => console.log(err.message));
 	};
@@ -57,7 +64,6 @@ const CreatePostForm = ({ isUpdating, post, setIsUpdating, setPost }) => {
 		<div>
 			<LinearProgress
 				variant='determinate'
-				// style={{display: 'none'}}
 				style={progress > 1 ? { display: '' } : { display: 'none' }}
 				value={progress}
 			/>
