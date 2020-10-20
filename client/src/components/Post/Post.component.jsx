@@ -67,45 +67,66 @@ const Post = () => {
 								justifyContent: 'space-between',
 								height: '480px',
 								width: '30em',
+								wordWrap: 'break-word',
 							}}
 						>
-							<h1>{post.title}</h1>
-							<h2>{post.author}</h2>
-							<div style={{ width: '100%' }}>
+							<h2>{post.title}</h2>
+							<h4>{post.author}</h4>
+							<div>
 								<p>{post.snippet}</p>
 							</div>
-							<>Pages: {post.pages}</>
-							<p>Year: {post.yearPublished}</p>
-							<button className='btn btn-primary'>
-								<a target='_blank' href={post.filePath} download>
-									Download
-								</a>
-							</button>
-							<button
-								className='btn btn-warning'
-								onClick={() => {
-									setIsUpdating(true);
+							<p>
+								<strong>Pages: </strong> {post.pages}
+							</p>
+							<p>
+								<strong>Year: </strong> {post.yearPublished}
+							</p>
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'space-between',
 								}}
 							>
-								Update
-							</button>
-							<button
-								className='btn btn-danger'
-								onClick={() => {
-									handleDeleteRequest(post._id);
-								}}
-							>
-								Delete
-							</button>
-							<button
-								className='btn btn-danger'
-								onClick={() => {
-									setPost('');
-									history.push('/');
-								}}
-							>
-								Back
-							</button>
+								<div>
+									<button
+										className='btn btn-primary'
+										style={{ marginBottom: '10px' }}
+									>
+										<a target='_blank' href={post.filePath} download>
+											Download
+										</a>
+									</button>
+									<button
+										className='btn btn-warning'
+										onClick={() => {
+											setIsUpdating(true);
+										}}
+									>
+										Update
+									</button>
+								</div>
+								<div>
+									<button
+										style={{ marginBottom: '10px' }}
+										className='btn btn-danger'
+										onClick={() => {
+											handleDeleteRequest(post._id);
+										}}
+									>
+										Delete
+									</button>
+									<button
+										className='btn btn-danger'
+										onClick={() => {
+											setPost('');
+											history.push('/');
+										}}
+									>
+										Back
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</>

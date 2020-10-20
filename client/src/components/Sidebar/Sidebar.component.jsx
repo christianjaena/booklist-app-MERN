@@ -3,6 +3,10 @@ import { SidebarWrapper, SideBarContent } from './Sidebar.styledcomponents';
 import axios from 'axios';
 
 const Sidebar = () => {
+	const [titles, setTitle] = React.useState([])
+	React.useEffect(() => {
+			
+	}, [])
 	const deleteAllPostsHandler = async () => {
 		await axios
 			.delete('/posts')

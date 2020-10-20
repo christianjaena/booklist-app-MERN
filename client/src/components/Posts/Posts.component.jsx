@@ -1,9 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-	PostWrapper,
-	ImageWrapper,
-} from './Posts.styledcomponents';
+import { PostWrapper, ImageWrapper } from './Posts.styledcomponents';
 
 const Posts = ({ posts, status }) => {
 	const history = useHistory();
@@ -24,19 +21,25 @@ const Posts = ({ posts, status }) => {
 								justifyContent: 'space-between',
 							}}
 						>
-							<div style={{height: '100%'}}>
-								<div style={{overflow: 'hidden'}}>
-									<h3>{post.title}</h3>
+							<div style={{ height: '100%' }}>
+								<div>
+									<h5>{post.title}</h5>
 								</div>
-								<div style={{overflow: 'hidden'}}>
+								<div>
 									<p>{post.author}</p>
+								</div>
+								<div>
+									<p>Pages: {post.pages}</p>
+								</div>
+								<div>
+									<p>Year: {post.yearPublished}</p>
 								</div>
 							</div>
 							<button
 								onClick={() => {
 									history.push(`/posts/${post._id}`);
-								} }
-								style={{width: '150px'}}
+								}}
+								style={{ width: '150px' }}
 								className='btn btn-primary'
 							>
 								GET THIS BOOK
