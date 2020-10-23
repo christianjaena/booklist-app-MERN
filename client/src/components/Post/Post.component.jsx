@@ -4,6 +4,9 @@ import CreatePostForm from '../CreatePostForm/CreatePostForm.component';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import UpdateIcon from '@material-ui/icons/Update';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
@@ -45,6 +48,7 @@ const Post = () => {
 					style={{
 						display: 'flex',
 						alignItems: 'center',
+						justifyContent: 'center',
 						height: '100vh',
 					}}
 				>
@@ -53,7 +57,7 @@ const Post = () => {
 							backgroundColor: 'white',
 							height: '480px',
 							width: '350px',
-							margin: '0 100px 0 200px',
+							margin: '0 100px 0 100px',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'center',
@@ -90,49 +94,76 @@ const Post = () => {
 								justifyContent: 'space-between',
 							}}
 						>
-							<div>
-								<button
-									className='btn btn-primary'
-									style={{ marginBottom: '10px' }}
-								>
-									<a target='_blank' href={post.filePath} download>
-										Download
-									</a>
-								</button>
-								<button
-									className='btn btn-warning'
-									onClick={() => {
-										setIsUpdating(true);
+							<button className='btn btn-primary' style={{ height: '50px' }}>
+								<a target='_blank' href={post.filePath} download>
+									<span
+										style={{
+											display: 'flex',
+										}}
+									>
+										<GetAppIcon />
+										<h6 style={{ margin: 0 }}>Download</h6>
+									</span>
+								</a>
+							</button>
+							<button
+								className='btn btn-warning'
+								style={{ height: '50px' }}
+								onClick={() => {
+									setIsUpdating(true);
+								}}
+							>
+								<div
+									style={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
 									}}
 								>
-									Update
-								</button>
-							</div>
-							<div>
-								<button
-									style={{ marginBottom: '10px' }}
-									className='btn btn-danger'
-									onClick={() => {
-										handleDeleteRequest(post._id);
+									<UpdateIcon />
+									<h6 style={{ margin: 0 }}>Update</h6>
+								</div>
+							</button>
+							<button
+								style={{ height: '50px' }}
+								className='btn btn-danger'
+								onClick={() => {
+									handleDeleteRequest(post._id);
+								}}
+							>
+								<div
+									style={{
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center',
 									}}
 								>
-									Delete
-								</button>
-								<button
-									className='btn btn-danger'
-									onClick={() => {
-										setPost('');
-										history.push('/');
-									}}
-								>
-									Back
-								</button>
-							</div>
+									<DeleteIcon />
+									<h6 style={{ margin: 0 }}>Delete</h6>
+								</div>
+							</button>
+							<button
+								className='btn btn-danger'
+								onClick={() => {
+									setPost('');
+									history.push('/');
+								}}
+							>
+								Back
+							</button>
 						</div>
 					</div>
 				</div>
 			) : (
-				<div style={{ position: 'absolute', top: '10%', left: '20%' }}>
+				<div
+					style={{
+						height: '100vh',
+						width: '100vw',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
 					<ContentLoader
 						speed={2}
 						width={1000}

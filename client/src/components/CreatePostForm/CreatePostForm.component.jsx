@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { LinearProgress } from '@material-ui/core';
 import axios from 'axios';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 const CreatePostForm = ({
 	isUpdating,
@@ -80,7 +82,29 @@ const CreatePostForm = ({
 					padding: '15px',
 				}}
 			>
-				{isUpdating ? <h1>Update Post</h1> : <h1>Create Post</h1>}
+				{isUpdating ? (
+					<div
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							marginBottom: '10px',
+						}}
+					>
+						<MenuBookIcon fontSize='large' />
+						<h1 style={{ margin: '0 0 0 10px' }}>Update Book</h1>
+					</div>
+				) : (
+					<div
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							marginBottom: '10px',
+						}}
+					>
+						<ImportContactsIcon fontSize='large' />
+						<h1 style={{ margin: '0 0 0 10px' }}>Add Book</h1>
+					</div>
+				)}
 				<form
 					style={{ display: 'flex', flexDirection: 'column', width: '50%' }}
 					onSubmit={handleSubmit(onSubmitHandler)}
@@ -100,7 +124,7 @@ const CreatePostForm = ({
 						className='form form-control'
 						type='text'
 						name='author'
-						maxLength='50'
+						maxLength='100'
 						defaultValue={isUpdating ? post?.author : ''}
 						ref={register({ required: true })}
 					/>
@@ -150,6 +174,7 @@ const CreatePostForm = ({
 							overflow: 'hidden',
 							backgroundColor: 'white',
 							borderRadius: '5px',
+							border: '1px solid#ced4da',
 						}}
 						type='file'
 						accept='.pdf'
@@ -163,6 +188,7 @@ const CreatePostForm = ({
 							overflow: 'hidden',
 							backgroundColor: 'white',
 							borderRadius: '5px',
+							border: '1px solid#ced4da',
 						}}
 						type='file'
 						accept='image/*'
@@ -172,9 +198,11 @@ const CreatePostForm = ({
 					{errors.exampleRequired && <span>This field is required</span>}
 					<input
 						type='submit'
+						value='Save'
 						className='btn btn-primary'
-						style={{ width: '100%' }}
-						style={{ margin: '20px 0 10px 0' }}
+						style={{
+							margin: '20px 0 10px 0',
+						}}
 					/>
 					<button
 						className='btn btn-danger'

@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PostWrapper, ImageWrapper } from './Posts.styledcomponents';
 import SkeletonLoader from '../../components/SkeletonLoader/SkeletonLoader';
+import TurnedInIcon from '@material-ui/icons/TurnedIn';
 
 const Posts = ({ posts, status }) => {
 	const history = useHistory();
@@ -33,13 +34,23 @@ const Posts = ({ posts, status }) => {
 										<h5>{post.title}</h5>
 									</div>
 									<div>
-										<p>{post.author}</p>
+										<p style={{ fontStyle: 'italic' }}>{post.author}</p>
 									</div>
 									<div>
-										<p>Pages: {post.pages}</p>
+										<p>
+											Pages:{' '}
+											<strong style={{ fontWeight: '500' }}>
+												{post.pages}
+											</strong>
+										</p>
 									</div>
 									<div>
-										<p>Year: {post.yearPublished}</p>
+										<p>
+											Year:{' '}
+											<strong style={{ fontWeight: '500' }}>
+												{post.yearPublished}
+											</strong>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -48,10 +59,19 @@ const Posts = ({ posts, status }) => {
 							onClick={() => {
 								history.push(`/posts/${post._id}`);
 							}}
-							style={{ width: '165px', marginLeft: '60px' }}
+							style={{ width: '165px', marginLeft: '60px', padding: '10px' }}
 							className='btn btn-primary'
 						>
-							GET THIS BOOK
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}
+							>
+								<TurnedInIcon />
+								<h6 style={{ margin: '0' }}>GET THIS BOOK</h6>
+							</div>
 						</button>
 					</div>
 				))}

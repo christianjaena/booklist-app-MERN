@@ -16,7 +16,20 @@ const GlobalStyle = createGlobalStyle`
 	}
 	.btn {
 		border-radius: 20px;
-		width: 10em;
+	}
+	label {
+		margin-top: 5px;
+		font-weight: bold;
+	}
+	
+	.btn-warning {
+		color: white;
+	}
+	.btn-warning:hover {
+		color: white;
+	}
+	.btn-light {
+		border-radius: 50%;
 	}
 	.btn-primary {
 		border: 1px solid #61C791;

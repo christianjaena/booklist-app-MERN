@@ -10,6 +10,7 @@ import {
 	CreatePostButtonWrapper,
 } from './PostsPage.styledcomponents';
 import { useQuery, QueryCache, ReactQueryCacheProvider } from 'react-query';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 
 const queryCache = new QueryCache();
 
@@ -18,7 +19,7 @@ const PostPage = () => {
 		const request = await axios.get('/posts');
 		return request.data;
 	};
-	const {data, status} = useQuery('posts', getPosts);
+	const { data, status } = useQuery('posts', getPosts);
 	const history = useHistory();
 
 	return (
@@ -27,10 +28,13 @@ const PostPage = () => {
 				<Sidebar />
 				<div>
 					<CreatePostButtonWrapper>
-						<CreatePostButton onClick={() => history.push('/upload')}>
-							+
+						<CreatePostButton
+							className='btn btn-light'
+							onClick={() => history.push('/upload')}
+						>
+							<ImportContactsIcon />
 						</CreatePostButton>
-						<p>ADD A BOOK</p>
+						<h6>ADD A BOOK</h6>
 					</CreatePostButtonWrapper>
 					<PostsWrapper>
 						<ReactQueryCacheProvider queryCache={queryCache}>
