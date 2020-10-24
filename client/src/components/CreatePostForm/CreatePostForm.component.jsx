@@ -5,6 +5,7 @@ import { LinearProgress } from '@material-ui/core';
 import axios from 'axios';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CloseIcon from '@material-ui/icons/Close';
 
 const CreatePostForm = ({
 	isUpdating,
@@ -66,7 +67,7 @@ const CreatePostForm = ({
 		<div>
 			<LinearProgress
 				variant='determinate'
-				style={progress > 1 ? { display: '' } : { display: 'none' }}
+				style={progress > 1 ? { visibility: '' } : { visibility: 'hidden' }}
 				value={progress}
 			/>
 			<div
@@ -76,9 +77,9 @@ const CreatePostForm = ({
 					alignItems: 'center',
 					flexDirection: 'column',
 					backgroundColor: '#8ddeb3',
-					width: '60%',
+					width: '800px',
 					borderRadius: '15px',
-					marginTop: '15px',
+					marginTop: '30px',
 					padding: '15px',
 				}}
 			>
@@ -105,6 +106,22 @@ const CreatePostForm = ({
 						<h1 style={{ margin: '0 0 0 10px' }}>Add Book</h1>
 					</div>
 				)}
+				<button
+					className='btn btn-secondary'
+					style={{
+						width: '50px',
+						height: '50px',
+						position: 'relative',
+						bottom: '90px',
+						left: '400px',
+						borderRadius: '50%',
+					}}
+					onClick={() => {
+						isUpdating ? setIsUpdating(false) : history.push('/');
+					}}
+				>
+					<CloseIcon />
+				</button>
 				<form
 					style={{ display: 'flex', flexDirection: 'column', width: '50%' }}
 					onSubmit={handleSubmit(onSubmitHandler)}
@@ -140,7 +157,7 @@ const CreatePostForm = ({
 						ref={register({ required: true })}
 					/>
 					{errors.exampleRequired && <span>This field is required</span>}
-					<div style={{ display: 'flex' }}>
+					<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 						<div style={{ marginRight: '15px' }}>
 							<label htmlFor='pages'>Pages</label>
 							<input
@@ -199,20 +216,11 @@ const CreatePostForm = ({
 					<input
 						type='submit'
 						value='Save'
-						className='btn btn-primary'
+						className='btn btn-info btn-lg'
 						style={{
-							margin: '20px 0 10px 0',
+							margin: '20px 0',
 						}}
 					/>
-					<button
-						className='btn btn-danger'
-						style={{ width: '100%' }}
-						onClick={() => {
-							isUpdating ? setIsUpdating(false) : history.push('/');
-						}}
-					>
-						Back
-					</button>
 				</form>
 			</div>
 		</div>

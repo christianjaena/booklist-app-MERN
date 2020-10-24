@@ -19,6 +19,7 @@ const PostPage = () => {
 		const request = await axios.get('/posts');
 		return request.data;
 	};
+
 	const { data, status } = useQuery('posts', getPosts);
 	const history = useHistory();
 

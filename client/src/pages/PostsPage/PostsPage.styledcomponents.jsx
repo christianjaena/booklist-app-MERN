@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const PostPageWrapper = styled.div`
 	display: grid;
@@ -9,6 +9,8 @@ export const PostPageWrapper = styled.div`
 export const PostsWrapper = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	grid-row-gap: 2em;
+	margin: 10px;
 `;
 
 export const CreatePostButton = styled.div`

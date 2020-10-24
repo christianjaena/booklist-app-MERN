@@ -7,6 +7,7 @@ import ContentLoader from 'react-content-loader';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CloseIcon from '@material-ui/icons/Close';
 
 const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
@@ -50,107 +51,137 @@ const Post = () => {
 						alignItems: 'center',
 						justifyContent: 'center',
 						height: '100vh',
+						backgroundColor: ' #61c791',
 					}}
 				>
 					<div
 						style={{
-							backgroundColor: 'white',
-							height: '480px',
-							width: '350px',
-							margin: '0 100px 0 100px',
 							display: 'flex',
 							alignItems: 'center',
 							justifyContent: 'center',
-							boxShadow: '-1px 3px 17px -8px rgba(0, 0, 0, 1)',
+							padding: '2em',
+							borderRadius: '15px',
+							backgroundColor: 'white',
 						}}
 					>
-						<img src={post.imagePath} height='440' width='300' alt='postPic' />
-					</div>
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							justifyContent: 'space-between',
-							height: '480px',
-							width: '30em',
-							wordWrap: 'break-word',
-						}}
-					>
-						<h2>{post.title}</h2>
-						<h4>{post.author}</h4>
-						<div>
-							<p>{post.snippet}</p>
+						<div
+							style={{
+								backgroundColor: ' #61c791',
+								height: '480px',
+								width: '350px',
+								margin: '0 100px 0 0',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								boxShadow: '-1px 3px 17px -8px rgba(0, 0, 0, 1)',
+							}}
+						>
+							<img
+								src={post.imagePath}
+								height='470'
+								width='340'
+								alt='postPic'
+							/>
 						</div>
-						<p>
-							<strong>Pages: </strong> {post.pages}
-						</p>
-						<p>
-							<strong>Year: </strong> {post.yearPublished}
-						</p>
 						<div
 							style={{
 								display: 'flex',
-								alignItems: 'center',
+								flexDirection: 'column',
 								justifyContent: 'space-between',
+								height: '480px',
+								width: '30em',
+								wordWrap: 'break-word',
 							}}
 						>
-							<button className='btn btn-primary' style={{ height: '50px' }}>
-								<a target='_blank' href={post.filePath} download>
-									<span
+							<h2>{post.title}</h2>
+							<h4>{post.author}</h4>
+							<div>
+								<p>{post.snippet}</p>
+							</div>
+							<p>
+								<strong>Pages: </strong> {post.pages}
+							</p>
+							<p>
+								<strong>Year: </strong> {post.yearPublished}
+							</p>
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'space-between',
+								}}
+							>
+								<button
+									className='btn btn-info'
+									style={{ padding: '8px 20px' }}
+								>
+									<a target='_blank' href={post.filePath} download>
+										<span
+											style={{
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'center',
+											}}
+										>
+											<GetAppIcon />
+											<h6 style={{ margin: 0 }}>Download</h6>
+										</span>
+									</a>
+								</button>
+								<button
+									className='btn btn-warning'
+									style={{ padding: '8px 20px' }}
+									onClick={() => {
+										setIsUpdating(true);
+									}}
+								>
+									<div
 										style={{
 											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'center',
 										}}
 									>
-										<GetAppIcon />
-										<h6 style={{ margin: 0 }}>Download</h6>
-									</span>
-								</a>
-							</button>
-							<button
-								className='btn btn-warning'
-								style={{ height: '50px' }}
-								onClick={() => {
-									setIsUpdating(true);
-								}}
-							>
-								<div
-									style={{
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
+										<UpdateIcon />
+										<h6 style={{ margin: 0 }}>Update</h6>
+									</div>
+								</button>
+								<button
+									style={{ padding: '8px 20px' }}
+									className='btn btn-danger'
+									onClick={() => {
+										handleDeleteRequest(post._id);
 									}}
 								>
-									<UpdateIcon />
-									<h6 style={{ margin: 0 }}>Update</h6>
-								</div>
-							</button>
-							<button
-								style={{ height: '50px' }}
-								className='btn btn-danger'
-								onClick={() => {
-									handleDeleteRequest(post._id);
-								}}
-							>
-								<div
+									<div
+										style={{
+											display: 'flex',
+											justifyContent: 'center',
+											alignItems: 'center',
+										}}
+									>
+										<DeleteIcon />
+										<h6 style={{ margin: 0 }}>Delete</h6>
+									</div>
+								</button>
+								<button
+									className='btn btn-secondary'
+									onClick={() => {
+										setPost('');
+										history.push('/');
+									}}
 									style={{
-										display: 'flex',
-										justifyContent: 'center',
-										alignItems: 'center',
+										position: 'relative',
+										bottom: '480px',
+										left: '50px',
+										height: '50px',
+										width: '50px',
+										borderRadius: '50%',
 									}}
 								>
-									<DeleteIcon />
-									<h6 style={{ margin: 0 }}>Delete</h6>
-								</div>
-							</button>
-							<button
-								className='btn btn-danger'
-								onClick={() => {
-									setPost('');
-									history.push('/');
-								}}
-							>
-								Back
-							</button>
+									<CloseIcon />
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -171,6 +202,10 @@ const Post = () => {
 						viewBox='0 0 1000 500'
 						backgroundColor='#f3f3f3'
 						foregroundColor='#ecebeb'
+						style={{
+							position: 'relative',
+							left: '150px',
+						}}
 					>
 						<rect x='24' y='50' rx='0' ry='0' width='300' height='480' />
 						<rect x='355' y='51' rx='0' ry='0' width='297' height='87' />

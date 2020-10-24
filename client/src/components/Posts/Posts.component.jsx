@@ -29,7 +29,7 @@ const Posts = ({ posts, status }) => {
 									justifyContent: 'space-between',
 								}}
 							>
-								<div style={{ height: '100%', overflow: 'hidden' }}>
+								<div style={{ height: '100%', overflow: 'auto' }}>
 									<div>
 										<h5>{post.title}</h5>
 									</div>
@@ -59,7 +59,7 @@ const Posts = ({ posts, status }) => {
 							onClick={() => {
 								history.push(`/posts/${post._id}`);
 							}}
-							style={{ width: '165px', marginLeft: '60px', padding: '10px' }}
+							style={{ width: '165px', marginLeft: '60px' }}
 							className='btn btn-primary'
 						>
 							<div
