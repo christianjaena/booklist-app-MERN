@@ -8,9 +8,11 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
+	const [isViewing, setIsViewing] = React.useState(false);
 	const [post, setPost] = React.useState('');
 	const [isLoaded, setIsLoaded] = React.useState(false);
 	const history = useHistory();
@@ -162,6 +164,24 @@ const Post = () => {
 									>
 										<DeleteIcon />
 										<h6 style={{ margin: 0 }}>Delete</h6>
+									</div>
+								</button>
+								<button
+									style={{ padding: '8px 20px' }}
+									className='btn btn-primary'
+									onClick={() => {
+										window.open(post.filePath);
+									}}
+								>
+									<div
+										style={{
+											display: 'flex',
+											justifyContent: 'center',
+											alignItems: 'center',
+										}}
+									>
+									<VisibilityIcon />
+									<h6 style={{ margin: 0 }}>Preview</h6>
 									</div>
 								</button>
 								<button

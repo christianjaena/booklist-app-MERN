@@ -67,7 +67,11 @@ const CreatePostForm = ({
 		<div>
 			<LinearProgress
 				variant='determinate'
-				style={progress > 1 ? { visibility: '' } : { visibility: 'hidden' }}
+				style={
+					progress > 1
+						? { visibility: '', position: 'fixed', top: '0' }
+						: { visibility: 'hidden', position: 'fixed', top: '0' }
+				}
 				value={progress}
 			/>
 			<div
