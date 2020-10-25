@@ -11,9 +11,9 @@ const Posts = ({ posts, status }) => {
 			{status === 'loading' && <SkeletonLoader />}
 			{status === 'error' && <span>Error</span>}
 			{status === 'success' &&
-				posts.map(post => (
-					<div>
-						<PostWrapper key={post._id}>
+				posts?.map(post => (
+					<div key={post._id}>
+						<PostWrapper >
 							<ImageWrapper>
 								<img
 									src={post.imagePath}
@@ -22,7 +22,7 @@ const Posts = ({ posts, status }) => {
 									width='150'
 								/>
 							</ImageWrapper>
-							<div
+							<div 
 								style={{
 									display: 'flex',
 									flexDirection: 'column',

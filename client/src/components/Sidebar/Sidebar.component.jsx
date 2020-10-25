@@ -1,12 +1,9 @@
 import React from 'react';
 import { SidebarWrapper, SideBarContent } from './Sidebar.styledcomponents';
 import axios from 'axios';
+import SearchIcon from '@material-ui/icons/Search';
 
-const Sidebar = () => {
-	const [titles, setTitle] = React.useState([])
-	React.useEffect(() => {
-			
-	}, [])
+const Sidebar = ({ onChangeHandler }) => {
 	const deleteAllPostsHandler = async () => {
 		await axios
 			.delete('/posts')
@@ -16,20 +13,13 @@ const Sidebar = () => {
 	return (
 		<SidebarWrapper>
 			<SideBarContent>
-				<span>
-					<p>PAGES</p>
-					<a href='#'>CONTACT</a>
-					<a href='#'>LISTS</a>
-				</span>
-				<div>
-					<h1>Startup</h1>
-					<h1>Must</h1>
-					<h1>Reads</h1>
-					<hr />
-					<input type='text' />
-				</div>
-				<div>
-					<p>Christian Jaena</p>
+				<div style={{ backgroundColor: 'white', display: 'flex' }}>
+					<input
+						type='text'
+						className='form form-control'
+						onChange={onChangeHandler}
+					/>
+					<SearchIcon style={{ color: 'black' }} />
 				</div>
 				<div>
 					<button onClick={deleteAllPostsHandler}>DELETE ALL</button>

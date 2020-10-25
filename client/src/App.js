@@ -25,9 +25,11 @@ const GlobalStyle = createGlobalStyle`
 	.btn-warning {
 		color: white;
 	}
+
 	.btn-warning:hover {
 		color: white;
 	}
+
 	.btn-light {
 		border-radius: 50%;
 	}

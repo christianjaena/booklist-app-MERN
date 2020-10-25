@@ -19,14 +19,27 @@ const PostPage = () => {
 		const request = await axios.get('/posts');
 		return request.data;
 	};
-
 	const { data, status } = useQuery('posts', getPosts);
+	const [posts, setPosts] = React.useState([]);
 	const history = useHistory();
+
+	const onChangeHandler = e => {
+		const sortedPosts = data.filter(
+			post =>
+				post.title.toLowerCase().includes(e.target.value) ||
+				post.author.toLowerCase().includes(e.target.value)
+		);
+		setPosts(sortedPosts);
+	};
+
+	React.useEffect(() => {
+		setPosts(data);
+	}, [data]);
 
 	return (
 		<>
 			<PostPageWrapper>
-				<Sidebar />
+				<Sidebar onChangeHandler={onChangeHandler} />
 				<div>
 					<CreatePostButtonWrapper>
 						<CreatePostButton
@@ -39,7 +52,7 @@ const PostPage = () => {
 					</CreatePostButtonWrapper>
 					<PostsWrapper>
 						<ReactQueryCacheProvider queryCache={queryCache}>
-							<Posts posts={data} status={status} />
+							<Posts posts={posts} status={status} />
 						</ReactQueryCacheProvider>
 					</PostsWrapper>
 				</div>
