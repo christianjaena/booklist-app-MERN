@@ -39,8 +39,17 @@ const PostPage = () => {
 	return (
 		<>
 			<PostPageWrapper>
-				<Sidebar onChangeHandler={onChangeHandler} />
-				<div>
+				<div
+					style={{
+						display: 'sticky',
+						top: '0',
+						overflow: 'hidden',
+						backgroundColor: '#61c791',
+					}}
+				>
+					<Sidebar onChangeHandler={onChangeHandler} />
+				</div>
+				<div style={{ overflow: 'scroll' }}>
 					<CreatePostButtonWrapper>
 						<CreatePostButton
 							className='btn btn-light'

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import CreatePostForm from '../CreatePostForm/CreatePostForm.component';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -9,10 +8,10 @@ import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import axios from 'axios';
 
 const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
-	const [isViewing, setIsViewing] = React.useState(false);
 	const [post, setPost] = React.useState('');
 	const [isLoaded, setIsLoaded] = React.useState(false);
 	const history = useHistory();
@@ -26,7 +25,6 @@ const Post = () => {
 
 	React.useEffect(() => {
 		setIsLoaded(false);
-
 		axios
 			.get(`/posts/${id}`)
 			.then(results => {
@@ -71,7 +69,7 @@ const Post = () => {
 								backgroundColor: ' #61c791',
 								height: '480px',
 								width: '350px',
-								margin: '0 100px 0 0',
+								margin: '0 50px 0 0',
 								display: 'flex',
 								alignItems: 'center',
 								justifyContent: 'center',
@@ -113,10 +111,7 @@ const Post = () => {
 									justifyContent: 'space-between',
 								}}
 							>
-								<button
-									className='btn btn-info'
-									style={{ padding: '8px 20px' }}
-								>
+								<button className='btn btn-info btn-sm'>
 									<a target='_blank' href={post.filePath} download>
 										<span
 											style={{
@@ -126,13 +121,14 @@ const Post = () => {
 											}}
 										>
 											<GetAppIcon />
-											<h6 style={{ margin: 0 }}>Download</h6>
+											<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+												Download
+											</h6>
 										</span>
 									</a>
 								</button>
 								<button
-									className='btn btn-warning'
-									style={{ padding: '8px 20px' }}
+									className='btn btn-warning btn-sm'
 									onClick={() => {
 										setIsUpdating(true);
 									}}
@@ -145,12 +141,13 @@ const Post = () => {
 										}}
 									>
 										<UpdateIcon />
-										<h6 style={{ margin: 0 }}>Update</h6>
+										<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+											Update
+										</h6>
 									</div>
 								</button>
 								<button
-									style={{ padding: '8px 20px' }}
-									className='btn btn-danger'
+									className='btn btn-danger btn-sm'
 									onClick={() => {
 										handleDeleteRequest(post._id);
 									}}
@@ -163,12 +160,13 @@ const Post = () => {
 										}}
 									>
 										<DeleteIcon />
-										<h6 style={{ margin: 0 }}>Delete</h6>
+										<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+											Delete
+										</h6>
 									</div>
 								</button>
 								<button
-									style={{ padding: '8px 20px' }}
-									className='btn btn-primary'
+									className='btn btn-primary btn-sm'
 									onClick={() => {
 										window.open(post.filePath);
 									}}
@@ -180,12 +178,14 @@ const Post = () => {
 											alignItems: 'center',
 										}}
 									>
-									<VisibilityIcon />
-									<h6 style={{ margin: 0 }}>Preview</h6>
+										<VisibilityIcon />
+										<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+											Preview
+										</h6>
 									</div>
 								</button>
 								<button
-									className='btn btn-secondary'
+									className='btn btn-secondary btn-sm'
 									onClick={() => {
 										setPost('');
 										history.push('/');
