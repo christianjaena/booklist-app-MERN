@@ -45,9 +45,10 @@ const PostPage = () => {
 						top: '0',
 						overflow: 'hidden',
 						backgroundColor: '#61c791',
+						padding: '0 20px 0 15px'
 					}}
 				>
-					<Sidebar onChangeHandler={onChangeHandler} />
+					<Sidebar posts={posts} onChangeHandler={onChangeHandler} />
 				</div>
 				<div style={{ overflow: 'scroll' }}>
 					<CreatePostButtonWrapper>
