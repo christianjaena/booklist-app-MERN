@@ -141,7 +141,6 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.title : ''}
 						ref={register({ required: true })}
 					/>
-					{errors.exampleRequired && <span>This field is required</span>}
 					<label>Author</label>
 					<input
 						className='form form-control'
@@ -151,7 +150,6 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.author : ''}
 						ref={register({ required: true })}
 					/>
-					{errors.exampleRequired && <span>This field is required</span>}
 					<label htmlFor='snippet'>Snippet</label>
 					<textarea
 						className='form form-control'
@@ -162,7 +160,6 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.snippet : ''}
 						ref={register({ required: true })}
 					/>
-					{errors.exampleRequired && <span>This field is required</span>}
 					<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 						<div style={{ marginRight: '15px' }}>
 							<label htmlFor='pages'>Pages</label>
@@ -170,11 +167,10 @@ const CreatePostForm = ({
 								className='form form-control'
 								type='number'
 								name='pages'
-								min='0'
-								defaultValue={isUpdating ? post?.pages : 0}
+								min='1'
+								defaultValue={isUpdating ? post?.pages : 1}
 								ref={register({ required: true })}
 							/>
-							{errors.exampleRequired && <span>This field is required</span>}
 						</div>
 						<div style={{ width: '200px' }}>
 							<label htmlFor='yearPublished'>Year Published</label>
