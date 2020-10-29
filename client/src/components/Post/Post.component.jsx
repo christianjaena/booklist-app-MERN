@@ -110,6 +110,9 @@ const Post = () => {
 								<strong>Year: </strong> {post.yearPublished}
 							</p>
 							<p>
+								<strong>Category: </strong> {post.category}
+							</p>
+							<p>
 								<strong>Downloads: </strong> {post.downloads}
 							</p>
 							<div

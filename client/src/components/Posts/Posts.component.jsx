@@ -13,7 +13,7 @@ const Posts = ({ posts, status }) => {
 			{status === 'success' &&
 				posts?.map(post => (
 					<div key={post._id}>
-						<PostWrapper >
+						<PostWrapper>
 							<ImageWrapper>
 								<img
 									src={post.imagePath}
@@ -22,44 +22,46 @@ const Posts = ({ posts, status }) => {
 									width='150'
 								/>
 							</ImageWrapper>
-							<div 
+							<div
 								style={{
 									display: 'flex',
 									flexDirection: 'column',
 									justifyContent: 'space-between',
 								}}
 							>
-								<div style={{ height: '100%', overflow: 'auto' }}>
-									<div>
+								<div
+									style={{
+										height: '100%',
+										width: '100%',
+										overflow: 'auto',
+									}}
+								>
 										<h5>{post.title}</h5>
-									</div>
-									<div>
 										<p style={{ fontStyle: 'italic' }}>{post.author}</p>
-									</div>
-									<div>
 										<p>
 											Pages:{' '}
 											<strong style={{ fontWeight: '500' }}>
 												{post.pages}
 											</strong>
 										</p>
-									</div>
-									<div>
 										<p>
 											Year:{' '}
 											<strong style={{ fontWeight: '500' }}>
 												{post.yearPublished}
 											</strong>
 										</p>
-									</div>
-									<div>
+										<p>
+											Category:{' '}
+											<strong style={{ fontWeight: '500' }}>
+												{post.category}
+											</strong>
+										</p>
 										<p>
 											Downloads:{' '}
 											<strong style={{ fontWeight: '500' }}>
 												{post.downloads}
 											</strong>
 										</p>
-									</div>
 								</div>
 							</div>
 						</PostWrapper>

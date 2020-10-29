@@ -37,7 +37,17 @@ const CreatePostForm = ({
 	};
 
 	const onSubmitHandler = async data => {
-		const { title, author, snippet, pages, yearPublished, file, image } = data;
+		const {
+			title,
+			author,
+			snippet,
+			pages,
+			yearPublished,
+			file,
+			image,
+			category,
+		} = data;
+
 		const config = {
 			onUploadProgress: progressEvent => {
 				const percentCompleted = Math.round(
@@ -46,6 +56,7 @@ const CreatePostForm = ({
 				setProgress(percentCompleted);
 			},
 		};
+
 		const formData = new FormData();
 		formData.append('title', title);
 		formData.append('author', author);
@@ -54,6 +65,7 @@ const CreatePostForm = ({
 		formData.append('pages', pages);
 		formData.append('file', file[0]);
 		formData.append('image', image[0]);
+		formData.append('category', category);
 		if (isUpdating) {
 			formData.append('prevFilePath', post?.filePath);
 			formData.append('prevImagePath', post?.imagePath);
@@ -184,9 +196,19 @@ const CreatePostForm = ({
 								name='yearPublished'
 								ref={register({ required: true })}
 							/>
-							{errors.exampleRequired && <span>This field is required</span>}
 						</div>
 					</div>
+					<label htmlFor='category'>Category</label>
+					<select
+						name='category'
+						className='form form-control'
+						ref={register({ required: true })}
+					>
+						<option value='Arts and Photography'>Arts and Photography</option>
+						<option value='Biographies and Memoirs'>
+							Biographies and Memoirs
+						</option>
+					</select>
 					<label htmlFor='file'>File</label>
 					<input
 						style={{
@@ -200,7 +222,6 @@ const CreatePostForm = ({
 						name='file'
 						ref={register({ required: true })}
 					/>
-					{errors.exampleRequired && <span>This field is required</span>}
 					<label htmlFor='image'>Image</label>
 					<input
 						style={{
@@ -214,7 +235,6 @@ const CreatePostForm = ({
 						name='image'
 						ref={register({ required: true })}
 					/>
-					{errors.exampleRequired && <span>This field is required</span>}
 					<input
 						type='submit'
 						value={isUpdating ? 'Update' : 'Save'}

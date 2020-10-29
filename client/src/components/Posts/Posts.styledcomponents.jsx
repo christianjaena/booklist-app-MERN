@@ -15,8 +15,9 @@ export const StyledButton = styled.button`
 export const PostWrapper = styled.div`
 	display: flex;
 	margin: 1em;
+	width: 25em;
 	padding: 10px;
-	height: 250px;
+	height: 15.5em;
 	overflow: hidden;
 `;
 

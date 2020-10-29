@@ -24,7 +24,7 @@ const get_post = (req, res) => {
 };
 
 const add_post = (req, res) => {
-	const { title, author, snippet, pages, yearPublished } = req.body;
+	const { title, author, snippet, pages, yearPublished, category } = req.body;
 	const { file, image } = req.files;
 
 	const date = new Date();
@@ -40,6 +40,7 @@ const add_post = (req, res) => {
 		yearPublished,
 		imagePath: `/uploads/${imageName}`,
 		filePath: `/uploads/${fileName}`,
+		category,
 		downloads: 0,
 	};
 
