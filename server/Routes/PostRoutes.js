@@ -7,6 +7,7 @@ const {
 	update_post,
 	delete_post,
 	delete_posts,
+	download_post
 } = require('../Controllers/PostControllers');
 
 route.get('/', get_posts);
@@ -17,8 +18,11 @@ route.post('/', add_post);
 
 route.put('/:id', update_post);
 
+route.put('/download/:id', download_post);
+
 route.delete('/:id', delete_post);
 
 route.delete('/', delete_posts);
+
 
 module.exports = route;

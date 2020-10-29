@@ -52,6 +52,14 @@ const Posts = ({ posts, status }) => {
 											</strong>
 										</p>
 									</div>
+									<div>
+										<p>
+											Downloads:{' '}
+											<strong style={{ fontWeight: '500' }}>
+												{post.downloads}
+											</strong>
+										</p>
+									</div>
 								</div>
 							</div>
 						</PostWrapper>

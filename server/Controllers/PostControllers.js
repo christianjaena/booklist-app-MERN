@@ -40,6 +40,7 @@ const add_post = (req, res) => {
 		yearPublished,
 		imagePath: `/uploads/${imageName}`,
 		filePath: `/uploads/${fileName}`,
+		downloads: 0,
 	};
 
 	const post = new Post(inputModel);
@@ -175,6 +176,12 @@ const delete_posts = (req, res) => {
 		});
 };
 
+const download_post = (req, res) => {
+	Post.findByIdAndUpdate(req.params.id, { $inc: { downloads: 1 } }).catch(err =>
+		console.log(err)
+	);
+};
+
 module.exports = {
 	get_post,
 	get_posts,
@@ -182,4 +189,5 @@ module.exports = {
 	update_post,
 	delete_post,
 	delete_posts,
+	download_post,
 };

@@ -19,12 +19,11 @@ const Post = () => {
 
 	const handleDeleteRequest = async id => {
 		const url = `/posts/${id}`;
-		await axios.delete(url).then(results => console.log(results));
+		await axios.delete(url);
 		history.push('/');
 	};
 
-	React.useEffect(() => {
-		setIsLoaded(false);
+	const getPost = () => {
 		axios
 			.get(`/posts/${id}`)
 			.then(results => {
@@ -32,6 +31,11 @@ const Post = () => {
 				setIsLoaded(true);
 			})
 			.catch(err => console.log(err));
+	};
+
+	React.useEffect(() => {
+		setIsLoaded(false);
+		getPost();
 	}, [isUpdating]);
 
 	return (
@@ -73,6 +77,7 @@ const Post = () => {
 								display: 'flex',
 								alignItems: 'center',
 								justifyContent: 'center',
+								borderRadius: '5px',
 								boxShadow: '-1px 3px 17px -8px rgba(0, 0, 0, 1)',
 							}}
 						>
@@ -104,6 +109,9 @@ const Post = () => {
 							<p>
 								<strong>Year: </strong> {post.yearPublished}
 							</p>
+							<p>
+								<strong>Downloads: </strong> {post.downloads}
+							</p>
 							<div
 								style={{
 									display: 'flex',
@@ -111,7 +119,9 @@ const Post = () => {
 									justifyContent: 'space-between',
 								}}
 							>
-								<button className='btn btn-info btn-sm'>
+								<button
+									className='btn btn-info btn-sm'
+								>
 									<a target='_blank' href={post.filePath} download>
 										<span
 											style={{

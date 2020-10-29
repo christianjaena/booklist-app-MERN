@@ -34,9 +34,9 @@ const Sidebar = ({ posts, onChangeHandler }) => {
 							margin: '15px 5px 15px 15px',
 						}}
 					/>
-					<h4 style={{ margin: '0' }}>Pages</h4>
+					<h4 style={{ margin: '0' }}>SHAREPAGES</h4>
 				</div>
-				<div style={{ display: 'flex' }}>
+				{/* <div style={{ display: 'flex' }}>
 					<h6
 						style={{
 							margin: '13px',
@@ -45,7 +45,7 @@ const Sidebar = ({ posts, onChangeHandler }) => {
 						CONTACT
 					</h6>
 					<h6 style={{ margin: '13px' }}>LIST</h6>
-				</div>
+				</div> */}
 			</div>
 			<div style={{ margin: '15px' }}>
 				<h1>Must</h1>

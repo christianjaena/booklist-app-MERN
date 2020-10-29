@@ -221,7 +221,7 @@ const CreatePostForm = ({
 					{errors.exampleRequired && <span>This field is required</span>}
 					<input
 						type='submit'
-						value='Save'
+						value={isUpdating ? 'Update' : 'Save'}
 						className='btn btn-info btn-lg'
 						style={{
 							margin: '20px 0',
