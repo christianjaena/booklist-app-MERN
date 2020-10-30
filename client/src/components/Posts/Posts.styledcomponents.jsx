@@ -14,11 +14,10 @@ export const StyledButton = styled.button`
 `;
 export const PostWrapper = styled.div`
 	display: flex;
-	margin: 1em;
-	width: 25em;
+	margin: 1em 1em 0 1em;
+	width: 100%;
 	padding: 10px;
-	height: 15.5em;
-	overflow: hidden;
+	height: 16em;
 `;
 
 export const ImageWrapper = styled.div`
@@ -28,5 +27,5 @@ export const ImageWrapper = styled.div`
 	margin-right: 2em;
 	-webkit-box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, 1);
 	-moz-box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, 1);
-	box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, .5);
+	box-shadow: -1px 3px 17px -8px rgba(0, 0, 0, 0.5);
 `;

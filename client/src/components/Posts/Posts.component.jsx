@@ -27,6 +27,7 @@ const Posts = ({ posts, status }) => {
 									display: 'flex',
 									flexDirection: 'column',
 									justifyContent: 'space-between',
+									width: '80%',
 								}}
 							>
 								<div
@@ -36,32 +37,32 @@ const Posts = ({ posts, status }) => {
 										overflow: 'auto',
 									}}
 								>
-										<h5>{post.title}</h5>
-										<p style={{ fontStyle: 'italic' }}>{post.author}</p>
-										<p>
-											Pages:{' '}
-											<strong style={{ fontWeight: '500' }}>
-												{post.pages}
-											</strong>
-										</p>
-										<p>
-											Year:{' '}
-											<strong style={{ fontWeight: '500' }}>
-												{post.yearPublished}
-											</strong>
-										</p>
-										<p>
-											Category:{' '}
-											<strong style={{ fontWeight: '500' }}>
-												{post.category}
-											</strong>
-										</p>
-										<p>
-											Downloads:{' '}
-											<strong style={{ fontWeight: '500' }}>
-												{post.downloads}
-											</strong>
-										</p>
+									<h5 style={{ wordBreak: 'break-all' }}>{post.title}</h5>
+									<p style={{ fontStyle: 'italic', wordBreak: 'break-all' }}>
+										{post.author}
+									</p>
+									<p>
+										Pages:{' '}
+										<strong style={{ fontWeight: '500' }}>{post.pages}</strong>
+									</p>
+									<p>
+										Year:{' '}
+										<strong style={{ fontWeight: '500' }}>
+											{post.yearPublished}
+										</strong>
+									</p>
+									<p>
+										Category:{' '}
+										<strong style={{ fontWeight: '500' }}>
+											{post.category}
+										</strong>
+									</p>
+									<p>
+										Downloads:{' '}
+										<strong style={{ fontWeight: '500' }}>
+											{post.downloads}
+										</strong>
+									</p>
 								</div>
 							</div>
 						</PostWrapper>
