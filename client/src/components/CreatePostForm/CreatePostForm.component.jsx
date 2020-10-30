@@ -77,11 +77,29 @@ const CreatePostForm = ({
 			author,
 			snippet,
 			pages,
-			yearPublished,
+			datePublished,
 			file,
 			image,
 			category,
 		} = data;
+		const dateInput = datePublished.split('-');
+		const months = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December',
+		];
+		const datePublishedFormat = `${months[dateInput[1] - 1]} ${dateInput[2]}, ${dateInput[0]}`
+		const date = new Date()
+		const uploadDateFormat = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 
 		const config = {
 			onUploadProgress: progressEvent => {
@@ -96,7 +114,8 @@ const CreatePostForm = ({
 		formData.append('title', title);
 		formData.append('author', author);
 		formData.append('snippet', snippet);
-		formData.append('yearPublished', yearPublished);
+		formData.append('datePublished', datePublishedFormat);
+		formData.append('uploadDate', uploadDateFormat);
 		formData.append('pages', pages);
 		formData.append('file', file[0]);
 		formData.append('image', image[0]);
@@ -216,22 +235,14 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.pages : 0}
 						ref={register({ required: true })}
 					/>
-					<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-						<div style={{ marginRight: '15px' }}></div>
-						<div style={{ width: '200px' }}>
-							<label htmlFor='yearPublished'>Year Published</label>
-							<input
-								className='form form-control'
-								type='number'
-								min='1800'
-								max='2020'
-								step='1'
-								defaultValue={isUpdating ? post?.yearPublished : null}
-								name='yearPublished'
-								ref={register({ required: true })}
-							/>
-						</div>
-					</div>
+					<label htmlFor='yearPublished'>Date Published</label>
+					<input
+						className='form form-control'
+						type='date'
+						defaultValue={isUpdating ? post?.yearPublished : null}
+						name='datePublished'
+						ref={register({ required: true })}
+					/>
 					<label htmlFor='category'>Category</label>
 					<select
 						name='category'
@@ -239,7 +250,9 @@ const CreatePostForm = ({
 						required
 						ref={register({ required: true })}
 					>
-						<option value="" selected disabled hidden>Select Category</option>
+						<option value='' selected disabled hidden>
+							Select Category
+						</option>
 						{categories.map(category => (
 							<option value={category}>{category}</option>
 						))}

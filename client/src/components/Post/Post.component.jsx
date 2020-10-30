@@ -107,10 +107,13 @@ const Post = () => {
 								<strong>Pages: </strong> {post.pages}
 							</p>
 							<p>
-								<strong>Year: </strong> {post.yearPublished}
+								<strong>Date Published: </strong> {post.datePublished}
 							</p>
 							<p>
 								<strong>Category: </strong> {post.category}
+							</p>
+								<p>
+									<strong>Upload Date: </strong> {post.uploadDate}
 							</p>
 							<p>
 								<strong>Downloads: </strong> {post.downloads}

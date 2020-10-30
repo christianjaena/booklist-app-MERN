@@ -19,8 +19,8 @@ const postSchema = new Schema(
 			type: Number,
 			required: true,
 		},
-		yearPublished: {
-			type: Number,
+		datePublished: {
+			type: String,
 			required: true,
 		},
 		imagePath: {
@@ -39,6 +39,10 @@ const postSchema = new Schema(
 			type: Number,
 			required: true,
 		},
+		uploadDate: {
+			type: String,
+			required: true
+		}
 	},
 	{ timestamps: true }
 );
