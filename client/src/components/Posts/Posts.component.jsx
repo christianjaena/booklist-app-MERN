@@ -46,21 +46,9 @@ const Posts = ({ posts, status }) => {
 										<strong style={{ fontWeight: '500' }}>{post.pages}</strong>
 									</p>
 									<p>
-										Date Published:{' '}
-										<strong style={{ fontWeight: '500' }}>
-											{post.datePublished}
-										</strong>
-									</p>
-									<p>
 										Category:{' '}
 										<strong style={{ fontWeight: '500' }}>
 											{post.category}
-										</strong>
-									</p>
-									<p>
-										Upload Date:{' '}
-										<strong style={{ fontWeight: '500' }}>
-											{post.uploadDate}
 										</strong>
 									</p>
 									<p>

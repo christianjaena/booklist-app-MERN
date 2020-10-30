@@ -28,13 +28,13 @@ const PostPage = () => {
 		const sortedPosts = data.filter(
 			post =>
 				post.title.toLowerCase().includes(e.target.value) ||
-				post.author.toLowerCase().includes(e.target.value)
+				post.author.toLowerCase().includes(e.target.value) ||
+				post.category.toLowerCase().includes(e.target.value)
 		);
 		setPosts(sortedPosts);
 	};
 
 	React.useEffect(() => {
-		console.log(data);
 		setPosts(data);
 	}, [data]);
 
@@ -72,8 +72,7 @@ const PostPage = () => {
 									justifyContent: 'center',
 									position: 'absolute',
 									top: '30%',
-									left: '55%'
-
+									left: '55%',
 								}}
 							>
 								<LibraryBooksIcon
@@ -84,10 +83,10 @@ const PostPage = () => {
 									}}
 								/>
 								<h4 style={{ color: 'rgba(0,0,0,0.6)' }}>
-									No books added yet.
+									Nothing here.
 								</h4>
 								<h4 style={{ color: 'rgba(0,0,0,0.6)' }}>
-									Care to share yours?
+									Care to share?
 								</h4>
 							</div>
 						) : (

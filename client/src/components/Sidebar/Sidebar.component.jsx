@@ -66,7 +66,7 @@ const Sidebar = ({ onChangeHandler }) => {
 					type='text'
 					className='form form-control'
 					onChange={onChangeHandler}
-					placeholder='Search for title or author'
+					placeholder=' Title or Author or Category'
 					style={{ outline: 'none', border: 'none', borderRadius: '15px' }}
 				/>
 				<SearchIcon
