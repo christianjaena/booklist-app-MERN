@@ -7,6 +7,41 @@ import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CloseIcon from '@material-ui/icons/Close';
 
+const categories = [
+	'Arts & Photography',
+	'Biographies & Memoirs',
+	'Business & Money',
+	'Calendars',
+	"Children's Books",
+	'Christian Books & Bibles',
+	'Comics & Graphic Novels',
+	'Computer & Technology',
+	'Cookbooks, Food & Wine',
+	'Crafts, Hobbies & Home',
+	'Education & Teaching',
+	'Engineering & Transportation',
+	'Health, Fitness & Dieting',
+	'History',
+	'Humor & Entertainment',
+	'Law',
+	'Lesbian, Gay, Bisexual & Transgender Books',
+	'Literature and Fiction',
+	'Medical Books',
+	'Mystery, Thriller & Suspense',
+	'Parenting & Social Sciences',
+	'Reference',
+	'Religion & Spirituality',
+	'Romance',
+	'Science & Math',
+	'Science Fiction & Fantasy',
+	'Self-Help',
+	'Sports & Outdoors',
+	'Teen & Young Adult',
+	'Test Preparation',
+	'Travel',
+	'Others'
+];
+
 const CreatePostForm = ({
 	isUpdating,
 	post,
@@ -204,10 +239,10 @@ const CreatePostForm = ({
 						className='form form-control'
 						ref={register({ required: true })}
 					>
-						<option value='Arts and Photography'>Arts and Photography</option>
-						<option value='Biographies and Memoirs'>
-							Biographies and Memoirs
-						</option>
+						<option value='Uncategorized'>Select Category</option>
+						{categories.map(category => (
+							<option value={category}>{category}</option>
+						))}
 					</select>
 					<label htmlFor='file'>File</label>
 					<input
