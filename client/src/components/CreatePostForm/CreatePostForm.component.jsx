@@ -39,7 +39,7 @@ const categories = [
 	'Teen & Young Adult',
 	'Test Preparation',
 	'Travel',
-	'Others'
+	'Others',
 ];
 
 const CreatePostForm = ({
@@ -207,18 +207,17 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.snippet : ''}
 						ref={register({ required: true })}
 					/>
+					<label htmlFor='pages'>Pages</label>
+					<input
+						className='form form-control'
+						type='number'
+						name='pages'
+						min='1'
+						defaultValue={isUpdating ? post?.pages : 0}
+						ref={register({ required: true })}
+					/>
 					<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-						<div style={{ marginRight: '15px' }}>
-							<label htmlFor='pages'>Pages</label>
-							<input
-								className='form form-control'
-								type='number'
-								name='pages'
-								min='1'
-								defaultValue={isUpdating ? post?.pages : 1}
-								ref={register({ required: true })}
-							/>
-						</div>
+						<div style={{ marginRight: '15px' }}></div>
 						<div style={{ width: '200px' }}>
 							<label htmlFor='yearPublished'>Year Published</label>
 							<input
@@ -227,7 +226,7 @@ const CreatePostForm = ({
 								min='1800'
 								max='2020'
 								step='1'
-								defaultValue={isUpdating ? post?.yearPublished : 2020}
+								defaultValue={isUpdating ? post?.yearPublished : null}
 								name='yearPublished'
 								ref={register({ required: true })}
 							/>
@@ -237,9 +236,10 @@ const CreatePostForm = ({
 					<select
 						name='category'
 						className='form form-control'
+						required
 						ref={register({ required: true })}
 					>
-						<option value='Uncategorized'>Select Category</option>
+						<option value="" selected disabled hidden>Select Category</option>
 						{categories.map(category => (
 							<option value={category}>{category}</option>
 						))}

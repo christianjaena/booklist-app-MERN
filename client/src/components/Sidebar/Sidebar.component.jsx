@@ -4,7 +4,7 @@ import axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 
-const Sidebar = ({ posts, onChangeHandler }) => {
+const Sidebar = ({ onChangeHandler }) => {
 	const deleteAllPostsHandler = async () => {
 		await axios
 			.delete('/posts')
@@ -78,23 +78,11 @@ const Sidebar = ({ posts, onChangeHandler }) => {
 					}}
 				/>
 			</div>
-			{/* <div
-				style={{
-					overflowY: 'scroll',
-					height: '30em',
-					height: '50%',
-					padding: '15px',
-				}}
-			>
-				{posts?.map(post => (
-					<h6>{post.title}</h6>
-				))}
-			</div>
 			<div>
 				<button className='btn btn-danger' onClick={deleteAllPostsHandler}>
 					DELETE ALL
 				</button>
-			</div> */}
+			</div>
 		</SideBarContent>
 	);
 };
