@@ -23,6 +23,11 @@ const Post = () => {
 		history.push('/');
 	};
 
+	const downloadPostHandler = async () => {
+		const url = `/posts/download/${id}`
+		await axios.put(url)
+	}
+
 	const getPost = () => {
 		axios
 			.get(`/posts/${id}`)
@@ -127,6 +132,7 @@ const Post = () => {
 							>
 								<button
 									className='btn btn-info btn-sm'
+									onClick={downloadPostHandler}
 								>
 									<a target='_blank' href={post.filePath} download>
 										<span
