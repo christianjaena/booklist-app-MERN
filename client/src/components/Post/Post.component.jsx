@@ -141,7 +141,7 @@ const Post = () => {
 											}}
 										>
 											<GetAppIcon />
-											<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+											<h6 style={{ margin: 0, padding: '3px5px' }}>
 												Download
 											</h6>
 										</span>
@@ -161,7 +161,7 @@ const Post = () => {
 										}}
 									>
 										<UpdateIcon />
-										<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+										<h6 style={{ margin: 0, padding: '3px 5px' }}>
 											Update
 										</h6>
 									</div>
@@ -180,7 +180,7 @@ const Post = () => {
 										}}
 									>
 										<DeleteIcon />
-										<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+										<h6 style={{ margin: 0, padding: '3px 5px' }}>
 											Delete
 										</h6>
 									</div>
@@ -199,7 +199,7 @@ const Post = () => {
 										}}
 									>
 										<VisibilityIcon />
-										<h6 style={{ margin: 0, paddingBottom: '2.5px' }}>
+										<h6 style={{ margin: 0, padding: '3px 5px' }}>
 											Preview
 										</h6>
 									</div>
