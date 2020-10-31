@@ -97,9 +97,13 @@ const CreatePostForm = ({
 			'November',
 			'December',
 		];
-		const datePublishedFormat = `${months[dateInput[1] - 1]} ${dateInput[2]}, ${dateInput[0]}`
-		const date = new Date()
-		const uploadDateFormat = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+		const datePublishedFormat = `${months[dateInput[1] - 1]} ${dateInput[2]}, ${
+			dateInput[0]
+		}`;
+		const date = new Date();
+		const uploadDateFormat = `${
+			months[date.getMonth()]
+		} ${date.getDate()}, ${date.getFullYear()}`;
 
 		const config = {
 			onUploadProgress: progressEvent => {
@@ -216,12 +220,12 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.author : ''}
 						ref={register({ required: true })}
 					/>
-					<label htmlFor='snippet'>Snippet</label>
+					<label htmlFor='snippet'>Description</label>
 					<textarea
 						className='form form-control'
 						type='text'
 						name='snippet'
-						maxLength='200'
+						maxLength='500'
 						rows='4'
 						defaultValue={isUpdating ? post?.snippet : ''}
 						ref={register({ required: true })}
