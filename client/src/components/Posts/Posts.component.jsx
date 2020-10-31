@@ -3,13 +3,48 @@ import { useHistory } from 'react-router-dom';
 import { PostWrapper, ImageWrapper } from './Posts.styledcomponents';
 import SkeletonLoader from '../../components/SkeletonLoader/SkeletonLoader';
 import TurnedInIcon from '@material-ui/icons/TurnedIn';
+import ErrorIcon from '@material-ui/icons/Error';
 
 const Posts = ({ posts, status }) => {
 	const history = useHistory();
 	return (
 		<>
 			{status === 'loading' && <SkeletonLoader />}
-			{status === 'error' && <span>Error</span>}
+			{status === 'error' && (
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+						justifyContent: 'center',
+						position: 'absolute',
+						top: '30%',
+						left: '45%',
+					}}
+				>
+					<ErrorIcon
+						style={{
+							height: '10em',
+							width: '10em',
+							color: 'rgba(0,0,0,0.2)',
+						}}
+					/>
+					<h4
+						style={{
+							color: 'rgba(0,0,0,0.2)',
+						}}
+					>
+						Can't seem to find the books.
+					</h4>
+					<h4
+						style={{
+							color: 'rgba(0,0,0,0.2)',
+						}}
+					>
+						Something's wrong with the server or the internet.
+					</h4>
+				</div>
+			)}
 			{status === 'success' &&
 				posts?.map(post => (
 					<div key={post._id}>
