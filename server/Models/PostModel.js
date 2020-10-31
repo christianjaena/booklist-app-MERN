@@ -23,6 +23,10 @@ const postSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		dateInput: {
+			type: String,
+			required:true
+		},
 		imagePath: {
 			type: String,
 			required: true,

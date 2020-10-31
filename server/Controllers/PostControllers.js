@@ -24,7 +24,7 @@ const get_post = (req, res) => {
 };
 
 const add_post = (req, res) => {
-	const { title, author, snippet, pages, datePublished, category, uploadDate } = req.body;
+	const { title, author, snippet, pages, datePublished, category, uploadDate, dateInput } = req.body;
 	const { file, image } = req.files;
 
 	const date = new Date();
@@ -42,7 +42,8 @@ const add_post = (req, res) => {
 		filePath: `/uploads/${fileName}`,
 		category,
 		downloads: 0,
-		uploadDate
+		uploadDate,
+		dateInput
 	};
 
 	const post = new Post(inputModel);

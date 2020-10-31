@@ -118,6 +118,7 @@ const CreatePostForm = ({
 		formData.append('title', title);
 		formData.append('author', author);
 		formData.append('snippet', snippet);
+		formData.append('dateInput', datePublished);
 		formData.append('datePublished', datePublishedFormat);
 		formData.append('uploadDate', uploadDateFormat);
 		formData.append('pages', pages);
@@ -134,7 +135,7 @@ const CreatePostForm = ({
 		}
 	};
 	return (
-		<div>
+		<>
 			<div style={{ position: 'sticky', top: '0' }}>
 				<LinearProgress
 					variant='determinate'
@@ -243,7 +244,7 @@ const CreatePostForm = ({
 					<input
 						className='form form-control'
 						type='date'
-						defaultValue={isUpdating ? post?.yearPublished : null}
+						defaultValue={isUpdating ? post?.dateInput : null}
 						name='datePublished'
 						ref={register({ required: true })}
 					/>
@@ -253,6 +254,7 @@ const CreatePostForm = ({
 						className='form form-control'
 						required
 						ref={register({ required: true })}
+						defaultValue={isUpdating ? post?.category : ''}
 					>
 						<option value='' selected disabled hidden>
 							Select Category
@@ -297,7 +299,7 @@ const CreatePostForm = ({
 					/>
 				</form>
 			</div>
-		</div>
+		</>
 	);
 };
 
