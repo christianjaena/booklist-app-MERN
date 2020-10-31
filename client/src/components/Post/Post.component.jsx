@@ -60,7 +60,6 @@ const Post = () => {
 						alignItems: 'center',
 						justifyContent: 'center',
 						height: '100vh',
-						backgroundColor: ' #61c791',
 					}}
 				>
 					<div
@@ -70,12 +69,11 @@ const Post = () => {
 							justifyContent: 'center',
 							padding: '2em',
 							borderRadius: '15px',
-							backgroundColor: 'white',
 						}}
 					>
 						<div
 							style={{
-								backgroundColor: ' #61c791',
+								backgroundColor: 'white',
 								height: '480px',
 								width: '350px',
 								margin: '0 50px 0 0',
@@ -213,9 +211,9 @@ const Post = () => {
 										history.push('/');
 									}}
 									style={{
-										position: 'relative',
-										bottom: '480px',
-										left: '50px',
+										position: 'absolute',
+										top: '10px',
+										right: '10px',
 										height: '50px',
 										width: '50px',
 										borderRadius: '50%',
