@@ -256,11 +256,13 @@ const CreatePostForm = ({
 						ref={register({ required: true })}
 						defaultValue={isUpdating ? post?.category : ''}
 					>
-						<option value='' selected disabled hidden>
+						<option value=''>
 							Select Category
 						</option>
 						{categories.map(category => (
-							<option value={category}>{category}</option>
+							<option key={category} value={category}>
+								{category}
+							</option>
 						))}
 					</select>
 					<label htmlFor='file'>File</label>
