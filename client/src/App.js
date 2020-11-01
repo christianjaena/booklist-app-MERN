@@ -30,6 +30,14 @@ const GlobalStyle = createGlobalStyle`
 		color: white;
 	}
 
+	.btn-warning:focus {
+		color: white;
+	}
+	
+	.btn-warning:active {
+		color: white;
+	}
+
 	.btn-light {
 		border-radius: 50%;
 	}

@@ -13,7 +13,6 @@ const postSchema = new Schema(
 		},
 		snippet: {
 			type: String,
-			required: true,
 		},
 		pages: {
 			type: Number,

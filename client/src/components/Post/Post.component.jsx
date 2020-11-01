@@ -104,7 +104,7 @@ const Post = () => {
 							<h2>{post.title}</h2>
 							<h4>{post.author}</h4>
 							<div>
-								<p>{post.snippet}</p>
+								<p>{post?.snippet}</p>
 							</div>
 							<p>
 								<strong>Pages: </strong> {post.pages}

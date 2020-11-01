@@ -6,6 +6,7 @@ import axios from 'axios';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CloseIcon from '@material-ui/icons/Close';
+import Alert from '@material-ui/lab/Alert';
 
 const categories = [
 	'Arts & Photography',
@@ -160,7 +161,7 @@ const CreatePostForm = ({
 						style={{
 							display: 'flex',
 							alignItems: 'center',
-							marginBottom: '10px',
+							marginTop: '10px',
 						}}
 					>
 						<MenuBookIcon fontSize='large' />
@@ -171,7 +172,7 @@ const CreatePostForm = ({
 						style={{
 							display: 'flex',
 							alignItems: 'center',
-							marginBottom: '10px',
+							marginTop: '10px',
 						}}
 					>
 						<ImportContactsIcon fontSize='large' />
@@ -207,6 +208,7 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.title : ''}
 						ref={register({ required: true })}
 					/>
+					{errors.title && <Alert severity='warning'>Title is required!</Alert>}
 					<label>Author</label>
 					<input
 						className='form form-control'
@@ -216,6 +218,9 @@ const CreatePostForm = ({
 						defaultValue={isUpdating ? post?.author : ''}
 						ref={register({ required: true })}
 					/>
+					{errors.author && (
+						<Alert severity='warning'>Author is required!</Alert>
+					)}
 					<label htmlFor='snippet'>Description</label>
 					<textarea
 						className='form form-control'
@@ -224,17 +229,22 @@ const CreatePostForm = ({
 						maxLength='500'
 						rows='4'
 						defaultValue={isUpdating ? post?.snippet : ''}
-						ref={register({ required: true })}
+						ref={register()}
 					/>
 					<label htmlFor='pages'>Pages</label>
 					<input
 						className='form form-control'
 						type='number'
 						name='pages'
-						min='1'
+						// min='1'
 						defaultValue={isUpdating ? post?.pages : 0}
-						ref={register({ required: true })}
+						ref={register({ required: true, min: 1 })}
 					/>
+					{errors.pages && (
+						<Alert severity='warning'>
+							Pages is required and must be greater than 0!
+						</Alert>
+					)}
 					<label htmlFor='yearPublished'>Date Published</label>
 					<input
 						className='form form-control'
@@ -243,11 +253,13 @@ const CreatePostForm = ({
 						name='datePublished'
 						ref={register({ required: true })}
 					/>
+					{errors.datePublished && (
+						<Alert severity='warning'>Date Published is required!</Alert>
+					)}
 					<label htmlFor='category'>Category</label>
 					<select
 						name='category'
 						className='form form-control'
-						required
 						ref={register({ required: true })}
 						defaultValue={isUpdating ? post?.category : ''}
 					>
@@ -258,6 +270,9 @@ const CreatePostForm = ({
 							</option>
 						))}
 					</select>
+					{errors.category && (
+						<Alert severity='warning'>Category is required!</Alert>
+					)}
 					<label htmlFor='file'>File</label>
 					<input
 						style={{
@@ -271,6 +286,7 @@ const CreatePostForm = ({
 						name='file'
 						ref={isUpdating ? register() : register({ required: true })}
 					/>
+					{errors.file && <Alert severity='warning'>File is required!</Alert>}
 					<label htmlFor='image'>Image</label>
 					<input
 						style={{
@@ -284,6 +300,7 @@ const CreatePostForm = ({
 						name='image'
 						ref={isUpdating ? register() : register({ required: true })}
 					/>
+					{errors.image && <Alert severity='warning'>Image is required!</Alert>}
 					<input
 						type='submit'
 						value={isUpdating ? 'Update' : 'Save'}

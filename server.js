@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 const mongoDBURI = require('./mongoDBConnection');
 const fileUpload = require('express-fileupload');
 const path = require('path');
-const PostRoutes = require('./server/Routes/PostRoutes')
+const PostRoutes = require('./server/Routes/PostRoutes');
 
 mongoose
 	.connect(mongoDBURI, {
@@ -18,7 +18,8 @@ mongoose
 	.then(res => {
 		console.log('MongoDB Connected');
 
-		app.listen(PORT, () => {
+		app.listen(PORT, error => {
+			if (error) throw error;
 			console.log(`Server listening at port ${PORT}`);
 		});
 	})
@@ -33,7 +34,7 @@ app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/posts', PostRoutes)
+app.use('/posts', PostRoutes);
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
