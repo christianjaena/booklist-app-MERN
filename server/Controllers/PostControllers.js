@@ -24,7 +24,16 @@ const get_post = (req, res) => {
 };
 
 const add_post = (req, res) => {
-	const { title, author, snippet, pages, datePublished, category, uploadDate, dateInput } = req.body;
+	const {
+		title,
+		author,
+		snippet,
+		pages,
+		datePublished,
+		category,
+		uploadDate,
+		dateInput,
+	} = req.body;
 	const { file, image } = req.files;
 
 	const date = new Date();
@@ -43,7 +52,7 @@ const add_post = (req, res) => {
 		category,
 		downloads: 0,
 		uploadDate,
-		dateInput
+		dateInput,
 	};
 
 	const post = new Post(inputModel);
@@ -84,44 +93,80 @@ const update_post = (req, res) => {
 		author,
 		snippet,
 		pages,
-		yearPublished,
+		datePublished,
 		prevFilePath,
 		prevImagePath,
 	} = req.body;
-	const { file, image } = req.files;
 
 	const date = new Date();
 	const fullDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}-${date.getTime()}`;
-	const imageName = `${fullDate}-${image.name}`;
-	const fileName = `${fullDate}-${file.name}`;
+	let filePath = '';
+	let imagePath = '';
+	let fileName = '';
+	let imageName = '';
+	let isThereNewImage = false;
+	let isThereNewFile = false;
+	if (req.files) {
+		if (req.files.file) {
+			fileName = `${fullDate}-${req.files.file.name}`;
+			filePath = `/uploads/${fileName}`;
+			isThereNewFile = true;
+		} else {
+			filePath = req.body.file;
+		}
+		if (req.files.image) {
+			imageName = `${fullDate}-${req.files.image.name}`;
+			imagePath = `/uploads/${imageName}`;
+			isThereNewImage = true;
+		} else {
+			imagePath = req.body.image;
+		}
+	} else {
+		filePath = req.body.file;
+		imagePath = req.body.image;
+	}
 
 	const inputModel = {
 		title,
 		author,
 		snippet,
 		pages,
-		yearPublished,
-		imagePath: `/uploads/${imageName}`,
-		filePath: `/uploads/${fileName}`,
+		datePublished,
+		imagePath,
+		filePath,
 	};
+
+	console.log(inputModel)
 
 	Post.findByIdAndUpdate(id, inputModel)
 		.then(result => {
 			if (process.env.NODE_ENV === 'production') {
 				try {
-					fs.unlinkSync(`./client/build${prevFilePath}`);
-					fs.unlinkSync(`./client/build${prevImagePath}`);
-					image.mv(`./client/build/uploads/${imageName}`);
-					file.mv(`./client/build/uploads/${fileName}`);
+					if (isThereNewFile) {
+						fs.unlinkSync(`./client/build${prevFilePath}`);
+						req.files.file.mv(`./client/build/uploads/${fileName}`);
+					}
+					if (isThereNewImage) {
+						fs.unlinkSync(`./client/build${prevImagePath}`);
+						req.files.image.mv(`./client/build/uploads/${imageName}`);
+					}
+					isThereNewFile = false;
+					isThereNewImage = false;
 				} catch (err) {
 					console.log(err);
 				}
 			} else {
 				try {
-					fs.unlinkSync(`./client/public${prevFilePath}`);
-					fs.unlinkSync(`./client/public${prevImagePath}`);
-					image.mv(`./client/public/uploads/${imageName}`);
-					file.mv(`./client/public/uploads/${fileName}`);
+					if (isThereNewFile) {
+						fs.unlinkSync(`./client/public${prevFilePath}`);
+						req.files.file.mv(`./client/public/uploads/${fileName}`);
+					}
+					if (isThereNewImage) {
+						fs.unlinkSync(`./client/public${prevImagePath}`);
+						req.files.image.mv(`./client/public/uploads/${imageName}`);
+					}
+					isThereNewFile = false;
+					isThereNewImage = false;
 				} catch (err) {
 					console.log(err);
 				}

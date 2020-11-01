@@ -72,16 +72,7 @@ const CreatePostForm = ({
 	};
 
 	const onSubmitHandler = async data => {
-		const {
-			title,
-			author,
-			snippet,
-			pages,
-			datePublished,
-			file,
-			image,
-			category,
-		} = data;
+		const { title, author, snippet, pages, datePublished, category } = data;
 		const dateInput = datePublished.split('-');
 		const months = [
 			'January',
@@ -122,8 +113,12 @@ const CreatePostForm = ({
 		formData.append('datePublished', datePublishedFormat);
 		formData.append('uploadDate', uploadDateFormat);
 		formData.append('pages', pages);
-		formData.append('file', file[0]);
-		formData.append('image', image[0]);
+		data.file.length !== 0
+			? formData.append('file', data.file[0])
+			: formData.append('file', post?.filePath);
+		data.image.length !== 0
+			? formData.append('image', data.image[0])
+			: formData.append('image', post?.imagePath);
 		formData.append('category', category);
 		if (isUpdating) {
 			formData.append('prevFilePath', post?.filePath);
@@ -256,9 +251,7 @@ const CreatePostForm = ({
 						ref={register({ required: true })}
 						defaultValue={isUpdating ? post?.category : ''}
 					>
-						<option value=''>
-							Select Category
-						</option>
+						<option value=''>Select Category</option>
 						{categories.map(category => (
 							<option key={category} value={category}>
 								{category}
@@ -276,7 +269,7 @@ const CreatePostForm = ({
 						type='file'
 						accept='.pdf'
 						name='file'
-						ref={register({ required: true })}
+						ref={isUpdating ? register() : register({ required: true })}
 					/>
 					<label htmlFor='image'>Image</label>
 					<input
@@ -289,7 +282,7 @@ const CreatePostForm = ({
 						type='file'
 						accept='image/*'
 						name='image'
-						ref={register({ required: true })}
+						ref={isUpdating ? register() : register({ required: true })}
 					/>
 					<input
 						type='submit'
