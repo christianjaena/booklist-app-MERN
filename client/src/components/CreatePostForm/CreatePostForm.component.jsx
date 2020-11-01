@@ -281,7 +281,7 @@ const CreatePostForm = ({
 						<div
 							style={{
 								backgroundColor: 'white',
-								height: '30px',
+								height: '38px',
 								width: '150px',
 								padding: '5px',
 								borderRadius: '5px',
@@ -289,7 +289,7 @@ const CreatePostForm = ({
 								display: 'flex',
 								alignItems: 'center',
 								justifyContent: 'center',
-								border: '1px solid  #333',
+								border: '1px solid #ced4da',
 								fontWeight: 'normal',
 							}}
 						>
@@ -304,7 +304,11 @@ const CreatePostForm = ({
 										: post?.filePath.replace('/uploads/', '')
 									: file
 							}
-							style={{ width: '80%' }}
+							style={{
+								border: '1px solid #ced4da',
+								width: '80%',
+								borderRadius: '5px',
+							}}
 							readOnly
 						/>
 					</label>
@@ -316,10 +320,6 @@ const CreatePostForm = ({
 								: setFile(e.target.value.replace('C:\\fakepath\\', ''))
 						}
 						style={{
-							overflow: 'hidden',
-							backgroundColor: 'white',
-							borderRadius: '5px',
-							border: '1px solid#ced4da',
 							display: 'none',
 						}}
 						type='file'
@@ -333,8 +333,8 @@ const CreatePostForm = ({
 					<label htmlFor='image' style={{ display: 'flex' }}>
 						<div
 							style={{
-								backgroundColor: 'white',
-								height: '30px',
+								backgroundColor: '#fff',
+								height: '38px',
 								width: '150px',
 								padding: '5px',
 								borderRadius: '5px',
@@ -342,7 +342,7 @@ const CreatePostForm = ({
 								display: 'flex',
 								alignItems: 'center',
 								justifyContent: 'center',
-								border: '1px solid  #333',
+								border: '1px solid #ced4da',
 								fontWeight: 'normal',
 							}}
 						>
@@ -357,7 +357,11 @@ const CreatePostForm = ({
 										: post?.imagePath.replace('/uploads/', '')
 									: image
 							}
-							style={{ width: '80%' }}
+							style={ {
+								width: '80%',
+								border: '1px solid #ced4da',
+								borderRadius: '5px'
+							} }
 							readOnly
 						/>
 					</label>
@@ -383,7 +387,7 @@ const CreatePostForm = ({
 					{errors.image && <Alert severity='warning'>Image is required!</Alert>}
 					<input
 						type='submit'
-						value={isUpdating ? 'Update' : 'Save'}
+						value={isUpdating ? 'UPDATE' : 'SAVE'}
 						className='btn btn-info btn-lg'
 						style={{
 							margin: '20px 0',
