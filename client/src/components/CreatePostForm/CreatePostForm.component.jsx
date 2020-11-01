@@ -53,6 +53,10 @@ const CreatePostForm = ({
 	const [progress, setProgress] = React.useState(0);
 	const { register, errors, handleSubmit } = useForm();
 	const history = useHistory();
+	const [image, setImage] = React.useState('');
+	const [imageUpdate, setImageUpdate] = React.useState(null);
+	const [file, setFile] = React.useState('');
+	const [fileUpdate, setFileUpdate] = React.useState(null);
 
 	const axiosPost = async (data, config) => {
 		await axios
@@ -272,13 +276,51 @@ const CreatePostForm = ({
 					{errors.category && (
 						<Alert severity='warning'>Category is required!</Alert>
 					)}
-					<label htmlFor='file'>File</label>
+					<label>File</label>
+					<label htmlFor='file' style={{ display: 'flex' }}>
+						<div
+							style={{
+								backgroundColor: 'white',
+								height: '30px',
+								width: '150px',
+								padding: '5px',
+								borderRadius: '5px',
+								margin: '0',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								border: '1px solid  #333',
+								fontWeight: 'normal',
+							}}
+						>
+							Choose File
+						</div>
+						<input
+							type='text'
+							value={
+								isUpdating
+									? fileUpdate
+										? fileUpdate
+										: post?.filePath.replace('/uploads/', '')
+									: file
+							}
+							style={{ width: '80%' }}
+							readOnly
+						/>
+					</label>
 					<input
+						id='file'
+						onChange={e =>
+							isUpdating
+								? setFileUpdate(e.target.value.replace('C:\\fakepath\\', ''))
+								: setFile(e.target.value.replace('C:\\fakepath\\', ''))
+						}
 						style={{
 							overflow: 'hidden',
 							backgroundColor: 'white',
 							borderRadius: '5px',
 							border: '1px solid#ced4da',
+							display: 'none',
 						}}
 						type='file'
 						accept='.pdf'
@@ -286,13 +328,52 @@ const CreatePostForm = ({
 						ref={isUpdating ? register() : register({ required: true })}
 					/>
 					{errors.file && <Alert severity='warning'>File is required!</Alert>}
-					<label htmlFor='image'>Image</label>
+
+					<label>Image</label>
+					<label htmlFor='image' style={{ display: 'flex' }}>
+						<div
+							style={{
+								backgroundColor: 'white',
+								height: '30px',
+								width: '150px',
+								padding: '5px',
+								borderRadius: '5px',
+								margin: '0',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								border: '1px solid  #333',
+								fontWeight: 'normal',
+							}}
+						>
+							Choose Image
+						</div>
+						<input
+							type='text'
+							value={
+								isUpdating
+									? imageUpdate
+										? imageUpdate
+										: post?.imagePath.replace('/uploads/', '')
+									: image
+							}
+							style={{ width: '80%' }}
+							readOnly
+						/>
+					</label>
 					<input
+						id='image'
+						onChange={e =>
+							isUpdating
+								? setImageUpdate(e.target.value.replace('C:\\fakepath\\', ''))
+								: setImage(e.target.value.replace('C:\\fakepath\\', ''))
+						}
 						style={{
 							overflow: 'hidden',
 							backgroundColor: 'white',
 							borderRadius: '5px',
 							border: '1px solid#ced4da',
+							display: 'none',
 						}}
 						type='file'
 						accept='image/*'
