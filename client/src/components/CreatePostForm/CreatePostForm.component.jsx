@@ -236,7 +236,6 @@ const CreatePostForm = ({
 						className='form form-control'
 						type='number'
 						name='pages'
-						// min='1'
 						defaultValue={isUpdating ? post?.pages : 0}
 						ref={register({ required: true, min: 1 })}
 					/>

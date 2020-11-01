@@ -24,9 +24,9 @@ const Post = () => {
 	};
 
 	const downloadPostHandler = async () => {
-		const url = `/posts/download/${id}`
-		await axios.put(url)
-	}
+		const url = `/posts/download/${id}`;
+		await axios.put(url);
+	};
 
 	const getPost = () => {
 		axios
@@ -58,8 +58,9 @@ const Post = () => {
 					style={{
 						display: 'flex',
 						alignItems: 'center',
+						flexDirection: 'column',
 						justifyContent: 'center',
-						height: '100vh',
+						margin: '20px',
 					}}
 				>
 					<div
@@ -103,9 +104,6 @@ const Post = () => {
 						>
 							<h2>{post.title}</h2>
 							<h4>{post.author}</h4>
-							<div>
-								<p>{post?.snippet}</p>
-							</div>
 							<p>
 								<strong>Pages: </strong> {post.pages}
 							</p>
@@ -115,114 +113,122 @@ const Post = () => {
 							<p>
 								<strong>Category: </strong> {post.category}
 							</p>
-								<p>
-									<strong>Upload Date: </strong> {post.uploadDate}
+							<p>
+								<strong>Upload Date: </strong> {post.uploadDate}
 							</p>
 							<p>
 								<strong>Downloads: </strong> {post.downloads}
 							</p>
+						</div>
+					</div>
+					<div
+						style={{
+							width: '860px',
+							wordBreak: 'break-all',
+							borderLeft: '5px solid #61C791',
+							padding: '15px',
+							marginBottom: '15px',
+						}}
+					>
+						{post.snippet ? (
+							<p style={{ textIndent: '5em' }}>{post?.snippet}</p>
+						) : (
+							<h3>No description given.</h3>
+						)}
+					</div>
+					<div
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-around',
+							width: '600px',
+						}}
+					>
+						<button
+							className='btn btn-info btn-lg'
+							onClick={downloadPostHandler}
+						>
+							<a target='_blank' href={post.filePath} download>
+								<span
+									style={{
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+									}}
+								>
+									<GetAppIcon />
+									<h6 style={{ margin: 0, padding: '3px5px' }}>DOWNLOAD</h6>
+								</span>
+							</a>
+						</button>
+						<button
+							className='btn btn-warning btn-lg'
+							onClick={() => {
+								setIsUpdating(true);
+							}}
+						>
 							<div
 								style={{
 									display: 'flex',
 									alignItems: 'center',
-									justifyContent: 'space-between',
+									justifyContent: 'center',
 								}}
 							>
-								<button
-									className='btn btn-info btn-sm'
-									onClick={downloadPostHandler}
-								>
-									<a target='_blank' href={post.filePath} download>
-										<span
-											style={{
-												display: 'flex',
-												alignItems: 'center',
-												justifyContent: 'center',
-											}}
-										>
-											<GetAppIcon />
-											<h6 style={{ margin: 0, padding: '3px5px' }}>
-												Download
-											</h6>
-										</span>
-									</a>
-								</button>
-								<button
-									className='btn btn-warning btn-sm'
-									onClick={() => {
-										setIsUpdating(true);
-									}}
-								>
-									<div
-										style={{
-											display: 'flex',
-											alignItems: 'center',
-											justifyContent: 'center',
-										}}
-									>
-										<UpdateIcon />
-										<h6 style={{ margin: 0, padding: '3px 5px' }}>
-											Update
-										</h6>
-									</div>
-								</button>
-								<button
-									className='btn btn-danger btn-sm'
-									onClick={() => {
-										handleDeleteRequest(post._id);
-									}}
-								>
-									<div
-										style={{
-											display: 'flex',
-											justifyContent: 'center',
-											alignItems: 'center',
-										}}
-									>
-										<DeleteIcon />
-										<h6 style={{ margin: 0, padding: '3px 5px' }}>
-											Delete
-										</h6>
-									</div>
-								</button>
-								<button
-									className='btn btn-primary btn-sm'
-									onClick={() => {
-										window.open(post.filePath);
-									}}
-								>
-									<div
-										style={{
-											display: 'flex',
-											justifyContent: 'center',
-											alignItems: 'center',
-										}}
-									>
-										<VisibilityIcon />
-										<h6 style={{ margin: 0, padding: '3px 5px' }}>
-											Preview
-										</h6>
-									</div>
-								</button>
-								<button
-									className='btn btn-secondary btn-sm'
-									onClick={() => {
-										setPost('');
-										history.push('/');
-									}}
-									style={{
-										position: 'absolute',
-										top: '10px',
-										right: '10px',
-										height: '50px',
-										width: '50px',
-										borderRadius: '50%',
-									}}
-								>
-									<CloseIcon />
-								</button>
+								<UpdateIcon />
+								<h6 style={{ margin: 0, padding: '3px 5px' }}>UPDATE</h6>
 							</div>
-						</div>
+						</button>
+						<button
+							className='btn btn-danger btn-lg'
+							onClick={() => {
+								handleDeleteRequest(post._id);
+							}}
+						>
+							<div
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+								}}
+							>
+								<DeleteIcon />
+								<h6 style={{ margin: 0, padding: '3px 5px' }}>DELETE</h6>
+							</div>
+						</button>
+						<button
+							className='btn btn-primary btn-lg'
+							onClick={() => {
+								window.open(post.filePath);
+							}}
+						>
+							<div
+								style={{
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+								}}
+							>
+								<VisibilityIcon />
+								<h6 style={{ margin: 0, padding: '3px 5px' }}>PREVIEW</h6>
+							</div>
+						</button>
+						<button
+							className='btn btn-secondary btn-sm'
+							onClick={() => {
+								setPost('');
+								history.push('/');
+							}}
+							style={{
+								position: 'absolute',
+								top: '10px',
+								right: '10px',
+								height: '50px',
+								width: '50px',
+								borderRadius: '50%',
+							}}
+						>
+							<CloseIcon />
+						</button>
 					</div>
 				</div>
 			) : (
