@@ -82,12 +82,8 @@ const PostPage = () => {
 										color: 'rgba(0,0,0,0.2)',
 									}}
 								/>
-								<h4 style={{ color: 'rgba(0,0,0,0.6)' }}>
-									Nothing here.
-								</h4>
-								<h4 style={{ color: 'rgba(0,0,0,0.6)' }}>
-									Care to share?
-								</h4>
+								<h4 style={{ color: 'rgba(0,0,0,0.6)' }}>Nothing here.</h4>
+								<h4 style={{ color: 'rgba(0,0,0,0.6)' }}>Care to share?</h4>
 							</div>
 						) : (
 							<ReactQueryCacheProvider queryCache={queryCache}>

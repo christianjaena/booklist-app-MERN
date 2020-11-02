@@ -60,7 +60,7 @@ const Post = () => {
 						alignItems: 'center',
 						flexDirection: 'column',
 						justifyContent: 'center',
-						marginBottom: '20px'
+						marginBottom: '20px',
 					}}
 				>
 					<div
@@ -232,7 +232,7 @@ const Post = () => {
 								left: '30px',
 								height: '50px',
 								width: '50px',
-								color: 'rgba(0,0,0,0.8)'
+								color: 'rgba(0,0,0,0.8)',
 							}}
 						/>
 					</div>

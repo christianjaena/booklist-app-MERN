@@ -136,8 +136,6 @@ const update_post = (req, res) => {
 		filePath,
 	};
 
-	console.log(inputModel)
-
 	Post.findByIdAndUpdate(id, inputModel)
 		.then(result => {
 			if (process.env.NODE_ENV === 'production') {

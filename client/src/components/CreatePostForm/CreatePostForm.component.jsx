@@ -7,41 +7,7 @@ import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
-
-const categories = [
-	'Arts & Photography',
-	'Biographies & Memoirs',
-	'Business & Money',
-	'Calendars',
-	"Children's Books",
-	'Christian Books & Bibles',
-	'Comics & Graphic Novels',
-	'Computer & Technology',
-	'Cookbooks, Food & Wine',
-	'Crafts, Hobbies & Home',
-	'Education & Teaching',
-	'Engineering & Transportation',
-	'Health, Fitness & Dieting',
-	'History',
-	'Humor & Entertainment',
-	'Law',
-	'Lesbian, Gay, Bisexual & Transgender Books',
-	'Literature and Fiction',
-	'Medical Books',
-	'Mystery, Thriller & Suspense',
-	'Parenting & Social Sciences',
-	'Reference',
-	'Religion & Spirituality',
-	'Romance',
-	'Science & Math',
-	'Science Fiction & Fantasy',
-	'Self-Help',
-	'Sports & Outdoors',
-	'Teen & Young Adult',
-	'Test Preparation',
-	'Travel',
-	'Others',
-];
+import categories from './categories';
 
 const CreatePostForm = ({
 	isUpdating,
@@ -357,11 +323,11 @@ const CreatePostForm = ({
 										: post?.imagePath.replace('/uploads/', '')
 									: image
 							}
-							style={ {
+							style={{
 								width: '80%',
 								border: '1px solid #ced4da',
-								borderRadius: '5px'
-							} }
+								borderRadius: '5px',
+							}}
 							readOnly
 						/>
 					</label>
