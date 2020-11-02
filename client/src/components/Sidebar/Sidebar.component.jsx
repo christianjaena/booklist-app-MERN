@@ -18,7 +18,6 @@ const Sidebar = ({ onChangeHandler }) => {
 					display: 'flex',
 					justifyContent: 'space-between',
 					alignItems: 'center',
-					
 				}}
 			>
 				<div
@@ -79,7 +78,7 @@ const Sidebar = ({ onChangeHandler }) => {
 					}}
 				/>
 			</div>
-			<div>
+			<div style={{ position: 'absolute', bottom: '10px', margin: '10px' }}>
 				<button className='btn btn-danger' onClick={deleteAllPostsHandler}>
 					DELETE ALL
 				</button>
