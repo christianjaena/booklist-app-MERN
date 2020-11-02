@@ -191,7 +191,7 @@ const CreatePostForm = ({
 					{errors.author && (
 						<Alert severity='warning'>Author is required!</Alert>
 					)}
-					<label htmlFor='snippet'>Description</label>
+					<label htmlFor='snippet'>Description - <em>Optional</em></label>
 					<textarea
 						className='form form-control'
 						type='text'

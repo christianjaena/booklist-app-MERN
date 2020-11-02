@@ -10,6 +10,7 @@ const Sidebar = ({ onChangeHandler }) => {
 			.delete('/posts')
 			.then(res => console.log(res))
 			.catch(err => console.log(err));
+		window.location.reload()
 	};
 	return (
 		<SideBarContent>
