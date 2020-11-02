@@ -6,8 +6,8 @@ import ContentLoader from 'react-content-loader';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import UpdateIcon from '@material-ui/icons/Update';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CloseIcon from '@material-ui/icons/Close';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import axios from 'axios';
 
 const Post = () => {
@@ -60,7 +60,7 @@ const Post = () => {
 						alignItems: 'center',
 						flexDirection: 'column',
 						justifyContent: 'center',
-						margin: '20px',
+						marginBottom: '20px'
 					}}
 				>
 					<div
@@ -74,7 +74,7 @@ const Post = () => {
 					>
 						<div
 							style={{
-								backgroundColor: 'white',
+								backgroundColor: '#61C791',
 								height: '480px',
 								width: '350px',
 								margin: '0 50px 0 0',
@@ -89,6 +89,7 @@ const Post = () => {
 								src={post.imagePath}
 								height='470'
 								width='340'
+								loading='lazy'
 								alt='postPic'
 							/>
 						</div>
@@ -103,31 +104,34 @@ const Post = () => {
 							}}
 						>
 							<h2>{post.title}</h2>
-							<h4>{post.author}</h4>
+							<h4>
+								<em>{post.author}</em>
+							</h4>
 							<p>
-								<strong>Pages: </strong> {post.pages}
+								<strong>PAGES: </strong> {post.pages}
 							</p>
 							<p>
-								<strong>Date Published: </strong> {post.datePublished}
+								<strong>DATE PUBLISHED: </strong> {post.datePublished}
 							</p>
 							<p>
-								<strong>Category: </strong> {post.category}
+								<strong>CATEGORY: </strong> {post.category}
 							</p>
 							<p>
-								<strong>Upload Date: </strong> {post.uploadDate}
+								<strong>UPLOAD DATE: </strong> {post.uploadDate}
 							</p>
 							<p>
-								<strong>Downloads: </strong> {post.downloads}
+								<strong>DOWNLOADS: </strong> {post.downloads}
 							</p>
 						</div>
 					</div>
 					<div
 						style={{
-							width: '860px',
+							width: '878px',
 							wordBreak: 'break-all',
-							borderLeft: '5px solid #61C791',
+							borderLeft: '8px solid #61C791',
 							padding: '15px',
 							marginBottom: '15px',
+							backgroundColor: 'rgba(0,0,0,0.05)',
 						}}
 					>
 						{post.snippet ? (
@@ -140,12 +144,14 @@ const Post = () => {
 						style={{
 							display: 'flex',
 							alignItems: 'center',
-							justifyContent: 'space-around',
-							width: '600px',
+							justifyContent: 'space-between',
+							width: '650px',
+							marginTop: '10px',
 						}}
 					>
 						<button
 							className='btn btn-info btn-lg'
+							style={{ width: '150px' }}
 							onClick={downloadPostHandler}
 						>
 							<a target='_blank' href={post.filePath} download>
@@ -157,12 +163,13 @@ const Post = () => {
 									}}
 								>
 									<GetAppIcon />
-									<h6 style={{ margin: 0, padding: '3px5px' }}>DOWNLOAD</h6>
+									<h6 style={{ margin: 0, padding: '3px 5px' }}>DOWNLOAD</h6>
 								</span>
 							</a>
 						</button>
 						<button
 							className='btn btn-warning btn-lg'
+							style={{ width: '150px' }}
 							onClick={() => {
 								setIsUpdating(true);
 							}}
@@ -183,6 +190,7 @@ const Post = () => {
 							onClick={() => {
 								handleDeleteRequest(post._id);
 							}}
+							style={{ width: '150px' }}
 						>
 							<div
 								style={{
@@ -200,6 +208,7 @@ const Post = () => {
 							onClick={() => {
 								window.open(post.filePath);
 							}}
+							style={{ width: '150px' }}
 						>
 							<div
 								style={{
@@ -212,23 +221,20 @@ const Post = () => {
 								<h6 style={{ margin: 0, padding: '3px 5px' }}>PREVIEW</h6>
 							</div>
 						</button>
-						<button
-							className='btn btn-secondary btn-sm'
+						<KeyboardBackspaceIcon
 							onClick={() => {
 								setPost('');
 								history.push('/');
 							}}
 							style={{
 								position: 'absolute',
-								top: '10px',
-								right: '10px',
+								top: '25px',
+								left: '30px',
 								height: '50px',
 								width: '50px',
-								borderRadius: '50%',
+								color: 'rgba(0,0,0,0.8)'
 							}}
-						>
-							<CloseIcon />
-						</button>
+						/>
 					</div>
 				</div>
 			) : (

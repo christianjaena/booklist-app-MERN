@@ -55,6 +55,7 @@ const Posts = ({ posts, status }) => {
 									alt='cover'
 									height='210'
 									width='150'
+									loading='lazy'
 								/>
 							</ImageWrapper>
 							<div

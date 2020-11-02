@@ -18,6 +18,7 @@ const Sidebar = ({ onChangeHandler }) => {
 					display: 'flex',
 					justifyContent: 'space-between',
 					alignItems: 'center',
+					
 				}}
 			>
 				<div
@@ -34,7 +35,7 @@ const Sidebar = ({ onChangeHandler }) => {
 							margin: '15px 5px 15px 15px',
 						}}
 					/>
-					<h4 style={{ margin: '0' }}>SharePages</h4>
+					<h4 style={{ margin: '0' }}>SHAREPAGES</h4>
 				</div>
 				{/* <div style={{ display: 'flex' }}>
 					<h6
