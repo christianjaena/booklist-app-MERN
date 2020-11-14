@@ -22,44 +22,6 @@ const createFolder = (image, file, imageName, fileName) => {
 	}
 };
 
-const updateFiles = req => {
-	const date = new Date();
-	const fullDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}-${date.getTime()}`;
-	let filePath = '';
-	let imagePath = '';
-	let fileName = '';
-	let imageName = '';
-	let isThereNewImage = false;
-	let isThereNewFile = false;
-	if (req.files) {
-		if (req.files.file) {
-			fileName = `${fullDate}-${req.files.file.name}`;
-			filePath = `/uploads/${fileName}`;
-			isThereNewFile = true;
-		} else {
-			filePath = req.body.file;
-		}
-		if (req.files.image) {
-			imageName = `${fullDate}-${req.files.image.name}`;
-			imagePath = `/uploads/${imageName}`;
-			isThereNewImage = true;
-		} else {
-			imagePath = req.body.image;
-		}
-	} else {
-		filePath = req.body.file;
-		imagePath = req.body.image;
-	}
-	return {
-		filePath,
-		imagePath,
-		fileName,
-		imageName,
-		isThereNewFile,
-		isThereNewImage
-	};
-};
 module.exports = {
 	createFolder,
-	updateFiles
 };
