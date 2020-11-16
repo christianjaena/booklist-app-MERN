@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import axios from 'axios';
-
+import bg from './groovepaper_@2X.png'
 const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
 	const [post, setPost] = React.useState('');
@@ -18,9 +18,12 @@ const Post = () => {
 	const { id } = useParams();
 
 	const handleDeleteRequest = async id => {
-		const url = `/posts/${id}`;
-		await axios.delete(url);
-		history.push('/');
+		const confirmDelete = window.confirm('Are you sure you want to delete this book?');
+		if (confirmDelete) {
+			const url = `/posts/${id}`;
+			await axios.delete(url);
+			history.push('/');
+		}
 	};
 
 	const downloadPostHandler = async () => {
@@ -56,6 +59,7 @@ const Post = () => {
 			) : isLoaded ? (
 				<div
 					style={{
+						background: `url(${bg})`,
 						display: 'flex',
 						alignItems: 'center',
 						flexDirection: 'column',
@@ -70,6 +74,7 @@ const Post = () => {
 							justifyContent: 'center',
 							padding: '2em',
 							borderRadius: '15px',
+							marginTop: '100px'
 						}}
 					>
 						<div
@@ -127,7 +132,7 @@ const Post = () => {
 					<div
 						style={{
 							width: '878px',
-							wordBreak: 'break-all',
+							wordBreak: 'break-word',
 							borderLeft: '8px solid #61C791',
 							padding: '15px',
 							marginBottom: '15px',

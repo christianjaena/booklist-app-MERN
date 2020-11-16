@@ -73,8 +73,8 @@ const Posts = ({ posts, status }) => {
 										overflow: 'auto',
 									}}
 								>
-									<h5 style={{ wordBreak: 'break-all' }}>{post.title}</h5>
-									<p style={{ fontStyle: 'italic', wordBreak: 'break-all' }}>
+									<h5 style={{ wordBreak: 'break-word' }}>{post.title}</h5>
+									<p style={{ fontStyle: 'italic', wordBreak: 'break-word' }}>
 										{post.author}
 									</p>
 									<p>

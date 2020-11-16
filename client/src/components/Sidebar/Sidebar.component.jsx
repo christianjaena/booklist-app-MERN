@@ -3,14 +3,21 @@ import { SideBarContent } from './Sidebar.styledcomponents';
 import axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import categories from '../CreatePostForm/categories';
 
-const Sidebar = ({ onChangeHandler }) => {
+const Sidebar = ({ onChangeHandler, filterByCategory }) => {
 	const deleteAllPostsHandler = async () => {
-		await axios
-			.delete('/posts')
-			.then(res => console.log(res))
-			.catch(err => console.log(err));
-		window.location.reload()
+		const password = prompt('Input Admin Password');
+		if (password === 'admin') {
+			alert('Deleting All Books :(')
+			await axios
+				.delete('/posts')
+				.then(res => console.log(res))
+				.catch(err => console.log(err));
+			window.location.reload();
+		} else {
+			alert('Wrong password!');
+		}
 	};
 	return (
 		<SideBarContent>
@@ -37,28 +44,21 @@ const Sidebar = ({ onChangeHandler }) => {
 					/>
 					<h4 style={{ margin: '0' }}>SHAREPAGES</h4>
 				</div>
-				{/* <div style={{ display: 'flex' }}>
-					<h6
-						style={{
-							margin: '13px',
-						}}
-					>
-						CONTACT
-					</h6>
-					<h6 style={{ margin: '13px' }}>LIST</h6>
-				</div> */}
 			</div>
 			<div style={{ margin: '15px' }}>
-				<h1>Must</h1>
-				<h1>Read</h1>
-				<h1>Books.</h1>
+				<h1>Share</h1>
+				<h1>Books</h1>
+				<h1>for Everyone.</h1>
+			</div>
+			<div style={{ padding: '15px 15px 0 15px' }}>
+				<label htmlFor='category'>Search</label>
 			</div>
 			<div
 				style={{
 					backgroundColor: 'white',
 					display: 'flex',
-					margin: '10px',
-					borderRadius: '15px',
+					margin: '0 10px 10px 10px',
+					borderRadius: '5px',
 					alignItems: 'center',
 					justifyContent: 'space-around',
 				}}
@@ -67,8 +67,8 @@ const Sidebar = ({ onChangeHandler }) => {
 					type='text'
 					className='form form-control'
 					onChange={onChangeHandler}
-					placeholder=' Title or Author or Category'
-					style={{ outline: 'none', border: 'none', borderRadius: '15px' }}
+					placeholder=' Title or Author'
+					style={{ outline: 'none', border: 'none', borderRadius: '5px' }}
 				/>
 				<SearchIcon
 					style={{
@@ -79,6 +79,22 @@ const Sidebar = ({ onChangeHandler }) => {
 					}}
 				/>
 			</div>
+			<div style={{ margin: '10px' }}>
+				<label htmlFor='category'>Filter by Category</label>
+				<select
+					name='category'
+					className='form form-control'
+					onChange={filterByCategory}
+				>
+					<option value=''>Select Category</option>
+					{categories.map(category => (
+						<option key={category} value={category}>
+							{category}
+						</option>
+					))}
+				</select>
+			</div>
+
 			<div style={{ position: 'absolute', bottom: '10px', margin: '10px' }}>
 				<button className='btn btn-danger' onClick={deleteAllPostsHandler}>
 					DELETE ALL

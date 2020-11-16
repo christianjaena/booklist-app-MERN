@@ -28,10 +28,20 @@ const PostPage = () => {
 		const sortedPosts = data.filter(
 			post =>
 				post.title.toLowerCase().includes(e.target.value) ||
-				post.author.toLowerCase().includes(e.target.value) ||
-				post.category.toLowerCase().includes(e.target.value)
+				post.author.toLowerCase().includes(e.target.value)
 		);
 		setPosts(sortedPosts);
+	};
+
+	const filterByCategory = e => {
+		if (e.target.value !== '') {
+			const sortedPosts = data.filter(post => {
+				return post.category.toLowerCase() === e.target.value.toLowerCase();
+			});
+			setPosts(sortedPosts);
+		} else {
+			setPosts(data);
+		}
 	};
 
 	React.useEffect(() => {
@@ -50,7 +60,11 @@ const PostPage = () => {
 						padding: '0 20px 0 15px',
 					}}
 				>
-					<Sidebar posts={posts} onChangeHandler={onChangeHandler} />
+					<Sidebar
+						posts={posts}
+						onChangeHandler={onChangeHandler}
+						filterByCategory={filterByCategory}
+					/>
 				</div>
 				<div style={{ overflow: 'scroll' }}>
 					<CreatePostButtonWrapper>
