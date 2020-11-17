@@ -9,7 +9,7 @@ const Sidebar = ({ onChangeHandler, filterByCategory }) => {
 	const deleteAllPostsHandler = async () => {
 		const password = prompt('Input Admin Password');
 		if (password === 'admin') {
-			alert('Deleting All Books :(')
+			alert('Deleting All Books :(');
 			await axios
 				.delete('/posts')
 				.then(res => console.log(res))
@@ -46,12 +46,11 @@ const Sidebar = ({ onChangeHandler, filterByCategory }) => {
 				</div>
 			</div>
 			<div style={{ margin: '15px' }}>
-				<h1>Share</h1>
-				<h1>Books</h1>
-				<h1>for Everyone.</h1>
+				<h1>Share & Read</h1>
+				<h1>In One Place.</h1>
 			</div>
 			<div style={{ padding: '15px 15px 0 15px' }}>
-				<label htmlFor='category'>Search</label>
+				<label htmlFor='category'>SEARCH</label>
 			</div>
 			<div
 				style={{
@@ -80,7 +79,7 @@ const Sidebar = ({ onChangeHandler, filterByCategory }) => {
 				/>
 			</div>
 			<div style={{ margin: '10px' }}>
-				<label htmlFor='category'>Filter by Category</label>
+				<label htmlFor='category'>FILTER BY CATEGORY</label>
 				<select
 					name='category'
 					className='form form-control'

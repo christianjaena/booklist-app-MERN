@@ -14,6 +14,7 @@ export const PostsWrapper = styled.div`
 `;
 
 export const CreatePostButton = styled.div`
+	background-color: white;
 	height: 50px;
 	width: 50px;
 	display: flex;

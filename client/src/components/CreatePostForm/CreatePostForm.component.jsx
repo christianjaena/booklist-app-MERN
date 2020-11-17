@@ -8,6 +8,7 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
 import categories from './categories';
+import bg from '../Post/groovepaper_@2X.png'
 
 const CreatePostForm = ({
 	isUpdating,
@@ -101,7 +102,7 @@ const CreatePostForm = ({
 		}
 	};
 	return (
-		<>
+		<div style={{backgroundImage: `url(${bg})`}}>
 			<div style={{ position: 'sticky', top: '0' }}>
 				<LinearProgress
 					variant='determinate'
@@ -361,7 +362,7 @@ const CreatePostForm = ({
 					/>
 				</form>
 			</div>
-		</>
+		</div>
 	);
 };
 
