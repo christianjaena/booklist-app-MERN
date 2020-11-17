@@ -1,5 +1,10 @@
 const Post = require('../Models/PostModel');
-const { createFolder, updateFiles } = require('./PostControllers.utils');
+const {
+	createFolder,
+	deleteFolder,
+	deleteFolders,
+	getFileNames
+} = require('./PostControllers.utils');
 const fs = require('fs');
 
 const get_posts = (req, res) => {
@@ -37,10 +42,7 @@ const add_post = (req, res) => {
 	} = req.body;
 	const { file, image } = req.files;
 
-	const date = new Date();
-	const fullDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}-${date.getTime()}`;
-	const imageName = `${fullDate}-${image.name}`;
-	const fileName = `${fullDate}-${file.name}`;
+	const { imageName, fileName } = getFileNames(image, file);
 
 	const inputModel = {
 		title,
@@ -167,13 +169,7 @@ const delete_post = (req, res) => {
 		const prevFilePath = response.filePath;
 		Post.findByIdAndDelete(postID)
 			.then(result => {
-				if (process.env.NODE_ENV === 'production') {
-					fs.unlinkSync(`./client/build${prevFilePath}`);
-					fs.unlinkSync(`./client/build${prevImagePath}`);
-				} else {
-					fs.unlinkSync(`./client/public${prevFilePath}`);
-					fs.unlinkSync(`./client/public${prevImagePath}`);
-				}
+				deleteFolder(prevFilePath, prevImagePath);
 				res.status(200).json(result);
 			})
 			.catch(err => {
@@ -185,19 +181,7 @@ const delete_post = (req, res) => {
 const delete_posts = (req, res) => {
 	Post.deleteMany()
 		.then(result => {
-			if (process.env.NODE_ENV === 'production') {
-				try {
-					fs.rmdirSync('./client/build/uploads', { recursive: true });
-				} catch (err) {
-					console.log(err);
-				}
-			} else {
-				try {
-					fs.rmdirSync('./client/public/uploads', { recursive: true });
-				} catch (err) {
-					console.log(err);
-				}
-			}
+			deleteFolders();
 			res.status(200).json(result);
 		})
 		.catch(err => {

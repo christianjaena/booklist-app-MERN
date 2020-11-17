@@ -22,6 +22,43 @@ const createFolder = (image, file, imageName, fileName) => {
 	}
 };
 
+const deleteFolder = (prevFilePath, prevImagePath) => {
+	if (process.env.NODE_ENV === 'production') {
+		fs.unlinkSync(`./client/build${prevFilePath}`);
+		fs.unlinkSync(`./client/build${prevImagePath}`);
+	} else {
+		fs.unlinkSync(`./client/public${prevFilePath}`);
+		fs.unlinkSync(`./client/public${prevImagePath}`);
+	}
+};
+
+const deleteFolders = () => {
+	if (process.env.NODE_ENV === 'production') {
+		try {
+			fs.rmdirSync('./client/build/uploads', { recursive: true });
+		} catch (err) {
+			console.log(err);
+		}
+	} else {
+		try {
+			fs.rmdirSync('./client/public/uploads', { recursive: true });
+		} catch (err) {
+			console.log(err);
+		}
+	}
+};
+
+const getFileNames = (image, file) => {
+	const date = new Date();
+	const fullDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}-${date.getTime()}`;
+	const imageName = `${fullDate}-${image.name}`;
+	const fileName = `${fullDate}-${file.name}`;
+	return { imageName, fileName };
+};
+
 module.exports = {
 	createFolder,
+	deleteFolder,
+	deleteFolders,
+	getFileNames
 };
