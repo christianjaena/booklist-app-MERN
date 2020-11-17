@@ -3,9 +3,10 @@ const {
 	createFolder,
 	deleteFolder,
 	deleteFolders,
-	getFileNames
+	getFileNames,
+	getFileDetails,
+	updateFolders,
 } = require('./PostControllers.utils');
-const fs = require('fs');
 
 const get_posts = (req, res) => {
 	Post.find()
@@ -83,33 +84,17 @@ const update_post = (req, res) => {
 		prevImagePath,
 	} = req.body;
 
-	const date = new Date();
-	const fullDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}-${date.getTime()}`;
-	let filePath = '';
-	let imagePath = '';
-	let fileName = '';
-	let imageName = '';
 	let isThereNewImage = false;
 	let isThereNewFile = false;
-	if (req.files) {
-		if (req.files.file) {
-			fileName = `${fullDate}-${req.files.file.name}`;
-			filePath = `/uploads/${fileName}`;
-			isThereNewFile = true;
-		} else {
-			filePath = req.body.file;
-		}
-		if (req.files.image) {
-			imageName = `${fullDate}-${req.files.image.name}`;
-			imagePath = `/uploads/${imageName}`;
-			isThereNewImage = true;
-		} else {
-			imagePath = req.body.image;
-		}
-	} else {
-		filePath = req.body.file;
-		imagePath = req.body.image;
-	}
+
+	({
+		filePath,
+		imagePath,
+		fileName,
+		imageName,
+		isThereNewFile,
+		isThereNewImage,
+	} = getFileDetails(req, isThereNewFile, isThereNewImage));
 
 	const inputModel = {
 		title,
@@ -123,37 +108,15 @@ const update_post = (req, res) => {
 
 	Post.findByIdAndUpdate(id, inputModel)
 		.then(result => {
-			if (process.env.NODE_ENV === 'production') {
-				try {
-					if (isThereNewFile) {
-						fs.unlinkSync(`./client/build${prevFilePath}`);
-						req.files.file.mv(`./client/build/uploads/${fileName}`);
-					}
-					if (isThereNewImage) {
-						fs.unlinkSync(`./client/build${prevImagePath}`);
-						req.files.image.mv(`./client/build/uploads/${imageName}`);
-					}
-					isThereNewFile = false;
-					isThereNewImage = false;
-				} catch (err) {
-					console.log(err);
-				}
-			} else {
-				try {
-					if (isThereNewFile) {
-						fs.unlinkSync(`./client/public${prevFilePath}`);
-						req.files.file.mv(`./client/public/uploads/${fileName}`);
-					}
-					if (isThereNewImage) {
-						fs.unlinkSync(`./client/public${prevImagePath}`);
-						req.files.image.mv(`./client/public/uploads/${imageName}`);
-					}
-					isThereNewFile = false;
-					isThereNewImage = false;
-				} catch (err) {
-					console.log(err);
-				}
-			}
+			({ isThereNewFile, isThereNewImage } = updateFolders(
+				isThereNewFile,
+				isThereNewImage,
+				fileName,
+				imageName,
+				req,
+				prevFilePath,
+				prevImagePath
+			));
 			res.status(200).json(result);
 		})
 		.catch(err => {
