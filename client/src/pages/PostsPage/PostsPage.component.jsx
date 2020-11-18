@@ -66,7 +66,7 @@ const PostPage = () => {
 						filterByCategory={filterByCategory}
 					/>
 				</div>
-				<div style={{ overflow: 'scroll' }}>
+				<div style={{ overflowY: 'auto' }}>
 					<CreatePostButtonWrapper>
 						<CreatePostButton
 							className='btn btn-light'

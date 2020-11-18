@@ -17,7 +17,7 @@ export const PostWrapper = styled.div`
 	margin: 1em 1em 0 1em;
 	width: 100%;
 	padding: 10px;
-	height: 16em;
+	height: 16.2.5em;
 `;
 
 export const ImageWrapper = styled.div`

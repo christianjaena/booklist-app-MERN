@@ -79,7 +79,7 @@ const Sidebar = ({ onChangeHandler, filterByCategory }) => {
 				/>
 			</div>
 			<div style={{ margin: '10px' }}>
-				<label htmlFor='category'>FILTER BY CATEGORY</label>
+				<label style={ {marginBottom: '8px'} }htmlFor='category'>FILTER BY CATEGORY</label>
 				<select
 					name='category'
 					className='form form-control'

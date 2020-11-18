@@ -9,7 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import axios from 'axios';
-import bg from './groovepaper_@2X.png'
+import bg from './groovepaper_@2X.png';
+
 const Post = () => {
 	const [isUpdating, setIsUpdating] = React.useState(false);
 	const [post, setPost] = React.useState('');
@@ -18,7 +19,9 @@ const Post = () => {
 	const { id } = useParams();
 
 	const handleDeleteRequest = async id => {
-		const confirmDelete = window.confirm('Are you sure you want to delete this book?');
+		const confirmDelete = window.confirm(
+			'Are you sure you want to delete this book?'
+		);
 		if (confirmDelete) {
 			const url = `/posts/${id}`;
 			await axios.delete(url);
@@ -74,7 +77,7 @@ const Post = () => {
 							justifyContent: 'center',
 							padding: '2em',
 							borderRadius: '15px',
-							marginTop: '100px'
+							marginTop: '100px',
 						}}
 					>
 						<div
